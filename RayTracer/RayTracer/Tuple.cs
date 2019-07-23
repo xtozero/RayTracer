@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RayTracer
 {
@@ -14,6 +12,28 @@ namespace RayTracer
         public bool IsVector()
         {
             return W == 0.0f;
+        }
+
+        public float Magnitude()
+        {
+            return System.MathF.Sqrt( X * X + Y * Y + Z * Z + W * W );
+        }
+
+        public Tuple Normalize()
+        {
+            float magnitude = Magnitude();
+
+            return new Tuple(X / magnitude, Y / magnitude, Z / magnitude, W / magnitude);
+        }
+
+        public float Dot(Tuple t)
+        {
+            return X * t.X + Y * t.Y + Z * t.Z + W * t.W;
+        }
+
+        public Tuple Cross(Tuple t)
+        {
+            return new Tuple(Y * t.Z - Z * t.Y, Z * t.X - X * t.Z, X * t.Y - Y * t.X, 0);
         }
 
         public override bool Equals(Object obj)
@@ -34,6 +54,41 @@ namespace RayTracer
         public override int GetHashCode()
         {
             return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode() ^ W.GetHashCode();
+        }
+
+        public static Tuple Vector(float x, float y, float z)
+        {
+            return new Tuple(x, y, z, 0);
+        }
+
+        public static Tuple Point(float x, float y, float z)
+        {
+            return new Tuple(x, y, z, 1);
+        }
+
+        public static Tuple operator+(Tuple lhs, Tuple rhs)
+        {
+            return new Tuple(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z, lhs.W + rhs.W);
+        }
+
+        public static Tuple operator-(Tuple lhs, Tuple rhs)
+        {
+            return new Tuple(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z, lhs.W - rhs.W);
+        }
+
+        public static Tuple operator*(Tuple lhs, float rhs)
+        {
+            return new Tuple(lhs.X * rhs, lhs.Y * rhs, lhs.Z * rhs, lhs.W * rhs);
+        }
+
+        public static Tuple operator/(Tuple lhs, float rhs)
+        {
+            return new Tuple(lhs.X / rhs, lhs.Y / rhs, lhs.Z / rhs, lhs.W / rhs);
+        }
+
+        public static Tuple operator-(Tuple t)
+        {
+            return new Tuple(-t.X, -t.Y, -t.Z, -t.W);
         }
 
         public Tuple( float x, float y, float z, float w )
