@@ -149,5 +149,37 @@ namespace UnitTest
             Assert.Equal(Tuple.Vector(-1, 2, -1), a.Cross(b));
             Assert.Equal(Tuple.Vector(1, -2, 1), b.Cross(a));
         }
+
+        [Fact]
+        public void TestCase15()
+        {
+            Tuple c = Tuple.Color(-0.5f, 0.4f, 1.7f);
+            Assert.Equal(-0.5f, c.R);
+            Assert.Equal(0.4f, c.G);
+            Assert.Equal(1.7f, c.B);
+        }
+
+        [Fact]
+        public void TestCase16()
+        {
+            Tuple c1 = Tuple.Color(0.9f, 0.6f, 0.75f);
+            Tuple c2 = Tuple.Color(0.7f, 0.1f, 0.25f);
+            Assert.Equal(Tuple.Color(1.6f, 0.7f, 1), c1 + c2);
+
+            c1 = Tuple.Color(0.9f, 0.6f, 0.75f);
+            c2 = Tuple.Color(0.7f, 0.1f, 0.25f);
+            Assert.Equal(Tuple.Color(0.2f, 0.5f, 0.5f), c1 - c2);
+
+            Tuple c = Tuple.Color(0.2f, 0.3f, 0.4f);
+            Assert.Equal(Tuple.Color(0.4f, 0.6f, 0.8f), c * 2);
+        }
+
+        [Fact]
+        public void TestCase17()
+        {
+            Tuple c1 = Tuple.Color(1, 0.2f, 0.4f);
+            Tuple c2 = Tuple.Color(0.9f, 1, 0.1f);
+            Assert.Equal(Tuple.Color(0.9f, 0.2f, 0.04f), c1 * c2);
+        }
     }
 }

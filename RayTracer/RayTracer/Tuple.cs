@@ -45,7 +45,11 @@ namespace RayTracer
 
             if (obj is Tuple t)
             {
-                return X.Equals(t.X) && Y.Equals(t.Y) && Z.Equals(t.Z) && W.Equals(t.W);
+                const float eps = 0.000001f;
+                return System.MathF.Abs(X - t.X) <= eps && 
+                    System.MathF.Abs(Y - t.Y) <= eps && 
+                    System.MathF.Abs(Z - t.Z) <= eps &&
+                    System.MathF.Abs(W - t.W) <= eps;
             }
 
             return false;
@@ -66,6 +70,11 @@ namespace RayTracer
             return new Tuple(x, y, z, 1);
         }
 
+        public static Tuple Color(float r, float g, float b)
+        {
+            return new Tuple(r, g, b, 0);
+        }
+
         public static Tuple operator+(Tuple lhs, Tuple rhs)
         {
             return new Tuple(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z, lhs.W + rhs.W);
@@ -79,6 +88,11 @@ namespace RayTracer
         public static Tuple operator*(Tuple lhs, float rhs)
         {
             return new Tuple(lhs.X * rhs, lhs.Y * rhs, lhs.Z * rhs, lhs.W * rhs);
+        }
+
+        public static Tuple operator*(Tuple lhs, Tuple rhs)
+        {
+            return new Tuple(lhs.X * rhs.X, lhs.Y * rhs.Y, lhs.Z * rhs.Z, lhs.W * rhs.W);
         }
 
         public static Tuple operator/(Tuple lhs, float rhs)
@@ -103,5 +117,44 @@ namespace RayTracer
         public float Y { get; set; }
         public float Z { get; set; }
         public float W { get; set; }
+
+        public float R
+        {
+            get
+            {
+                return X;
+            }
+
+            set
+            {
+                X = value;
+            }
+        }
+
+        public float G
+        {
+            get
+            {
+                return Y;
+            }
+
+            set
+            {
+                Y = value;
+            }
+        }
+
+        public float B
+        {
+            get
+            {
+                return Z;
+            }
+
+            set
+            {
+                Z = value;
+            }
+        }
     }
 }
