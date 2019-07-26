@@ -94,6 +94,15 @@ namespace RayTracer
                 M[0, 3], M[1, 3], M[2, 3], M[3, 3]);
         }
 
+        public static Matrix Identity()
+        {
+            return new Matrix(
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -205,18 +214,7 @@ namespace RayTracer
             M = new float[4, 4];
         }
 
-        static Matrix()
-        {
-            Identity = new Matrix(
-                1, 0, 0, 0,
-                0, 1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
-        }
-
         public float[,] M { get; set; }
         public int Size { get; private set; }
-
-        public static Matrix Identity { get; set; }
     }
 }

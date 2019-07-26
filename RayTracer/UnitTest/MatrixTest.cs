@@ -124,7 +124,7 @@ namespace UnitTest
                 2, 4, 8, 16,
                 4, 8, 16, 32);
 
-            Assert.Equal(a, a * Matrix.Identity);
+            Assert.Equal(a, a * Matrix.Identity());
         }
 
         [Fact]
