@@ -58,5 +58,80 @@ namespace UnitTest
             Matrix inv = halfQuarter.Inverse();
             Assert.Equal(Tuple.Point(0, System.MathF.Sqrt(2) / 2, -System.MathF.Sqrt(2) / 2), inv * p);
         }
+
+        [Fact]
+        public void TestCase04()
+        {
+            Tuple p = Tuple.Point(0, 0, 1);
+            Matrix halfQuarter = Transformation.RotationY(System.MathF.PI / 4);
+            Matrix fullQuarter = Transformation.RotationY(System.MathF.PI / 2);
+
+            Assert.Equal(Tuple.Point(System.MathF.Sqrt(2) / 2, 0, System.MathF.Sqrt(2) / 2), halfQuarter * p);
+            Assert.Equal(Tuple.Point(1, 0, 0), fullQuarter * p);
+        }
+
+        [Fact]
+        public void TestCase05()
+        {
+            Tuple p = Tuple.Point(0, 1, 0);
+            Matrix halfQuarter = Transformation.RotationZ(System.MathF.PI / 4);
+            Matrix fullQuarter = Transformation.RotationZ(System.MathF.PI / 2);
+
+            Assert.Equal(Tuple.Point(-System.MathF.Sqrt(2) / 2, System.MathF.Sqrt(2) / 2, 0), halfQuarter * p);
+            Assert.Equal(Tuple.Point(-1, 0, 0), fullQuarter * p);
+        }
+
+        [Fact]
+        public void TestCase06()
+        {
+            Matrix transform = Transformation.Shearing(1, 0, 0, 0, 0, 0);
+            Tuple p = Tuple.Point(2, 3, 4);
+
+            Assert.Equal(Tuple.Point(5, 3, 4), transform * p);
+
+            transform = Transformation.Shearing(0, 1, 0, 0, 0, 0);
+
+            Assert.Equal(Tuple.Point(6, 3, 4), transform * p);
+
+            transform = Transformation.Shearing(0, 0, 1, 0, 0, 0);
+
+            Assert.Equal(Tuple.Point(2, 5, 4), transform * p);
+
+            transform = Transformation.Shearing(0, 0, 0, 1, 0, 0);
+
+            Assert.Equal(Tuple.Point(2, 7, 4), transform * p);
+
+            transform = Transformation.Shearing(0, 0, 0, 0, 1, 0);
+
+            Assert.Equal(Tuple.Point(2, 3, 6), transform * p);
+
+            transform = Transformation.Shearing(0, 0, 0, 0, 0, 1);
+
+            Assert.Equal(Tuple.Point(2, 3, 7), transform * p);
+        }
+
+        [Fact]
+        public void TestCase07()
+        {
+            Tuple p = Tuple.Point(1, 0, 1);
+            Matrix a = Transformation.RotationX(System.MathF.PI / 2);
+            Matrix b = Transformation.Scaling(5, 5, 5);
+            Matrix c = Transformation.Translation(10, 5, 7);
+
+            Tuple p2 = a * p;
+
+            Assert.Equal(Tuple.Point(1, -1, 0), p2);
+
+            Tuple p3 = b * p2;
+
+            Assert.Equal(Tuple.Point(5, -5, 0), p3);
+
+            Tuple p4 = c * p3;
+
+            Assert.Equal(Tuple.Point(15, 0, 7), p4);
+
+            Matrix t = c * b * a;
+            Assert.Equal(p4, t * p);
+        }
     }
 }

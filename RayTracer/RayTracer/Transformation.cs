@@ -22,7 +22,7 @@
 
         public static Matrix RotationX(float radians)
         {
-            float sinTheta = System.MathF.Sin( radians );
+            float sinTheta = System.MathF.Sin(radians);
             float cosTheta = System.MathF.Cos(radians);
 
             return new Matrix(
@@ -30,6 +30,39 @@
                0, cosTheta, -sinTheta, 0,
                0, sinTheta, cosTheta, 0,
                0, 0, 0, 1);
+        }
+
+        public static Matrix RotationY(float radians)
+        {
+            float sinTheta = System.MathF.Sin(radians);
+            float cosTheta = System.MathF.Cos(radians);
+
+            return new Matrix(
+               cosTheta, 0, sinTheta, 0,
+               0, 1, 0, 0,
+               -sinTheta, 0, cosTheta, 0,
+               0, 0, 0, 1);
+        }
+
+        public static Matrix RotationZ(float radians)
+        {
+            float sinTheta = System.MathF.Sin(radians);
+            float cosTheta = System.MathF.Cos(radians);
+
+            return new Matrix(
+               cosTheta, -sinTheta, 0, 0,
+               sinTheta, cosTheta, 0, 0,
+               0, 0, 1, 0,
+               0, 0, 0, 1);
+        }
+
+        public static Matrix Shearing(float xY, float xZ, float yX, float yZ, float zX, float zY)
+        {
+            return new Matrix(
+                1, xY, xZ, 0,
+                yX, 1, yZ, 0,
+                zX, zY, 1, 0,
+                0, 0, 0, 1);
         }
     }
 }
