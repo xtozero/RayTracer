@@ -6,7 +6,7 @@ namespace UnitTest
     public class TransformationTest
     {
         [Fact]
-        public void TestCase01()
+        private static void TestCase01()
         {
             Matrix transform = Transformation.Translation(5, -3, 2);
             Tuple p = Tuple.Point(-3, 4, 5);
@@ -23,7 +23,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase02()
+        private static void TestCase02()
         {
             Matrix transform = Transformation.Scaling(2, 3, 4);
             Tuple p = Tuple.Point(-4, 6, 8);
@@ -46,7 +46,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase03()
+        private static void TestCase03()
         {
             Tuple p = Tuple.Point(0, 1, 0);
             Matrix halfQuarter = Transformation.RotationX(System.MathF.PI / 4);
@@ -60,7 +60,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase04()
+        private static void TestCase04()
         {
             Tuple p = Tuple.Point(0, 0, 1);
             Matrix halfQuarter = Transformation.RotationY(System.MathF.PI / 4);
@@ -71,7 +71,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase05()
+        private static void TestCase05()
         {
             Tuple p = Tuple.Point(0, 1, 0);
             Matrix halfQuarter = Transformation.RotationZ(System.MathF.PI / 4);
@@ -82,7 +82,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase06()
+        private static void TestCase06()
         {
             Matrix transform = Transformation.Shearing(1, 0, 0, 0, 0, 0);
             Tuple p = Tuple.Point(2, 3, 4);
@@ -111,7 +111,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase07()
+        private static void TestCase07()
         {
             Tuple p = Tuple.Point(1, 0, 1);
             Matrix a = Transformation.RotationX(System.MathF.PI / 2);

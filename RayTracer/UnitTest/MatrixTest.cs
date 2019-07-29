@@ -6,7 +6,7 @@ namespace UnitTest
     public class MatrixTest
     {
         [Fact]
-        public void TestCase01()
+        private static void TestCase01()
         {
             Matrix m = new Matrix(
                 1, 2, 3, 4,
@@ -24,7 +24,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase02()
+        private static void TestCase02()
         {
             Matrix m = new Matrix(
                 -3, 5,
@@ -46,7 +46,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase03()
+        private static void TestCase03()
         {
             Matrix a = new Matrix(
                 1, 2, 3, 4,
@@ -78,7 +78,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase04()
+        private static void TestCase04()
         {
             Matrix a = new Matrix(
                 1, 2, 3, 4,
@@ -102,7 +102,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase05()
+        private static void TestCase05()
         {
             Matrix a = new Matrix(
                 1, 2, 3, 4,
@@ -116,7 +116,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase06()
+        private static void TestCase06()
         {
             Matrix a = new Matrix(
                 0, 1, 2, 4,
@@ -128,7 +128,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase07()
+        private static void TestCase07()
         {
             Matrix a = new Matrix(
                 0, 9, 3, 0,
@@ -146,7 +146,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase08()
+        private static void TestCase08()
         {
             Matrix a = new Matrix(
                 1, 5,
@@ -156,7 +156,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase09()
+        private static void TestCase09()
         {
             Matrix a = new Matrix(
                 1, 5, 0,
@@ -184,7 +184,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase10()
+        private static void TestCase10()
         {
             Matrix a = new Matrix(
                 3, 5, 0,
@@ -198,7 +198,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase11()
+        private static void TestCase11()
         {
             Matrix a = new Matrix(
                 3, 5, 0,
@@ -212,7 +212,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase12()
+        private static void TestCase12()
         {
             Matrix a = new Matrix(
                 1, 2, 6,
@@ -238,7 +238,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase13()
+        private static void TestCase13()
         {
             Matrix a = new Matrix(
                 6, 4, 4, 4,
@@ -258,7 +258,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase14()
+        private static void TestCase14()
         {
             Matrix a = new Matrix(
                 -5, 2, 6, -8,
@@ -284,7 +284,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase15()
+        private static void TestCase15()
         {
             Matrix a = new Matrix(
                 8, -5, 9, 2,
@@ -316,7 +316,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase16()
+        private static void TestCase16()
         {
             Matrix a = new Matrix(
                 3, -9, 7, 3,

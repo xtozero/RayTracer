@@ -6,7 +6,7 @@ namespace UnitTest
     public class ClockHourTest
     {
         [Fact]
-        public void Simulate()
+        private static void Simulate()
         {
             Canvas c = new Canvas(256, 256);
 

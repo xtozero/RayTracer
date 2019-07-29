@@ -6,7 +6,7 @@ namespace UnitTest
     public class TupleTest
     {
         [Fact]
-        public void TestCase01()
+        private static void TestCase01()
         {
             Tuple a = new Tuple(4.3f, -4.2f, 3.1f, 1.0f);
             Assert.Equal(4.3f, a.X);
@@ -26,7 +26,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase02()
+        private static void TestCase02()
         {
             Tuple p = Tuple.Point(4, -4, 3);
             Assert.True(p.Equals(new Tuple(4, -4, 3, 1)));
@@ -36,7 +36,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase03()
+        private static void TestCase03()
         {
             Tuple a1 = new Tuple(3, -2, 5, 1);
             Tuple a2 = new Tuple(-2, 3, 1, 0);
@@ -44,7 +44,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase04()
+        private static void TestCase04()
         {
             Tuple p1 = Tuple.Point(3, 2, 1);
             Tuple p2 = Tuple.Point(5, 6, 7);
@@ -52,7 +52,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase05()
+        private static void TestCase05()
         {
             Tuple p = Tuple.Point(3, 2, 1);
             Tuple v = Tuple.Vector(5, 6, 7);
@@ -60,7 +60,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase06()
+        private static void TestCase06()
         {
             Tuple v1 = Tuple.Vector(3, 2, 1);
             Tuple v2 = Tuple.Vector(5, 6, 7);
@@ -68,7 +68,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase07()
+        private static void TestCase07()
         {
             Tuple zero = Tuple.Vector(0, 0, 0);
             Tuple v = Tuple.Vector(1, -2, 3);
@@ -76,14 +76,14 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase08()
+        private static void TestCase08()
         {
             Tuple a = new Tuple(1, -2, 3, -4);
             Assert.Equal(new Tuple(-1, 2, -3, 4), -a);
         }
 
         [Fact]
-        public void TestCase09()
+        private static void TestCase09()
         {
             Tuple a = new Tuple(1, -2, 3, -4);
             Assert.Equal(new Tuple(3.5f, -7, 10.5f, -14), a * 3.5f);
@@ -93,14 +93,14 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase10()
+        private static void TestCase10()
         {
             Tuple a = new Tuple(1, -2, 3, -4);
             Assert.Equal(new Tuple(0.5f, -1, 1.5f, -2), a / 2);
         }
 
         [Fact]
-        public void TestCase11()
+        private static void TestCase11()
         {
             Tuple v = Tuple.Vector(1, 0, 0);
             Assert.Equal(1, v.Magnitude());
@@ -119,7 +119,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase12()
+        private static void TestCase12()
         {
             Tuple v = Tuple.Vector(4, 0, 0);
             Assert.Equal(Tuple.Vector(1, 0, 0), v.Normalize());
@@ -134,7 +134,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase13()
+        private static void TestCase13()
         {
             Tuple a = Tuple.Vector(1, 2, 3);
             Tuple b = Tuple.Vector(2, 3, 4);
@@ -142,7 +142,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase14()
+        private static void TestCase14()
         {
             Tuple a = Tuple.Vector(1, 2, 3);
             Tuple b = Tuple.Vector(2, 3, 4);
@@ -151,7 +151,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase15()
+        private static void TestCase15()
         {
             Tuple c = Tuple.Color(-0.5f, 0.4f, 1.7f);
             Assert.Equal(-0.5f, c.R);
@@ -160,7 +160,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase16()
+        private static void TestCase16()
         {
             Tuple c1 = Tuple.Color(0.9f, 0.6f, 0.75f);
             Tuple c2 = Tuple.Color(0.7f, 0.1f, 0.25f);
@@ -175,7 +175,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase17()
+        private static void TestCase17()
         {
             Tuple c1 = Tuple.Color(1, 0.2f, 0.4f);
             Tuple c2 = Tuple.Color(0.9f, 1, 0.1f);

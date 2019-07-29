@@ -8,7 +8,7 @@ namespace UnitTest
     public class RedSphereTest
     {
         [Fact]
-        public void Simulate()
+        private static void Simulate()
         {
             int canvasPixel = 256;
             Canvas c = new Canvas(canvasPixel, canvasPixel);

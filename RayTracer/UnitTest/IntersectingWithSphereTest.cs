@@ -7,7 +7,7 @@ namespace UnitTest
     public class IntersectingWithSphereTest
     {
         [Fact]
-        void TestCase01()
+        private static void TestCase01()
         {
             Tuple origin = Tuple.Point(1, 2, 3);
             Tuple direction = Tuple.Vector(4, 5, 6);
@@ -19,7 +19,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase02()
+        private static void TestCase02()
         {
             Ray r = new Ray(Tuple.Point(2, 3, 4), Tuple.Vector(1, 0, 0));
 
@@ -30,7 +30,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase03()
+        private static void TestCase03()
         {
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -42,7 +42,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase04()
+        private static void TestCase04()
         {
             Ray r = new Ray(Tuple.Point(0, 1, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -54,7 +54,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase05()
+        private static void TestCase05()
         {
             Ray r = new Ray(Tuple.Point(0, 2, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -64,7 +64,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase06()
+        private static void TestCase06()
         {
             Ray r = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -76,7 +76,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase07()
+        private static void TestCase07()
         {
             Ray r = new Ray(Tuple.Point(0, 0, 5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -88,7 +88,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase08()
+        private static void TestCase08()
         {
             Sphere s = new Sphere();
             Intersection i = new Intersection(3.5f, s);
@@ -98,7 +98,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase09()
+        private static void TestCase09()
         {
             Sphere s = new Sphere();
             Intersection i1 = new Intersection(1, s);
@@ -111,7 +111,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase10()
+        private static void TestCase10()
         {
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
@@ -119,7 +119,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase11()
+        private static void TestCase11()
         {
             Sphere s = new Sphere();
             Intersection i1 = new Intersection(1, s);
@@ -154,7 +154,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase12()
+        private static void TestCase12()
         {
             Ray r = new Ray(Tuple.Point(1, 2, 3), Tuple.Vector(0, 1, 0));
             Matrix m = Transformation.Translation(3, 4, 5);
@@ -173,7 +173,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase13()
+        private static void TestCase13()
         {
             Sphere s = new Sphere();
             Assert.Equal(Matrix.Identity(), s.Transform);
@@ -185,7 +185,7 @@ namespace UnitTest
         }
 
         [Fact]
-        void TestCase14()
+        private static void TestCase14()
         {
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();

@@ -6,7 +6,7 @@ namespace UnitTest
     public class CanvasTest
     {
         [Fact]
-        public void TestCase1()
+        private static void TestCase1()
         {
             Canvas c = new Canvas(10, 20);
             Assert.Equal(10, c.Width);
@@ -23,7 +23,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase2()
+        private static void TestCase2()
         {
             Canvas c = new Canvas(10, 20);
             Tuple red = Tuple.Color(1, 0, 0);
@@ -32,7 +32,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase3()
+        private static void TestCase3()
         {
             Canvas c = new Canvas(5, 3);
             string ppm = c.ToPPM();
@@ -40,7 +40,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase4()
+        private static void TestCase4()
         {
             Canvas c = new Canvas(5, 3);
             Tuple c1 = Tuple.Color(1.5f, 0, 0);
@@ -58,7 +58,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase5()
+        private static void TestCase5()
         {
             Canvas c = new Canvas(10, 2);
             Tuple PeachOrange = Tuple.Color(1, 0.8f, 0.6f);
@@ -79,7 +79,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void TestCase6()
+        private static void TestCase6()
         {
             Canvas c = new Canvas(5, 3);
             string ppm = c.ToPPM();
