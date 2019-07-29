@@ -2,7 +2,7 @@
 
 namespace RayTracer
 {
-    public class Tuple
+    public class Tuple : IEquatable<Tuple>
     {
         public bool IsPoint()
         {
@@ -45,14 +45,19 @@ namespace RayTracer
 
             if (obj is Tuple t)
             {
-                const float eps = 0.000001f;
-                return System.MathF.Abs(X - t.X) <= eps && 
-                    System.MathF.Abs(Y - t.Y) <= eps && 
-                    System.MathF.Abs(Z - t.Z) <= eps &&
-                    System.MathF.Abs(W - t.W) <= eps;
+                return Equals(t);
             }
 
             return false;
+        }
+
+        public bool Equals(Tuple t)
+        {
+            const float eps = 0.000001f;
+            return System.MathF.Abs(X - t.X) <= eps &&
+                System.MathF.Abs(Y - t.Y) <= eps &&
+                System.MathF.Abs(Z - t.Z) <= eps &&
+                System.MathF.Abs(W - t.W) <= eps;
         }
 
         public override int GetHashCode()

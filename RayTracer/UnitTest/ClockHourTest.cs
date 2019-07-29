@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class ClockHourTest
+    public static class ClockHourTest
     {
         [Fact]
         private static void Simulate()

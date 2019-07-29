@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class TupleTest
+    public static class TupleTest
     {
         [Fact]
         private static void TestCase01()

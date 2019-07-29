@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class IntersectingWithSphereTest
+    public static class IntersectingWithSphereTest
     {
         [Fact]
         private static void TestCase01()

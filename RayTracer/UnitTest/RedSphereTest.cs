@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class RedSphereTest
+    public static class RedSphereTest
     {
         [Fact]
         private static void Simulate()

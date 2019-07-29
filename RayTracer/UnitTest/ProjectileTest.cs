@@ -67,7 +67,7 @@ namespace UnitTest
             Assert.True(true);
         }
 
-        private Projectile Tick(Enviroment env, Projectile proj)
+        private static Projectile Tick(Enviroment env, Projectile proj)
         {
             Tuple position = proj.Position + proj.Velocity;
             Tuple velocity = proj.Velocity + env.Gravity + env.Wind;

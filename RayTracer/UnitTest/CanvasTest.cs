@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class CanvasTest
+    public static class CanvasTest
     {
         [Fact]
         private static void TestCase1()

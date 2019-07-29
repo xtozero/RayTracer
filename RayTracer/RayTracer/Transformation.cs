@@ -1,6 +1,6 @@
 ﻿namespace RayTracer
 {
-    public class Transformation
+    public static class Transformation
     {
         public static Matrix Translation(float x, float y, float z)
         {

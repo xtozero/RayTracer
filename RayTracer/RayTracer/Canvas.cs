@@ -28,7 +28,7 @@ namespace RayTracer
                 for (int x = 0; x < Width; ++x)
                 {
                     Tuple c = _pixels[y, x];
-                    byte[] colors = new byte[]
+                    var colors = new []
                     {
                         (byte)System.Math.Clamp(System.Math.Round(c.R * 255), 0, 255),
                         (byte)System.Math.Clamp(System.Math.Round(c.G * 255), 0, 255),
@@ -73,6 +73,6 @@ namespace RayTracer
         public int Width { get; set; }
         public int Height { get; set; }
 
-        Tuple[,] _pixels;
+        readonly Tuple[,] _pixels;
     }
 }

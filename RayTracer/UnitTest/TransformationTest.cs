@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class TransformationTest
+    public static class TransformationTest
     {
         [Fact]
         private static void TestCase01()

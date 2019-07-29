@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public class MatrixTest
+    public static class MatrixTest
     {
         [Fact]
         private static void TestCase01()
