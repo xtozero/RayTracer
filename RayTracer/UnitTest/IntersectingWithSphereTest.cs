@@ -116,6 +116,10 @@ namespace UnitTest
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
             Sphere s = new Sphere();
             var xs = s.Intersect(r);
+
+            Assert.Equal(2, xs.Count);
+            Assert.Equal(s, xs[0].Object);
+            Assert.Equal(s, xs[1].Object);
         }
 
         [Fact]
