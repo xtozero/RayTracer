@@ -30,7 +30,7 @@ namespace UnitTest
     public class ProjectileTest
     {
         [Fact]
-        private void Simulate()
+        private static void Simulate()
         {
             Tuple start = Tuple.Point(0, 1, 0);
             Tuple velocity = Tuple.Vector(1, 1.8f, 0).Normalize() * 11.25f;
