@@ -27,7 +27,7 @@ namespace UnitTest
         public Tuple Wind { get; set; }
     }
 
-    public class ProjectileTest
+    public static class ProjectileTest
     {
         [Fact]
         private static void Simulate()
