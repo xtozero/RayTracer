@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RayTracer
 {
@@ -120,7 +121,7 @@ namespace RayTracer
 
         public bool Equals(Matrix m)
         {
-            const float eps = 0.00001f;
+            const float eps = 0.0001f;
             return System.MathF.Abs(M[0, 0] - m[0, 0]) <= eps && System.MathF.Abs(M[0, 1] - m[0, 1]) <= eps && System.MathF.Abs(M[0, 2] - m[0, 2]) <= eps && System.MathF.Abs(M[0, 3] - m[0, 3]) <= eps &&
                 System.MathF.Abs(M[1, 0] - m[1, 0]) <= eps && System.MathF.Abs(M[1, 1] - m[1, 1]) <= eps && System.MathF.Abs(M[1, 2] - m[1, 2]) <= eps && System.MathF.Abs(M[1, 3] - m[1, 3]) <= eps &&
                 System.MathF.Abs(M[2, 0] - m[2, 0]) <= eps && System.MathF.Abs(M[2, 1] - m[2, 1]) <= eps && System.MathF.Abs(M[2, 2] - m[2, 2]) <= eps && System.MathF.Abs(M[2, 3] - m[2, 3]) <= eps &&
@@ -129,10 +130,12 @@ namespace RayTracer
 
         public override int GetHashCode()
         {
-            return M[0, 0].GetHashCode() ^ M[0, 1].GetHashCode() ^ M[0, 2].GetHashCode() ^ M[0, 3].GetHashCode() ^
-                M[1, 0].GetHashCode() ^ M[1, 1].GetHashCode() ^ M[1, 2].GetHashCode() ^ M[1, 3].GetHashCode() ^
-                M[2, 0].GetHashCode() ^ M[2, 1].GetHashCode() ^ M[2, 2].GetHashCode() ^ M[2, 3].GetHashCode() ^
-                M[3, 0].GetHashCode() ^ M[3, 1].GetHashCode() ^ M[3, 2].GetHashCode() ^ M[3, 3].GetHashCode();
+            HashCode hash = new HashCode();
+            hash.Add(M[0, 0]); hash.Add(M[0, 1]); hash.Add(M[0, 2]); hash.Add(M[0, 3]);
+            hash.Add(M[1, 0]); hash.Add(M[1, 1]); hash.Add(M[1, 2]); hash.Add(M[1, 3]);
+            hash.Add(M[2, 0]); hash.Add(M[2, 1]); hash.Add(M[2, 2]); hash.Add(M[2, 3]);
+            hash.Add(M[3, 0]); hash.Add(M[3, 1]); hash.Add(M[3, 2]); hash.Add(M[3, 3]);
+            return hash.ToHashCode();
         }
 
         public static Matrix operator *(Matrix lhs, Matrix rhs)

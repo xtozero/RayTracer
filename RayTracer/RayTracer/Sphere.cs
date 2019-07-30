@@ -4,6 +4,15 @@ namespace RayTracer
 {
     public class Sphere
     {
+        public Tuple NormalAt(Tuple p)
+        {
+            Tuple objectNormal = Transform.Inverse() * p;
+            objectNormal = objectNormal - Tuple.Point(0, 0, 0);
+            Tuple worldNormal = Transform.Inverse().Transpose() * objectNormal;
+            worldNormal.W = 0;
+            return worldNormal.Normalize();
+        }
+
         public List<Intersection> Intersect(Ray r)
         {
             Ray objectSpaceRay = r.Transform(Transform.Inverse());
@@ -30,8 +39,10 @@ namespace RayTracer
         public Sphere()
         {
             Transform = Matrix.Identity();
+            Material = new Material();
         }
 
         public Matrix Transform { get; set; }
+        public Material Material { get; set; }
     }
 }

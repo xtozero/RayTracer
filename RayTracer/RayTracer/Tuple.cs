@@ -4,6 +4,11 @@ namespace RayTracer
 {
     public class Tuple : IEquatable<Tuple>
     {
+        public Tuple Reflect(Tuple normal)
+        {
+            return this - normal * 2 * Dot(normal);
+        }
+
         public bool IsPoint()
         {
             return W == 1.0f;
@@ -53,7 +58,7 @@ namespace RayTracer
 
         public bool Equals(Tuple t)
         {
-            const float eps = 0.000001f;
+            const float eps = 0.0001f;
             return System.MathF.Abs(X - t.X) <= eps &&
                 System.MathF.Abs(Y - t.Y) <= eps &&
                 System.MathF.Abs(Z - t.Z) <= eps &&
@@ -62,7 +67,7 @@ namespace RayTracer
 
         public override int GetHashCode()
         {
-            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode() ^ W.GetHashCode();
+            return HashCode.Combine(X, Y, Z, W);
         }
 
         public static Tuple Vector(float x, float y, float z)
