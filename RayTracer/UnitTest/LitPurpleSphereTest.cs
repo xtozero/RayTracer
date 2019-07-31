@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTest
 {
-    public static class RedSphereTest
+    public static class LitPurpleSphereTest
     {
         [Fact]
         private static void Simulate()
@@ -13,13 +13,17 @@ namespace UnitTest
             int canvasPixel = 256;
             Canvas c = new Canvas(canvasPixel, canvasPixel);
             Sphere s = new Sphere();
+            s.Material.Color = Tuple.Color(1, 0.2f, 1);
 
             float wallSize = 7.0f;
             float half = wallSize * 0.5f;
             float pixelSize = wallSize / canvasPixel;
 
+            Tuple lightPosition = Tuple.Point(-10, 10, -10);
+            Tuple lightColor = Tuple.Color(1, 1, 1);
+            Light light = new PointLight(lightPosition, lightColor);
             Tuple rayOrigin = Tuple.Point(0, 0, -5);
-            for ( int h = 0; h < c.Height; ++h )
+            for (int h = 0; h < c.Height; ++h)
             {
                 float worldY = pixelSize * h - half;
                 for (int w = 0; w < c.Width; ++w)
@@ -30,14 +34,20 @@ namespace UnitTest
                     Ray r = new Ray(rayOrigin, (position - rayOrigin).Normalize());
                     List<Intersection> xs = s.Intersect(r);
 
-                    if ( Intersection.Hit(xs) != null )
+                    Intersection hit = Intersection.Hit(xs);
+                    if (hit != null)
                     {
-                        c.WritePixel(w, c.Height - h, Tuple.Color(1, 0, 0));
+                        Tuple point = r.Position(hit.T);
+                        Tuple normal = hit.Object.NormalAt(point);
+                        Tuple eye = -r.Direction;
+                        Tuple color = PhongReflection.Lighting(hit.Object.Material, light, point, eye, normal);
+
+                        c.WritePixel(w, c.Height - h, color);
                     }
                 }
             }
 
-            using (StreamWriter sw = new StreamWriter(@"./redSphere.ppm"))
+            using (StreamWriter sw = new StreamWriter(@"./purpleSphere.ppm"))
             {
                 sw.Write(c.ToPPM());
             }

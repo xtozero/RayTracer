@@ -2,9 +2,9 @@
 
 namespace RayTracer
 {
-    public class Sphere
+    public class Sphere : Shape
     {
-        public Tuple NormalAt(Tuple p)
+        public override Tuple NormalAt(Tuple p)
         {
             Tuple objectNormal = Transform.Inverse() * p;
             objectNormal = objectNormal - Tuple.Point(0, 0, 0);
@@ -13,7 +13,7 @@ namespace RayTracer
             return worldNormal.Normalize();
         }
 
-        public List<Intersection> Intersect(Ray r)
+        public override List<Intersection> Intersect(Ray r)
         {
             Ray objectSpaceRay = r.Transform(Transform.Inverse());
 
@@ -41,8 +41,5 @@ namespace RayTracer
             Transform = Matrix.Identity();
             Material = new Material();
         }
-
-        public Matrix Transform { get; set; }
-        public Material Material { get; set; }
     }
 }

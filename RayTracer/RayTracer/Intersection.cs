@@ -26,13 +26,13 @@ namespace RayTracer
             return new List<Intersection>(i);
         }
 
-        public Intersection(float t, object obj)
+        public Intersection(float t, Shape obj)
         {
             T = t;
             Object = obj;
         }
 
         public float T { get; set; }
-        public object Object { get; set; }
+        public Shape Object { get; set; }
     }
 }

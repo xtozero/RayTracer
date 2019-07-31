@@ -26,7 +26,7 @@ namespace RayTracer
 
                 if (rdote > 0)
                 {
-                    specular = effectiveColor * m.Specular * Pow(rdote, m.Shininess);
+                    specular = l.Intensity * m.Specular * Pow(rdote, m.Shininess);
                 }
             }
 
