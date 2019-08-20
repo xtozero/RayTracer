@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="World.cs~RF26c78f81.TMP" />
+  </ItemGroup>
+
 </Project>

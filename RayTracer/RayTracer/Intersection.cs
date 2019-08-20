@@ -35,4 +35,12 @@ namespace RayTracer
         public float T { get; set; }
         public Shape Object { get; set; }
     }
+
+    public class IntersectionCompare : IComparer<Intersection>
+    {
+        public int Compare(Intersection x, Intersection y)
+        {
+            return x.T.CompareTo(y.T);
+        }
+    }
 }
