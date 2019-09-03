@@ -23,6 +23,7 @@ namespace UnitTest
             Tuple lightColor = Tuple.Color(1, 1, 1);
             Light light = new PointLight(lightPosition, lightColor);
             Tuple rayOrigin = Tuple.Point(0, 0, -5);
+            LightingModel phong = new PhongReflection();
             for (int h = 0; h < c.Height; ++h)
             {
                 float worldY = pixelSize * h - half;
@@ -40,7 +41,7 @@ namespace UnitTest
                         Tuple point = r.Position(hit.T);
                         Tuple normal = hit.Object.NormalAt(point);
                         Tuple eye = -r.Direction;
-                        Tuple color = PhongReflection.Lighting(hit.Object.Material, light, point, eye, normal);
+                        Tuple color = phong.Lighting(hit.Object.Material, light, point, eye, normal);
 
                         c.WritePixel(w, c.Height - h, color);
                     }

@@ -1,10 +1,37 @@
-﻿using static System.MathF;
+﻿using System.Collections.Generic;
+using static System.MathF;
 
 namespace RayTracer
 {
-    public static class PhongReflection
+    public abstract class LightingModel
     {
-        public static Tuple Lighting(Material m, Light l, Tuple position, Tuple toEye, Tuple normal)
+        public abstract Tuple Lighting(Material m, Light l, Tuple position, Tuple toEye, Tuple normal);
+
+        public Tuple ShadeHit(World w, Computation comps)
+        {
+            return Lighting(comps.Object.Material,
+                w.Light,
+                comps.Point,
+                comps.Eyev,
+                comps.Normalv);
+        }
+
+        public Tuple ColorAt(World w, Ray r)
+        {
+            List<Intersection> intersections = w.Intersection(r);
+            Intersection intersection = Intersection.Hit(intersections);
+            if (intersection == null)
+            {
+                return Tuple.Color(0, 0, 0);
+            }
+            Computation comps = new Computation(intersection, r);
+            return ShadeHit(w, comps);
+        }
+    }
+
+    public class PhongReflection : LightingModel
+    {
+        public override Tuple Lighting(Material m, Light l, Tuple position, Tuple toEye, Tuple normal)
         {
             Tuple effectiveColor = m.Color * l.Intensity;
 
@@ -17,7 +44,7 @@ namespace RayTracer
             Tuple diffuse = Tuple.Color(0, 0, 0);
             Tuple specular = Tuple.Color(0, 0, 0);
 
-            if ( ndotl >= 0 )
+            if (ndotl >= 0)
             {
                 diffuse = effectiveColor * m.Diffuse * ndotl;
 
