@@ -64,5 +64,20 @@
                 zX, zY, 1, 0,
                 0, 0, 0, 1);
         }
+
+        public static Matrix LookAt( Tuple from, Tuple to, Tuple up )
+        {
+            Tuple forward = (to - from).Normalize();
+            Tuple upn = up.Normalize();
+            Tuple left = forward.Cross(upn);
+            Tuple trueUp = left.Cross(forward);
+
+            Matrix orientation = new Matrix(left.X,     left.Y,     left.Z,     0,
+                                            trueUp.X,   trueUp.Y,   trueUp.Z,   0,
+                                            -forward.X, -forward.Y, -forward.Z, 0,
+                                            0,          0,          0,          1);
+
+            return orientation * Translation(-from.X, -from.Y, -from.Z);
+        }
     }
 }
