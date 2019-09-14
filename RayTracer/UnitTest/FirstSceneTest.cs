@@ -62,7 +62,7 @@ namespace UnitTest
         }
     }
 
-    public class FirstSceneTest
+    public static class FirstSceneTest
     {
         [Fact]
         private static void Simulate()
