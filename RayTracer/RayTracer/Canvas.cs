@@ -55,6 +55,23 @@ namespace RayTracer
             return ppm.ToString();
         }
 
+        public static Canvas Render(Camera c, World w, LightingModel l)
+        {
+            Canvas image = new Canvas(c.HSize, c.VSize);
+
+            for ( int y = 0; y < image.Height; ++y )
+            {
+                for ( int x = 0; x < image.Width; ++x )
+                {
+                    Ray r = c.RayForPixel(x, y);
+                    Tuple color = l.ColorAt(w, r);
+                    image.WritePixel(x, y, color);
+                }
+            }
+
+            return image;
+        }
+
         public Canvas(int width, int height)
         {
             Width = width;
