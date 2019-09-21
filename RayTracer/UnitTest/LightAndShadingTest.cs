@@ -121,26 +121,26 @@ namespace UnitTest
             Light light = new PointLight(Tuple.Point(0, 0, -10), Tuple.Color(1, 1, 1));
 
             LightingModel phong = new PhongReflection();
-            Tuple result = phong.Lighting(m, light, position, eyev, normalv);
+            Tuple result = phong.Lighting(m, light, position, eyev, normalv, false);
 
             Assert.Equal(Tuple.Color(1.9f, 1.9f, 1.9f), result);
 
             eyev = Tuple.Vector(0, Sqrt(2) / 2, -Sqrt(2) / 2);
 
-            result = phong.Lighting(m, light, position, eyev, normalv);
+            result = phong.Lighting(m, light, position, eyev, normalv, false);
 
             Assert.Equal(Tuple.Color(1.0f, 1.0f, 1.0f), result);
 
             eyev = Tuple.Vector(0, 0, -1);
             light = new PointLight(Tuple.Point(0, 10, -10), Tuple.Color(1, 1, 1));
 
-            result = phong.Lighting(m, light, position, eyev, normalv);
+            result = phong.Lighting(m, light, position, eyev, normalv, false);
 
             Assert.Equal(Tuple.Color(0.7364f, 0.7364f, 0.7364f), result);
 
             eyev = Tuple.Vector(0, -Sqrt(2) / 2, -Sqrt(2) / 2);
 
-            result = phong.Lighting(m, light, position, eyev, normalv);
+            result = phong.Lighting(m, light, position, eyev, normalv, false);
 
             Assert.Equal(Tuple.Color(1.6364f, 1.6364f, 1.6364f), result);
         }
@@ -156,7 +156,7 @@ namespace UnitTest
             Light light = new PointLight(Tuple.Point(0, 0, 10), Tuple.Color(1, 1, 1));
 
             LightingModel phong = new PhongReflection();
-            Tuple result = phong.Lighting(m, light, position, eyev, normalv);
+            Tuple result = phong.Lighting(m, light, position, eyev, normalv, false);
 
             Assert.Equal(Tuple.Color(0.1f, 0.1f, 0.1f), result);
         }

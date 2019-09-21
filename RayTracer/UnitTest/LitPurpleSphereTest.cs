@@ -41,7 +41,7 @@ namespace UnitTest
                         Tuple point = r.Position(hit.T);
                         Tuple normal = hit.Object.NormalAt(point);
                         Tuple eye = -r.Direction;
-                        Tuple color = phong.Lighting(hit.Object.Material, light, point, eye, normal);
+                        Tuple color = phong.Lighting(hit.Object.Material, light, point, eye, normal, false);
 
                         c.WritePixel(w, c.Height - h, color);
                     }

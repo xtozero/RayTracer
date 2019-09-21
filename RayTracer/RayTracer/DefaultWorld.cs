@@ -8,7 +8,7 @@ namespace RayTracer
     {
         public DefaultWorld()
         {
-            Light = new PointLight(Tuple.Point(-10, -10, -10), Tuple.Color(1, 1, 1));
+            Light = new PointLight(Tuple.Point(-10, 10, -10), Tuple.Color(1, 1, 1));
 
             Shape s1 = new Sphere();
             s1.Material.Color = Tuple.Color(0.8f, 1, 0.6f);
