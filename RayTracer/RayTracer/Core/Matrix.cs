@@ -119,12 +119,12 @@ namespace RayTracer
             return false;
         }
 
-        public bool Equals(Matrix m)
+        public bool Equals(Matrix other)
         {
-            return System.MathF.Abs(M[0, 0] - m[0, 0]) <= Constants.floatEps && System.MathF.Abs(M[0, 1] - m[0, 1]) <= Constants.floatEps && System.MathF.Abs(M[0, 2] - m[0, 2]) <= Constants.floatEps && System.MathF.Abs(M[0, 3] - m[0, 3]) <= Constants.floatEps &&
-                System.MathF.Abs(M[1, 0] - m[1, 0]) <= Constants.floatEps && System.MathF.Abs(M[1, 1] - m[1, 1]) <= Constants.floatEps && System.MathF.Abs(M[1, 2] - m[1, 2]) <= Constants.floatEps && System.MathF.Abs(M[1, 3] - m[1, 3]) <= Constants.floatEps &&
-                System.MathF.Abs(M[2, 0] - m[2, 0]) <= Constants.floatEps && System.MathF.Abs(M[2, 1] - m[2, 1]) <= Constants.floatEps && System.MathF.Abs(M[2, 2] - m[2, 2]) <= Constants.floatEps && System.MathF.Abs(M[2, 3] - m[2, 3]) <= Constants.floatEps &&
-                System.MathF.Abs(M[3, 0] - m[3, 0]) <= Constants.floatEps && System.MathF.Abs(M[3, 1] - m[3, 1]) <= Constants.floatEps && System.MathF.Abs(M[3, 2] - m[3, 2]) <= Constants.floatEps && System.MathF.Abs(M[3, 3] - m[3, 3]) <= Constants.floatEps;
+            return System.MathF.Abs(M[0, 0] - other[0, 0]) <= Constants.floatEps && System.MathF.Abs(M[0, 1] - other[0, 1]) <= Constants.floatEps && System.MathF.Abs(M[0, 2] - other[0, 2]) <= Constants.floatEps && System.MathF.Abs(M[0, 3] - other[0, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[1, 0] - other[1, 0]) <= Constants.floatEps && System.MathF.Abs(M[1, 1] - other[1, 1]) <= Constants.floatEps && System.MathF.Abs(M[1, 2] - other[1, 2]) <= Constants.floatEps && System.MathF.Abs(M[1, 3] - other[1, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[2, 0] - other[2, 0]) <= Constants.floatEps && System.MathF.Abs(M[2, 1] - other[2, 1]) <= Constants.floatEps && System.MathF.Abs(M[2, 2] - other[2, 2]) <= Constants.floatEps && System.MathF.Abs(M[2, 3] - other[2, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[3, 0] - other[3, 0]) <= Constants.floatEps && System.MathF.Abs(M[3, 1] - other[3, 1]) <= Constants.floatEps && System.MathF.Abs(M[3, 2] - other[3, 2]) <= Constants.floatEps && System.MathF.Abs(M[3, 3] - other[3, 3]) <= Constants.floatEps;
         }
 
         public override int GetHashCode()

@@ -48,7 +48,7 @@ namespace RayTracer
             return Transform.Equals(other.Transform) && Material.Equals(other.Material);
         }
 
-        public Shape()
+        protected Shape()
         {
             Transform = Matrix.Identity();
             Material = new Material();

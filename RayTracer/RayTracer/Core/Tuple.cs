@@ -56,12 +56,12 @@ namespace RayTracer
             return false;
         }
 
-        public bool Equals(Tuple t)
+        public bool Equals(Tuple other)
         {
-            return System.MathF.Abs(X - t.X) <= Constants.floatEps &&
-                System.MathF.Abs(Y - t.Y) <= Constants.floatEps &&
-                System.MathF.Abs(Z - t.Z) <= Constants.floatEps &&
-                System.MathF.Abs(W - t.W) <= Constants.floatEps;
+            return System.MathF.Abs(X - other.X) <= Constants.floatEps &&
+                System.MathF.Abs(Y - other.Y) <= Constants.floatEps &&
+                System.MathF.Abs(Z - other.Z) <= Constants.floatEps &&
+                System.MathF.Abs(W - other.W) <= Constants.floatEps;
         }
 
         public override int GetHashCode()
