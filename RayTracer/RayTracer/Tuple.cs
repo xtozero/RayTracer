@@ -58,11 +58,10 @@ namespace RayTracer
 
         public bool Equals(Tuple t)
         {
-            const float eps = 0.0001f;
-            return System.MathF.Abs(X - t.X) <= eps &&
-                System.MathF.Abs(Y - t.Y) <= eps &&
-                System.MathF.Abs(Z - t.Z) <= eps &&
-                System.MathF.Abs(W - t.W) <= eps;
+            return System.MathF.Abs(X - t.X) <= Constants.floatEps &&
+                System.MathF.Abs(Y - t.Y) <= Constants.floatEps &&
+                System.MathF.Abs(Z - t.Z) <= Constants.floatEps &&
+                System.MathF.Abs(W - t.W) <= Constants.floatEps;
         }
 
         public override int GetHashCode()

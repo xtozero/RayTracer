@@ -73,7 +73,12 @@ namespace UnitTest
             Intersection i = new Intersection(0.5f, shape);
             Computation comps = new Computation(i, r);
             LightingModel phong = new PhongReflection();
-            Tuple c = phong.ShadeHit(w, comps);
+            Tuple c = phong.Lighting(comps.Object.Material,
+                w.Light,
+                comps.Point,
+                comps.Eyev,
+                comps.Normalv,
+                false);
 
             Assert.Equal(Tuple.Color(0.90498f, 0.90498f, 0.90498f), c);
         }

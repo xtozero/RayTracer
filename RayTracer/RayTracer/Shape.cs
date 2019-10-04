@@ -5,8 +5,23 @@ namespace RayTracer
 {
     public abstract class Shape : IEquatable<Shape>
     {
-        public abstract Tuple NormalAt(Tuple p);
-        public abstract List<Intersection> Intersect(Ray r);
+        protected abstract Tuple LocalNormalAt(Tuple localPoint);
+        protected abstract List<Intersection> LocalIntersect(Ray localRay);
+
+        public Tuple NormalAt(Tuple p)
+        {
+            Tuple localPoint = Transform.Inverse() * p;
+            Tuple localNormal = LocalNormalAt(localPoint);
+            Tuple worldNormal = Transform.Inverse().Transpose() * localNormal;
+            worldNormal.W = 0;
+            return worldNormal.Normalize();
+        }
+
+        public List<Intersection> Intersect(Ray r)
+        {
+            Ray localRay = r.Transform(Transform.Inverse());
+            return LocalIntersect(localRay);
+        }
 
         public override bool Equals(Object obj)
         {
@@ -31,6 +46,12 @@ namespace RayTracer
         public bool Equals(Shape other)
         {
             return Transform.Equals(other.Transform) && Material.Equals(other.Material);
+        }
+
+        public Shape()
+        {
+            Transform = Matrix.Identity();
+            Material = new Material();
         }
 
         public Matrix Transform { get; set; }

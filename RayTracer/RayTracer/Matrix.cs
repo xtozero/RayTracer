@@ -121,11 +121,10 @@ namespace RayTracer
 
         public bool Equals(Matrix m)
         {
-            const float eps = 0.0001f;
-            return System.MathF.Abs(M[0, 0] - m[0, 0]) <= eps && System.MathF.Abs(M[0, 1] - m[0, 1]) <= eps && System.MathF.Abs(M[0, 2] - m[0, 2]) <= eps && System.MathF.Abs(M[0, 3] - m[0, 3]) <= eps &&
-                System.MathF.Abs(M[1, 0] - m[1, 0]) <= eps && System.MathF.Abs(M[1, 1] - m[1, 1]) <= eps && System.MathF.Abs(M[1, 2] - m[1, 2]) <= eps && System.MathF.Abs(M[1, 3] - m[1, 3]) <= eps &&
-                System.MathF.Abs(M[2, 0] - m[2, 0]) <= eps && System.MathF.Abs(M[2, 1] - m[2, 1]) <= eps && System.MathF.Abs(M[2, 2] - m[2, 2]) <= eps && System.MathF.Abs(M[2, 3] - m[2, 3]) <= eps &&
-                System.MathF.Abs(M[3, 0] - m[3, 0]) <= eps && System.MathF.Abs(M[3, 1] - m[3, 1]) <= eps && System.MathF.Abs(M[3, 2] - m[3, 2]) <= eps && System.MathF.Abs(M[3, 3] - m[3, 3]) <= eps;
+            return System.MathF.Abs(M[0, 0] - m[0, 0]) <= Constants.floatEps && System.MathF.Abs(M[0, 1] - m[0, 1]) <= Constants.floatEps && System.MathF.Abs(M[0, 2] - m[0, 2]) <= Constants.floatEps && System.MathF.Abs(M[0, 3] - m[0, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[1, 0] - m[1, 0]) <= Constants.floatEps && System.MathF.Abs(M[1, 1] - m[1, 1]) <= Constants.floatEps && System.MathF.Abs(M[1, 2] - m[1, 2]) <= Constants.floatEps && System.MathF.Abs(M[1, 3] - m[1, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[2, 0] - m[2, 0]) <= Constants.floatEps && System.MathF.Abs(M[2, 1] - m[2, 1]) <= Constants.floatEps && System.MathF.Abs(M[2, 2] - m[2, 2]) <= Constants.floatEps && System.MathF.Abs(M[2, 3] - m[2, 3]) <= Constants.floatEps &&
+                System.MathF.Abs(M[3, 0] - m[3, 0]) <= Constants.floatEps && System.MathF.Abs(M[3, 1] - m[3, 1]) <= Constants.floatEps && System.MathF.Abs(M[3, 2] - m[3, 2]) <= Constants.floatEps && System.MathF.Abs(M[3, 3] - m[3, 3]) <= Constants.floatEps;
         }
 
         public override int GetHashCode()

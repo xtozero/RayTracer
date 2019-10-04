@@ -4,23 +4,17 @@ namespace RayTracer
 {
     public class Sphere : Shape
     {
-        public override Tuple NormalAt(Tuple p)
+        protected override Tuple LocalNormalAt(Tuple localPoint)
         {
-            Tuple objectNormal = Transform.Inverse() * p;
-            objectNormal = objectNormal - Tuple.Point(0, 0, 0);
-            Tuple worldNormal = Transform.Inverse().Transpose() * objectNormal;
-            worldNormal.W = 0;
-            return worldNormal.Normalize();
+            return localPoint - Tuple.Point(0, 0, 0);
         }
 
-        public override List<Intersection> Intersect(Ray r)
+        protected override List<Intersection> LocalIntersect(Ray localRay)
         {
-            Ray objectSpaceRay = r.Transform(Transform.Inverse());
+            Tuple sphereToRay = localRay.Origin - Tuple.Point(0, 0, 0);
 
-            Tuple sphereToRay = objectSpaceRay.Origin - Tuple.Point(0, 0, 0);
-
-            float a = objectSpaceRay.Direction.Dot(objectSpaceRay.Direction);
-            float b = objectSpaceRay.Direction.Dot(sphereToRay);
+            float a = localRay.Direction.Dot(localRay.Direction);
+            float b = localRay.Direction.Dot(sphereToRay);
             float c = sphereToRay.Dot(sphereToRay) - 1;
              
             float discriminant = b * b - a * c;
@@ -34,12 +28,6 @@ namespace RayTracer
             }
 
             return Intersection.Aggregate();
-        }
-
-        public Sphere()
-        {
-            Transform = Matrix.Identity();
-            Material = new Material();
         }
     }
 }

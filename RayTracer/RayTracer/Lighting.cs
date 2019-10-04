@@ -13,7 +13,7 @@ namespace RayTracer
 
             return Lighting(comps.Object.Material,
                 w.Light,
-                comps.OverPoint,
+                comps.Point,
                 comps.Eyev,
                 comps.Normalv,
                 shadowed);

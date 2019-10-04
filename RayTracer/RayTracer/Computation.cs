@@ -10,8 +10,7 @@
             Point = r.Position(T);
             Eyev = -r.Direction;
             Normalv = Object.NormalAt(Point);
-            const float eps = 0.005f;
-            OverPoint = Point + Normalv * eps;
+            OverPoint = Point + Normalv * Constants.shadowEps;
 
             if ( Eyev.Dot(Normalv) < 0 )
             {
