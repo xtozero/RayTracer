@@ -5,13 +5,14 @@ namespace RayTracer
 {
     public abstract class LightingModel
     {
-        public abstract Tuple Lighting(Material m, Light l, Tuple position, Tuple toEye, Tuple normal, bool inShadow);
+        public abstract Tuple Lighting(Material m, Shape shape, Light l, Tuple position, Tuple toEye, Tuple normal, bool inShadow);
 
         public Tuple ShadeHit(World w, Computation comps)
         {
             bool shadowed = w.IsShadowed(comps.OverPoint);
 
             return Lighting(comps.Object.Material,
+                comps.Object,
                 w.Light,
                 comps.Point,
                 comps.Eyev,
@@ -34,9 +35,11 @@ namespace RayTracer
 
     public class PhongReflection : LightingModel
     {
-        public override Tuple Lighting(Material m, Light l, Tuple position, Tuple toEye, Tuple normal, bool inShadow)
+        public override Tuple Lighting(Material m, Shape shape, Light l, Tuple position, Tuple toEye, Tuple normal, bool inShadow)
         {
-            Tuple effectiveColor = m.Color * l.Intensity;
+            Tuple color = (m.Pattern == null)? m.Color : m.Pattern.ColorAtShape(shape, position);
+
+            Tuple effectiveColor = color * l.Intensity;
 
             Tuple toLight = (l.Position - position).Normalize();
 

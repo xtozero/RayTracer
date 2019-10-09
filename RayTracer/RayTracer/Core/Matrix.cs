@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.MathF;
 
 namespace RayTracer
 {
@@ -24,7 +25,7 @@ namespace RayTracer
 
         public bool IsInvertible()
         {
-            return Determinant() != 0;
+            return Abs( Determinant() ) > Constants.floatEps;
         }
 
         public float Cofactor(int row, int col)

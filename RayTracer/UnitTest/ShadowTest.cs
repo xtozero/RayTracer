@@ -17,7 +17,7 @@ namespace UnitTest
             bool inShadow = true;
 
             PhongReflection phong = new PhongReflection();
-            Tuple result = phong.Lighting(m, light, position, eyev, normalv, inShadow);
+            Tuple result = phong.Lighting(m, new Sphere(), light, position, eyev, normalv, inShadow);
 
             Assert.Equal(Tuple.Color(0.1f, 0.1f, 0.1f), result);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.MathF;
 
 namespace RayTracer
 {
@@ -11,12 +12,12 @@ namespace RayTracer
 
         public bool IsPoint()
         {
-            return W == 1.0f;
+            return Abs(W - 1.0f) < Constants.floatEps;
         }
 
         public bool IsVector()
         {
-            return W == 0.0f;
+            return Abs(W - 0.0f) < Constants.floatEps;
         }
 
         public float Magnitude()

@@ -11,9 +11,9 @@ namespace RayTracer
                 return false;
             }
 
-            if (obj is Material)
+            if (obj is Material m)
             {
-                return Equals(obj as Material);
+                return Equals(m);
             }
 
             return false;
@@ -47,5 +47,6 @@ namespace RayTracer
         public float Diffuse { get; set; }
         public float Specular { get; set; }
         public float Shininess { get; set; }
+        public Pattern Pattern { get; set; }
     }
 }

@@ -74,6 +74,7 @@ namespace UnitTest
             Computation comps = new Computation(i, r);
             LightingModel phong = new PhongReflection();
             Tuple c = phong.Lighting(comps.Object.Material,
+                comps.Object,
                 w.Light,
                 comps.Point,
                 comps.Eyev,

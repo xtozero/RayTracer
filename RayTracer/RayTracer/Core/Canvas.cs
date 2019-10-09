@@ -16,43 +16,44 @@ namespace RayTracer
 
         public string ToPPM()
         {
-            StringWriter ppm = new StringWriter();
-
-            ppm.WriteLine("P3");
-            ppm.WriteLine("{0} {1}", Width, Height);
-            ppm.WriteLine("255");
-            int writedChar = 1;
-            for (int y = 0; y < Height; ++y)
+            using (StringWriter ppm = new StringWriter())
             {
-                ppm.Write(" ");
-                for (int x = 0; x < Width; ++x)
+                ppm.WriteLine("P3");
+                ppm.WriteLine("{0} {1}", Width, Height);
+                ppm.WriteLine("255");
+                int writedChar = 1;
+                for (int y = 0; y < Height; ++y)
                 {
-                    Tuple c = _pixels[y, x];
-                    var colors = new []
+                    ppm.Write(" ");
+                    for (int x = 0; x < Width; ++x)
                     {
-                        (byte)System.Math.Clamp(System.Math.Round(c.R * 255), 0, 255),
-                        (byte)System.Math.Clamp(System.Math.Round(c.G * 255), 0, 255),
-                        (byte)System.Math.Clamp(System.Math.Round(c.B * 255), 0, 255)
-                    };
-
-                    foreach (byte color in colors)
-                    {
-                        if ( writedChar + ( color.ToString().Length + 1 ) > 70 )
+                        Tuple c = _pixels[y, x];
+                        var colors = new[]
                         {
-                            writedChar = 1;
-                            ppm.WriteLine();
-                            ppm.Write(" ");
+                            (byte)System.Math.Clamp(System.Math.Round(c.R * 255), 0, 255),
+                            (byte)System.Math.Clamp(System.Math.Round(c.G * 255), 0, 255),
+                            (byte)System.Math.Clamp(System.Math.Round(c.B * 255), 0, 255)
+                        };
+
+                        foreach (byte color in colors)
+                        {
+                            if (writedChar + (color.ToString().Length + 1) > 70)
+                            {
+                                writedChar = 1;
+                                ppm.WriteLine();
+                                ppm.Write(" ");
+                            }
+
+                            ppm.Write("{0} ", color);
+                            writedChar += (color.ToString().Length + 1);
                         }
-
-                        ppm.Write("{0} ", color);
-                        writedChar += (color.ToString().Length + 1);
                     }
+                    writedChar = 1;
+                    ppm.WriteLine();
                 }
-                writedChar = 1;
-                ppm.WriteLine();
-            }
 
-            return ppm.ToString();
+                return ppm.ToString();
+            }
         }
 
         public static Canvas Render(Camera c, World w, LightingModel l)
