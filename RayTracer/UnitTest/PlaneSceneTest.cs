@@ -31,7 +31,7 @@ namespace UnitTest
             Shapes.Add(middle);
 
             Shape right = new Sphere();
-            right.Transform = Transformation.Translation(1.5f, 0.0f, -0.5f) * Transformation.Scaling(0.5f, 0.5f, 0.5f);
+            right.Transform = Transformation.Translation(1.5f, 0, -0.5f) * Transformation.Scaling(0.5f, 0.5f, 0.5f);
             right.Material.Color = Tuple.Color(0, 0, 0.7f);
             right.Material.Diffuse = 0.7f;
             right.Material.Specular = 0.3f;

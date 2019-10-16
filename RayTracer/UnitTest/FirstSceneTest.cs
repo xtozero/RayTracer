@@ -19,7 +19,7 @@ namespace UnitTest
             Shape leftWall = new Sphere();
             leftWall.Transform = Transformation.Translation(0, 0, 5) *
                                 Transformation.RotationY(-PI / 4) * Transformation.RotationX(PI / 2) *
-                                Transformation.Scaling(10, 0.01f, 10);
+                                Transformation.Scaling(10, 0.2f, 10);
 
             leftWall.Material = floor.Material;
 
@@ -28,7 +28,7 @@ namespace UnitTest
             Shape rightWall = new Sphere();
             rightWall.Transform = Transformation.Translation(0, 0, 5) *
                                 Transformation.RotationY(PI / 4) * Transformation.RotationX(PI / 2) *
-                                Transformation.Scaling(10, 0.01f, 10);
+                                Transformation.Scaling(10, 0.2f, 10);
 
             rightWall.Material = floor.Material;
 

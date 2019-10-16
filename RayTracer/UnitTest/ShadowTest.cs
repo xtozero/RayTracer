@@ -91,8 +91,7 @@ namespace UnitTest
             Intersection i = new Intersection(5, shape);
 
             Computation comps = new Computation(i, r);
-            const float eps = 0.005f;
-            Assert.True(comps.OverPoint.Z < -eps / 2);
+            Assert.True(comps.OverPoint.Z < -Constants.floatEps / 2);
             Assert.True(comps.Point.Z > comps.OverPoint.Z);
         }
     }

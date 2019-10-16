@@ -17,7 +17,7 @@ namespace RayTracer
 
         public bool IsVector()
         {
-            return Abs(W - 0.0f) < Constants.floatEps;
+            return Abs(W) < Constants.floatEps;
         }
 
         public float Magnitude()

@@ -62,7 +62,7 @@ namespace RayTracer
         {
             float distance = Sqrt(point.X * point.X + point.Z * point.Z);
 
-            return (Floor(distance) % 2 == 0) ? FirstColor : SecondColor;
+            return (Abs(Floor(distance) % 2) < Constants.floatEps) ? FirstColor : SecondColor;
         }
 
         public RingPattern(Tuple firstColor, Tuple secondColor)
@@ -79,12 +79,8 @@ namespace RayTracer
     {
         public override Tuple ColorAt(Tuple point)
         {
-            float FloorX = Floor(point.X);
-            float FloorY = Floor(point.Y);
-            float FloorZ = Floor(point.Z);
-
             float determinant = Floor(point.X) + Floor(point.Y) + Floor(point.Z);
-            return (determinant % 2 == 0) ? FirstColor : SecondColor;
+            return (Abs(determinant % 2) < Constants.floatEps) ? FirstColor : SecondColor;
         }
 
         public CheckersPattern(Tuple firstColor, Tuple secondColor)

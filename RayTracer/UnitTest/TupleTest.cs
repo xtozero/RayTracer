@@ -8,7 +8,7 @@ namespace UnitTest
         [Fact]
         private static void TestCase01()
         {
-            Tuple a = new Tuple(4.3f, -4.2f, 3.1f, 1.0f);
+            Tuple a = new Tuple(4.3f, -4.2f, 3.1f, 1);
             Assert.Equal(4.3f, a.X);
             Assert.Equal(-4.2f, a.Y);
             Assert.Equal(3.1f, a.Z);
@@ -16,11 +16,11 @@ namespace UnitTest
             Assert.True(a.IsPoint());
             Assert.False(a.IsVector());
 
-            a = new Tuple(4.3f, -4.2f, 3.1f, 0.0f);
+            a = new Tuple(4.3f, -4.2f, 3.1f, 0);
             Assert.Equal(4.3f, a.X);
             Assert.Equal(-4.2f, a.Y);
             Assert.Equal(3.1f, a.Z);
-            Assert.Equal(0.0f, a.W);
+            Assert.Equal(0, a.W);
             Assert.False(a.IsPoint());
             Assert.True(a.IsVector());
         }

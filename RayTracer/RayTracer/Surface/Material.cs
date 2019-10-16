@@ -40,6 +40,7 @@ namespace RayTracer
             Diffuse = 0.9f;
             Specular = 0.9f;
             Shininess = 200.0f;
+            RefractiveIndex = 1;
         }
 
         public Tuple Color { get; set; }
@@ -48,5 +49,8 @@ namespace RayTracer
         public float Specular { get; set; }
         public float Shininess { get; set; }
         public Pattern Pattern { get; set; }
+        public float Reflective { get; set; }
+        public float Transparency { get; set; }
+        public float RefractiveIndex { get; set; }
     }
 }

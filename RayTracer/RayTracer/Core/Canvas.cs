@@ -30,9 +30,9 @@ namespace RayTracer
                         Tuple c = _pixels[y, x];
                         var colors = new[]
                         {
-                            (byte)System.Math.Clamp(System.Math.Round(c.R * 255), 0, 255),
-                            (byte)System.Math.Clamp(System.Math.Round(c.G * 255), 0, 255),
-                            (byte)System.Math.Clamp(System.Math.Round(c.B * 255), 0, 255)
+                            (byte)System.Math.Clamp(System.MathF.Round(c.R * 255), 0, 255),
+                            (byte)System.Math.Clamp(System.MathF.Round(c.G * 255), 0, 255),
+                            (byte)System.Math.Clamp(System.MathF.Round(c.B * 255), 0, 255)
                         };
 
                         foreach (byte color in colors)
