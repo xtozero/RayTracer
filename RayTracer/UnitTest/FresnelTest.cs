@@ -13,7 +13,7 @@ namespace UnitTest
             // The Schlick approximation under total internal reflection
             Shape shape = new GlassSphere();
             Ray r = new Ray(Tuple.Point(0, 0, Sqrt(2) / 2), Tuple.Vector(0, 1, 0));
-            List<Intersection> xs = new List<Intersection> { new Intersection(-Sqrt(2) / 2, shape), new Intersection(Sqrt(2) / 2, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(-Sqrt(2) / 2, shape), new Intersection(Sqrt(2) / 2, shape));
             Computation comps = new Computation(xs[1], r, xs);
             float reflectance = Fresnel.Schlick(comps);
 
@@ -26,7 +26,7 @@ namespace UnitTest
             // The Schlick approximation with a perpendicular viewing angle
             Shape shape = new GlassSphere();
             Ray r = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 1, 0));
-            List<Intersection> xs = new List<Intersection> { new Intersection(-1, shape), new Intersection(1, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(-1, shape), new Intersection(1, shape));
             Computation comps = new Computation(xs[1], r, xs);
             float reflectance = Fresnel.Schlick(comps);
 
@@ -39,7 +39,7 @@ namespace UnitTest
             // The Schlick approximation with small angle and n2 > n1
             Shape shape = new GlassSphere();
             Ray r = new Ray(Tuple.Point(0, 0.99f, -2), Tuple.Vector(0, 0, 1));
-            List<Intersection> xs = new List<Intersection> { new Intersection(1.8589f, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(1.8589f, shape));
             Computation comps = new Computation(xs[0], r, xs);
             float reflectance = Fresnel.Schlick(comps);
 
@@ -63,7 +63,7 @@ namespace UnitTest
             ball.Material.Ambient = 0.5f;
             ball.Transform = Transformation.Translation(0, -3.5f, -0.5f);
             w.Shapes.Add(ball);
-            List<Intersection> xs = new List<Intersection> { new Intersection(Sqrt(2), floor) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(Sqrt(2), floor));
             Computation comps = new Computation(xs[0], r, xs);
             LightingModel l = new PhongReflection();
             Tuple color = l.ShadeHit(w, comps, 5);

@@ -50,12 +50,12 @@ namespace UnitTest
             C.Transform = Transformation.Translation(0, 0, 0.25f);
             C.Material.RefractiveIndex = 2.5f;
             Ray r = new Ray(Tuple.Point(0, 0, -4), Tuple.Vector(0, 0, 1));
-            List<Intersection> xs = new List<Intersection> { new Intersection(2, A),
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(2, A),
                                                             new Intersection(2.75f, B),
                                                             new Intersection(3.25f, C),
                                                             new Intersection(4.75f, B),
                                                             new Intersection(5.25f, C),
-                                                            new Intersection(6, A)};
+                                                            new Intersection(6, A));
 
             var expectedN1 = new[] { 1, 1.5f, 2, 2.5f, 2.5f, 1.5f };
             var expectedN2 = new[] { 1.5f, 2, 2.5f, 2.5f, 1.5f, 1 };
@@ -77,7 +77,7 @@ namespace UnitTest
             Shape shape = new GlassSphere();
             shape.Transform = Transformation.Translation(0, 0, 1);
             Intersection i = new Intersection(5, shape);
-            List<Intersection> xs = new List<Intersection> { i };
+            List<Intersection> xs = Intersection.Aggregate(i);
             Computation comps = new Computation(i, r, xs);
 
             Assert.True(comps.UnderPoint.Z > Constants.floatEps / 2);
@@ -91,7 +91,7 @@ namespace UnitTest
             World w = new DefaultWorld();
             Shape shape = w.Shapes[0];
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
-            List<Intersection> xs = new List<Intersection> { new Intersection(4, shape), new Intersection(6, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(4, shape), new Intersection(6, shape));
             Computation comps = new Computation(xs[0], r, xs);
             LightingModel l = new PhongReflection();
             Tuple c = l.RefractedColor(w, comps, 5);
@@ -108,7 +108,7 @@ namespace UnitTest
             shape.Material.Transparency = 1;
             shape.Material.RefractiveIndex = 1.5f;
             Ray r = new Ray(Tuple.Point(0, 0, -5), Tuple.Vector(0, 0, 1));
-            List<Intersection> xs = new List<Intersection> { new Intersection(4, shape), new Intersection(6, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(4, shape), new Intersection(6, shape));
             Computation comps = new Computation(xs[0], r, xs);
             LightingModel l = new PhongReflection();
             Tuple c = l.RefractedColor(w, comps, 0);
@@ -125,7 +125,7 @@ namespace UnitTest
             shape.Material.Transparency = 1;
             shape.Material.RefractiveIndex = 1.5f;
             Ray r = new Ray(Tuple.Point(0, 0, Sqrt(2) / 2), Tuple.Vector(0, 1, 0));
-            List<Intersection> xs = new List<Intersection> { new Intersection(-Sqrt(2) / 2, shape), new Intersection(Sqrt(2) / 2, shape) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(-Sqrt(2) / 2, shape), new Intersection(Sqrt(2) / 2, shape));
             Computation comps = new Computation(xs[1], r, xs);
             LightingModel l = new PhongReflection();
             Tuple c = l.RefractedColor(w, comps, 5);
@@ -145,10 +145,10 @@ namespace UnitTest
             B.Material.Transparency = 1;
             B.Material.RefractiveIndex = 1.5f;
             Ray r = new Ray(Tuple.Point(0, 0, 0.1f), Tuple.Vector(0, 1, 0));
-            List<Intersection> xs = new List<Intersection> { new Intersection(-0.9899f, A),
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(-0.9899f, A),
                                                             new Intersection(-0.4899f, B),
                                                             new Intersection(0.4899f, B),
-                                                            new Intersection(0.9899f, A)};
+                                                            new Intersection(0.9899f, A));
             Computation comps = new Computation(xs[2], r, xs);
             LightingModel l = new PhongReflection();
             Tuple c = l.RefractedColor(w, comps, 5);
@@ -172,7 +172,7 @@ namespace UnitTest
             Ball.Transform = Transformation.Translation(0, -3.5f, -0.5f);
             w.Shapes.Add(Ball);
             Ray r = new Ray(Tuple.Point(0, 0, -3), Tuple.Vector(0, -Sqrt(2) / 2, Sqrt(2) / 2));
-            List<Intersection> xs = new List<Intersection> { new Intersection(Sqrt(2), floor) };
+            List<Intersection> xs = Intersection.Aggregate(new Intersection(Sqrt(2), floor));
             Computation comps = new Computation(xs[0], r, xs);
             LightingModel l = new PhongReflection();
             Tuple c = l.ShadeHit(w, comps, 5);
