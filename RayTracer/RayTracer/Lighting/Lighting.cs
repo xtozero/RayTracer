@@ -32,7 +32,12 @@ namespace RayTracer
     {
         public abstract Tuple Lighting(Material m, Shape shape, Light l, Tuple position, Tuple toEye, Tuple normal, bool inShadow);
 
-        public Tuple ShadeHit(World w, Computation comps, int remaining = 5)
+        public Tuple ShadeHit(World w, Computation comps)
+        {
+            return ShadeHit(w, comps, defaultRemaining);
+        }
+
+        public Tuple ShadeHit(World w, Computation comps, int remaining)
         {
             bool shadowed = w.IsShadowed(comps.OverPoint);
 
@@ -57,7 +62,12 @@ namespace RayTracer
             return surface + reflected + refracted;
         }
 
-        public Tuple ColorAt(World w, Ray r, int remaining = 5)
+        public Tuple ColorAt(World w, Ray r)
+        {
+            return ColorAt(w, r, defaultRemaining);
+        }
+
+        public Tuple ColorAt(World w, Ray r, int remaining)
         {
             List<Intersection> intersections = w.Intersection(r);
             Intersection intersection = Intersection.Hit(intersections);
@@ -69,7 +79,12 @@ namespace RayTracer
             return ShadeHit(w, comps, remaining);
         }
 
-        public Tuple ReflectedColor(World w, Computation comps, int remaining = 5)
+        public Tuple ReflectedColor(World w, Computation comps)
+        {
+            return ReflectedColor(w, comps, defaultRemaining);
+        }
+
+        public Tuple ReflectedColor(World w, Computation comps, int remaining)
         {
             if ((remaining <= 0) ||
                 (Abs(comps.Object.Material.Reflective) < Constants.floatEps))
@@ -83,7 +98,12 @@ namespace RayTracer
             return color * comps.Object.Material.Reflective;
         }
 
-        public Tuple RefractedColor(World w, Computation comps, int remaining = 5)
+        public Tuple RefractedColor(World w, Computation comps)
+        {
+            return RefractedColor(w, comps, defaultRemaining);
+        }
+
+        public Tuple RefractedColor(World w, Computation comps, int remaining)
         {
             if ((remaining <= 0) ||
                 (Abs(comps.Object.Material.Transparency) < Constants.floatEps))
@@ -109,6 +129,8 @@ namespace RayTracer
 
             return color * comps.Object.Material.Transparency;
         }
+
+        static readonly int defaultRemaining = 5;
     }
 
     public class PhongReflection : LightingModel

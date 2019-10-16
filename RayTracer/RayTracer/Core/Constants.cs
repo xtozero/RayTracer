@@ -6,6 +6,6 @@ namespace RayTracer
 {
     public static class Constants
     {
-        public const float floatEps = 0.0001f;
+        public static readonly float floatEps = 0.0001f;
     }
 }

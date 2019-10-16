@@ -57,8 +57,8 @@ namespace UnitTest
                                                             new Intersection(5.25f, C),
                                                             new Intersection(6, A)};
 
-            float[] expectedN1 = new float[6] { 1, 1.5f, 2, 2.5f, 2.5f, 1.5f };
-            float[] expectedN2 = new float[6] { 1.5f, 2, 2.5f, 2.5f, 1.5f, 1 };
+            var expectedN1 = new[] { 1, 1.5f, 2, 2.5f, 2.5f, 1.5f };
+            var expectedN2 = new[] { 1.5f, 2, 2.5f, 2.5f, 1.5f, 1 };
 
             for( int i = 0; i < 6; ++i )
             {
