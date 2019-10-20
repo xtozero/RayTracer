@@ -130,7 +130,7 @@ namespace UnitTest
 
             v = Tuple.Vector(1, 2, 3);
             Tuple norm = v.Normalize();
-            Assert.Equal(1, norm.Magnitude(), 6);
+            Assert.Equal(1, norm.Magnitude(), 5);
         }
 
         [Fact]

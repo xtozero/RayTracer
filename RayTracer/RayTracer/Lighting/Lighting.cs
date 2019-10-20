@@ -75,7 +75,7 @@ namespace RayTracer
             {
                 return Tuple.Color(0, 0, 0);
             }
-            Computation comps = new Computation(intersection, r);
+            Computation comps = new Computation(intersection, r, intersections);
             return ShadeHit(w, comps, remaining);
         }
 
@@ -110,6 +110,8 @@ namespace RayTracer
             {
                 return Tuple.Color(0, 0, 0);
             }
+
+
 
             float nRatio = comps.N1 / comps.N2;
             float cosTheta_i = comps.Eyev.Dot(comps.Normalv);
