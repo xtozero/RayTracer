@@ -6,7 +6,7 @@ namespace UnitTest
     public static class JsonSceneTest
     {
         [Fact]
-        private static void Test01()
+        private static void TestCase01()
         {
             // Parse reflect-refract scene
             Scene s = new JsonScene(@"../scene/reflect-refract.json");
@@ -34,7 +34,9 @@ namespace UnitTest
             Assert.Equal(Tuple.Color(0.8f, 0.8f, 0.8f), ceiling.Material.Color);
 
             Shape westWall = s.World.Shapes[2];
-            Assert.Equal(Transformation.Translation(-5, 0, 0) * Transformation.RotationZ(1.5708f) * Transformation.RotationY(1.5708f), westWall.Transform);
+            Assert.Equal(Transformation.Translation(-5, 0, 0) * 
+                        Transformation.RotationZ(1.5708f) * 
+                        Transformation.RotationY(1.5708f), westWall.Transform);
             Assert.True(westWall.Material.Pattern is StripePattern);
 
             Shape redSphere = s.World.Shapes[10];
@@ -49,6 +51,30 @@ namespace UnitTest
             Assert.Equal(1.5, blueGassMaterial.RefractiveIndex, 5);
 
             s.Capture(@"./reflectRefract.ppm");
+        }
+
+        [Fact]
+        private static void TestCase02()
+        {
+            // Parse table scene
+            Scene s = new JsonScene(@"../scene/table.json");
+
+            Shape glassCube = s.World.Shapes[7];
+
+            Assert.True(glassCube is Cube);
+            Assert.Equal(Transformation.Translation(0, 3.45001f, 0) * 
+                        Transformation.RotationY(0.2f) *
+                        Transformation.Scaling(0.25f, 0.25f, 0.25f), glassCube.Transform);
+            Assert.Equal(Tuple.Color(1, 1, 0.8f), glassCube.Material.Color);
+            Assert.Equal(0, glassCube.Material.Ambient, 5);
+            Assert.Equal(0.3f, glassCube.Material.Diffuse, 5);
+            Assert.Equal(0.9f, glassCube.Material.Specular, 5);
+            Assert.Equal(300, glassCube.Material.Shininess, 5);
+            Assert.Equal(0.7f, glassCube.Material.Reflective, 5);
+            Assert.Equal(0.7f, glassCube.Material.Transparency, 5);
+            Assert.Equal(1.5f, glassCube.Material.RefractiveIndex, 5);
+
+            s.Capture(@"./table.ppm");
         }
     }
 }

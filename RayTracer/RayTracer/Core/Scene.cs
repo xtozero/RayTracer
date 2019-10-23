@@ -194,6 +194,10 @@ namespace RayTracer
             {
                 shape = new Sphere();
             }
+            else if (type == "Cube")
+            {
+                shape = new Cube();
+            }
 
             var transform = token["Transform"];
             if (transform != null)
