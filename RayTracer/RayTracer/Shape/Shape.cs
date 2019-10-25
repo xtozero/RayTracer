@@ -23,7 +23,7 @@ namespace RayTracer
             return LocalIntersect(localRay);
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null)
             {

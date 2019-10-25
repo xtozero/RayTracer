@@ -4,7 +4,7 @@ namespace RayTracer
 {
     public class Material : IEquatable<Material>
     {
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (obj == null)
             {
