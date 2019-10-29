@@ -26,8 +26,8 @@ namespace UnitTest
                                     Tuple.Vector(0, 0, -1),
                                     Tuple.Vector(0, 0, 1),
                                     Tuple.Vector(0, 0, 1) };
-            var expectedT1 = new float[] { 4, 4, 4, 4, 4, 4, -1 };
-            var expectedT2 = new float[] { 6, 6, 6, 6, 6, 6, 1 };
+            var expectedT1 = new[] { 4, 4, 4, 4, 4, 4, -1 };
+            var expectedT2 = new[] { 6, 6, 6, 6, 6, 6, 1 };
             MethodInfo mi = c.GetType().GetMethod("LocalIntersect", BindingFlags.NonPublic | BindingFlags.Instance);
             for (int i = 0; i < 7; ++i)
             {

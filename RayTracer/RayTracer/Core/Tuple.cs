@@ -59,10 +59,10 @@ namespace RayTracer
 
         public bool Equals(Tuple other)
         {
-            return System.MathF.Abs(X - other.X) <= Constants.floatEps &&
-                System.MathF.Abs(Y - other.Y) <= Constants.floatEps &&
-                System.MathF.Abs(Z - other.Z) <= Constants.floatEps &&
-                System.MathF.Abs(W - other.W) <= Constants.floatEps;
+            return Abs(X - other.X) < Constants.floatEps &&
+                Abs(Y - other.Y) < Constants.floatEps &&
+                Abs(Z - other.Z) < Constants.floatEps &&
+                Abs(W - other.W) < Constants.floatEps;
         }
 
         public override int GetHashCode()
