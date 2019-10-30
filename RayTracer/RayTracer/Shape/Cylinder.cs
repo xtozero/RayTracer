@@ -69,14 +69,14 @@ namespace RayTracer
             return Tuple.Vector(localPoint.X, 0, localPoint.Z);
         }
 
-        protected bool CheckCap(Ray r, float t)
+        protected virtual bool CheckCap(Ray r, float t)
         {
             Tuple pos = r.Position(t);
 
-            return (pos.X * pos.X - pos.Y * pos.Y + pos.Z * pos.Z) < Constants.floatEps;
+            return (pos.X * pos.X + pos.Z * pos.Z) < ( 1 + Constants.floatEps );
         }
 
-        protected void IntersectCaps(Ray r, ref List<Intersection> xs)
+        internal protected void IntersectCaps(Ray r, ref List<Intersection> xs)
         {
             if ( ( Closed == false ) || Abs( r.Direction.Y ) < Constants.floatEps )
             {

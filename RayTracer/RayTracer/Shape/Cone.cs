@@ -81,5 +81,12 @@ namespace RayTracer
             float y = ( localPoint.Y > 0 ) ? -Sqrt(dist) : Sqrt(dist);
             return Tuple.Vector(localPoint.X, y, localPoint.Z);
         }
+
+        protected override bool CheckCap(Ray r, float t)
+        {
+            Tuple pos = r.Position(t);
+
+            return (pos.X * pos.X - pos.Y * pos.Y + pos.Z * pos.Z) < Constants.floatEps;
+        }
     }
 }

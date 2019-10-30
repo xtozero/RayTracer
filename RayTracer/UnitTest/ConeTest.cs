@@ -50,7 +50,7 @@ namespace UnitTest
         private static void TestCase03()
         {
             // Intersecting a cone's end caps
-            Shape shape = new Cone()
+            Shape shape = new Cone
             {
                 Minimum = -0.5f,
                 Maximum = 0.5f,

@@ -35,40 +35,43 @@ namespace RayTracer
         {
             using (StreamReader sr = File.OpenText(sceneName))
             {
-                JArray jScene = (JArray)JToken.ReadFrom(new JsonTextReader(sr));
-                var symbolTable = new Dictionary<string, object>();
-
-                foreach (var element in jScene)
+                using (JsonTextReader textReader = new JsonTextReader(sr))
                 {
-                    string key = (string)element["Class"];
-                    switch(key)
+                    JArray jScene = (JArray)JToken.ReadFrom(textReader);
+                    var symbolTable = new Dictionary<string, object>();
+
+                    foreach (var element in jScene)
                     {
-                        case "Camera":
-                            ParseCamera(element, symbolTable);
-                            break;
-                        case "PointLight":
-                            ParsePointLight(element, symbolTable);
-                            break;
-                        case "Material":
-                            DefineMaterial(element, symbolTable);
-                            break;
-                        case "Plane":
-                            ParseShape<Plane>(element, symbolTable);
-                            break;
-                        case "Sphere":
-                            ParseShape<Sphere>(element, symbolTable);
-                            break;
-                        case "Cube":
-                            ParseShape<Cube>(element, symbolTable);
-                            break;
-                        default:
-                            throw new NotImplementedException();
+                        string key = (string)element["Class"];
+                        switch (key)
+                        {
+                            case "Camera":
+                                ParseCamera(element, symbolTable);
+                                break;
+                            case "PointLight":
+                                ParsePointLight(element, symbolTable);
+                                break;
+                            case "Material":
+                                DefineMaterial(element, symbolTable);
+                                break;
+                            case "Plane":
+                                ParseShape<Plane>(element, symbolTable);
+                                break;
+                            case "Sphere":
+                                ParseShape<Sphere>(element, symbolTable);
+                                break;
+                            case "Cube":
+                                ParseShape<Cube>(element, symbolTable);
+                                break;
+                            default:
+                                throw new NotImplementedException();
+                        }
                     }
                 }
             }
         }
 
-        private void ParseCamera(JToken token, Dictionary<string, object> symbolTable)
+        private void ParseCamera(JToken token, Dictionary<string, object> _)
         {
             int width = (int)token["Width"];
             int height = (int)token["Height"];
@@ -83,7 +86,7 @@ namespace RayTracer
             Camera.Transform = Transformation.LookAt(ReadPoint(from), ReadPoint(to), ReadVector(up));
         }
 
-        private void ParsePointLight(JToken token, Dictionary<string, object> symbolTable)
+        private void ParsePointLight(JToken token, Dictionary<string, object> _)
         {
             var at = token["At"];
             var intensity = token["Intensity"];
@@ -91,7 +94,7 @@ namespace RayTracer
             World.Light = new PointLight(ReadPoint(at), ReadColor(intensity));
         }
 
-        private Material CreateMaterial(JToken token)
+        private static Material CreateMaterial(JToken token)
         {
             Material m = new Material();
 
@@ -165,7 +168,7 @@ namespace RayTracer
             }
         }
 
-        private Pattern CreatePattern(JToken token)
+        private static Pattern CreatePattern(JToken token)
         {
             Pattern pattern = null;
 
@@ -223,7 +226,7 @@ namespace RayTracer
             World.Shapes.Add(shape);
         }
 
-        private Matrix ParseTransform(JToken token)
+        private static Matrix ParseTransform(JToken token)
         {
             Matrix transform = Matrix.Identity();
 
@@ -268,17 +271,17 @@ namespace RayTracer
             return transform;
         }
 
-        private Tuple ReadPoint(JToken token)
+        private static Tuple ReadPoint(JToken token)
         {
             return Tuple.Point((float)token[0], (float)token[1], (float)token[2]);
         }
 
-        private Tuple ReadColor(JToken token)
+        private static Tuple ReadColor(JToken token)
         {
             return Tuple.Color((float)token[0], (float)token[1], (float)token[2]);
         }
 
-        private Tuple ReadVector(JToken token)
+        private static Tuple ReadVector(JToken token)
         {
             return Tuple.Vector((float)token[0], (float)token[1], (float)token[2]);
         }
