@@ -57,7 +57,9 @@ namespace UnitTest
             LightingModel l = new PhongReflection();
             Tuple color = l.ReflectedColor(w, comps);
 
-            Assert.Equal(Tuple.Color(0.19032f, 0.2379f, 0.14274f), color);
+            Assert.Equal(0.19032f, color.X, 3);
+            Assert.Equal(0.2379f, color.Y, 3);
+            Assert.Equal(0.14274f, color.Z, 3);
         }
 
         [Fact]

@@ -76,5 +76,13 @@ namespace UnitTest
 
             s.Capture(@"./table.ppm");
         }
+
+        [Fact]
+        private static void TestCase03()
+        {
+            Scene s = new JsonScene(@"../scene/cylinder.json");
+
+            s.Capture(@"./cylinder.ppm");
+        }
     }
 }

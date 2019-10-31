@@ -13,7 +13,7 @@ namespace RayTracer
 
             if (Abs(a) < Constants.floatEps)
             {
-                IntersectCaps(localRay, ref xs);
+                IntersectCaps(localRay, xs);
                 return xs;
             }
 
@@ -46,7 +46,7 @@ namespace RayTracer
                 xs.Add(new Intersection(t1, this));
             }
 
-            IntersectCaps(localRay, ref xs);
+            IntersectCaps(localRay, xs);
             return xs;
         }
 
@@ -76,7 +76,7 @@ namespace RayTracer
             return (pos.X * pos.X + pos.Z * pos.Z) < ( 1 + Constants.floatEps );
         }
 
-        internal protected void IntersectCaps(Ray r, ref List<Intersection> xs)
+        protected void IntersectCaps(Ray r, List<Intersection> xs)
         {
             if ( ( Closed == false ) || Abs( r.Direction.Y ) < Constants.floatEps )
             {

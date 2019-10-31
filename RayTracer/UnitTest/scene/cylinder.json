@@ -1,0 +1,226 @@
+﻿[
+  {
+    "Class": "Camera",
+    "Width": 400,
+    "Height": 200,
+    "Fov": 0.314,
+    "From": [ 8, 3.5, -9 ],
+    "To": [ 0, 0.3, 0 ],
+    "Up": [ 0, 1, 0 ]
+  },
+
+  {
+    "Class": "PointLight",
+    "At": [ 1, 6.9, -4.9 ],
+    "Intensity": [ 1, 1, 1 ]
+  },
+
+  {
+    "Class": "Plane",
+    "Material": {
+      "Pattern": {
+        "Type": "Checkers",
+        "Colors": [
+          [ 0.5, 0.5, 0.5 ],
+          [ 0.75, 0.75, 0.75 ]
+        ],
+        "Transform": [
+          { "Scale": [ 0.25, 0.25, 0.25 ] },
+          { "RotateY": 0.3 },
+          { "Translation": [ 0, -0.1, 0 ] }
+        ],
+        "Ambient": 0.2,
+        "Diffuse": 0.9,
+        "Specular": 0
+      }
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.75,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.5, 1, 0.5 ] },
+      { "Translation": [ -1, 0, 1 ] }
+    ],
+    "Material": {
+      "Color": [ 0, 0, 0.6 ],
+      "Diffuse": 0.1,
+      "Specular": 0.9,
+      "Shininess": 300,
+      "Reflective": 0.9
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.2,
+    "Closed": false,
+    "Transform": [
+      { "Scale": [ 0.8, 1, 0.8 ] },
+      { "Translation": [ 1, 0, 0 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 1, 0.3 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.8,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.3,
+    "Closed": false,
+    "Transform": [
+      { "Scale": [ 0.6, 1, 0.6 ] },
+      { "Translation": [ 1, 0, 0 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 0.9, 0.4 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.8,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.4,
+    "Closed": false,
+    "Transform": [
+      { "Scale": [ 0.4, 1, 0.4 ] },
+      { "Translation": [ 1, 0, 0 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 0.8, 0.5 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.8,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.5,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.2, 1, 0.2 ] },
+      { "Translation": [ 1, 0, 0 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 0.7, 0.6 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.8,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.3,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.05, 1, 0.05 ] },
+      { "Translation": [ 0, 0, -0.75 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 0, 0 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.9,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.3,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.05, 1, 0.05 ] },
+      { "Translation": [ 0, 0, 1.5 ] },
+      { "RotateY": -0.15 },
+      { "Translation": [ 0, 0, -2.25 ] }
+    ],
+    "Material": {
+      "Color": [ 1, 1, 0 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.9,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.3,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.05, 1, 0.05 ] },
+      { "Translation": [ 0, 0, 1.5 ] },
+      { "RotateY": -0.3 },
+      { "Translation": [ 0, 0, -2.25 ] }
+    ],
+    "Material": {
+      "Color": [ 0, 1, 0 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.9,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0,
+    "Max": 0.3,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.05, 1, 0.05 ] },
+      { "Translation": [ 0, 0, 1.5 ] },
+      { "RotateY": -0.45 },
+      { "Translation": [ 0, 0, -2.25 ] }
+    ],
+    "Material": {
+      "Color": [ 0, 1, 1 ],
+      "Ambient": 0.1,
+      "Diffuse": 0.9,
+      "Specular": 0.9,
+      "Shininess": 300
+    }
+  },
+
+  {
+    "Class": "Cylinder",
+    "Min": 0.0001,
+    "Max": 0.5,
+    "Closed": true,
+    "Transform": [
+      { "Scale": [ 0.33, 1, 0.33 ] },
+      { "Translation": [ 0, 0, -1.5 ] }
+    ],
+    "Material": {
+      "Color": [ 0.25, 0, 0 ],
+      "Diffuse": 0.1,
+      "Specular": 0.9,
+      "Shininess": 300,
+      "Reflective": 0.9,
+      "Transparency": 0.9,
+      "RefractiveIndex": 1.5
+    }
+  }
+]

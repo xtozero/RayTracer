@@ -63,6 +63,9 @@ namespace RayTracer
                             case "Cube":
                                 ParseShape<Cube>(element, symbolTable);
                                 break;
+                            case "Cylinder":
+                                ParseCylinder(element, symbolTable);
+                                break;
                             default:
                                 throw new NotImplementedException();
                         }
@@ -155,7 +158,7 @@ namespace RayTracer
             return m;
         }
 
-        private void DefineMaterial(JToken token, Dictionary<string, object> symbolTable)
+        private static void DefineMaterial(JToken token, Dictionary<string, object> symbolTable)
         {
             var name = token["Name"];
             if (name != null)
@@ -200,9 +203,9 @@ namespace RayTracer
             return pattern;
         }
 
-        private void ParseShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        private Type CreateShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
         {
-            Shape shape = new Type();
+            Type shape = new Type();
 
             var transform = token["Transform"];
             if (transform != null)
@@ -223,52 +226,87 @@ namespace RayTracer
                 }
             }
 
+            return shape;
+        }
+
+        private void ParseShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        {
+            Shape shape = CreateShape<Type>(token, symbolTable);
+
             World.Shapes.Add(shape);
+        }
+
+        private void ParseCylinder(JToken token, Dictionary<string, object> symbolTable)
+        {
+            Cylinder cylinder = CreateShape<Cylinder>(token, symbolTable);
+
+            var min = token["Min"];
+            if (min != null)
+            {
+                cylinder.Minimum = (float)min;
+            }
+
+            var max = token["Max"];
+            if (max != null)
+            {
+                cylinder.Maximum = (float)max;
+            }
+
+            var closed = token["Closed"];
+            if (closed != null)
+            {
+                cylinder.Closed = (bool)closed;
+            }
+
+            World.Shapes.Add(cylinder);
         }
 
         private static Matrix ParseTransform(JToken token)
         {
-            Matrix transform = Matrix.Identity();
+            Matrix result = Matrix.Identity();
 
-            foreach (var element in token.ToObject<JObject>())
+            foreach (var element in token)
             {
-                switch (element.Key)
+                foreach(var transform in element.ToObject<JObject>())
                 {
-                    case "Scale":
-                        {
-                            JToken value = element.Value;
-                            Tuple scale = ReadPoint(value);
-                            transform = Transformation.Scaling(scale.X, scale.Y, scale.Z) * transform;
-                        }
-                        break;
-                    case "RotateX":
-                        {
-                            transform = Transformation.RotationX((float)element.Value) * transform;
-                        }
-                        break;
-                    case "RotateY":
-                        {
-                            transform = Transformation.RotationY((float)element.Value) * transform;
-                        }
-                        break;
-                    case "RotateZ":
-                        {
-                            transform = Transformation.RotationZ((float)element.Value) * transform;
-                        }
-                        break;
-                    case "Translation":
-                        {
-                            JToken value = element.Value;
-                            Tuple translation = ReadPoint(value);
-                            transform = Transformation.Translation(translation.X, translation.Y, translation.Z) * transform;
-                        }
-                        break;
-                    default:
-                        throw new NotImplementedException();
+                    switch (transform.Key)
+                    {
+                        case "Scale":
+                            {
+                                JToken value = transform.Value;
+                                Tuple scale = ReadPoint(value);
+                                result = Transformation.Scaling(scale.X, scale.Y, scale.Z) * result;
+                            }
+                            break;
+                        case "RotateX":
+                            {
+                                result = Transformation.RotationX((float)transform.Value) * result;
+                            }
+                            break;
+                        case "RotateY":
+                            {
+                                result = Transformation.RotationY((float)transform.Value) * result;
+                            }
+                            break;
+                        case "RotateZ":
+                            {
+                                result = Transformation.RotationZ((float)transform.Value) * result;
+                            }
+                            break;
+                        case "Translation":
+                            {
+                                JToken value = transform.Value;
+                                Tuple translation = ReadPoint(value);
+                                result = Transformation.Translation(translation.X, translation.Y, translation.Z) * result;
+                            }
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                 }
             }
 
-            return transform;
+            return result;
         }
 
         private static Tuple ReadPoint(JToken token)

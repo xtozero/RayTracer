@@ -25,7 +25,7 @@ namespace RayTracer
             {
                 if (Abs(b) < Constants.floatEps)
                 {
-                    IntersectCaps(localRay, ref xs);
+                    IntersectCaps(localRay, xs);
                     return xs;
                 }
 
@@ -58,7 +58,7 @@ namespace RayTracer
                 xs.Add(new Intersection(t1, this));
             }
 
-            IntersectCaps(localRay, ref xs);
+            IntersectCaps(localRay, xs);
             return xs;
         }
 

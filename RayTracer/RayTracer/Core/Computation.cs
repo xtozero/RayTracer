@@ -24,7 +24,7 @@ namespace RayTracer
                 Inside = false;
             }
 
-            OverPoint = Point + Normalv * Constants.floatEps;
+            OverPoint = Point + Normalv * Constants.overPointEps;
             UnderPoint = Point - Normalv * Constants.floatEps;
             Reflectv = r.Direction.Reflect(Normalv);
         }
