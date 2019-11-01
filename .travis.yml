@@ -1,0 +1,9 @@
+language: csharp
+mono: none
+dist: xenial
+dotnet: 2.2
+script:
+ - cd RayTracer
+ - dotnet restore
+ - dotnet build -c Release
+ # - dotnet test ./UnitTest/UnitTest.csproj

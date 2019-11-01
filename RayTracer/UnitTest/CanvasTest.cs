@@ -1,5 +1,6 @@
 ﻿using RayTracer;
 using Xunit;
+using static System.Environment;
 
 namespace UnitTest
 {
@@ -36,7 +37,7 @@ namespace UnitTest
         {
             Canvas c = new Canvas(5, 3);
             string ppm = c.ToPPM();
-            Assert.StartsWith("P3\r\n5 3\r\n255", ppm);
+            Assert.StartsWith("P3" + NewLine + "5 3" + NewLine + "255", ppm);
         }
 
         [Fact]
@@ -51,9 +52,9 @@ namespace UnitTest
             c.WritePixel(4, 2, c3);
             string ppm = c.ToPPM();
             Assert.Contains(
-                " 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \r\n" +
-                " 0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 \r\n" +
-                " 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 \r\n"
+                " 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " + NewLine +
+                " 0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 " + NewLine +
+                " 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 " + NewLine
                 , ppm);
         }
 
@@ -71,10 +72,10 @@ namespace UnitTest
             }
             string ppm = c.ToPPM();
             Assert.Contains(
-                " 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 \r\n" +
-                " 153 255 204 153 255 204 153 255 204 153 255 204 153 \r\n" +
-                " 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 \r\n" +
-                " 153 255 204 153 255 204 153 255 204 153 255 204 153 \r\n"
+                " 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 " + NewLine +
+                " 153 255 204 153 255 204 153 255 204 153 255 204 153 " + NewLine +
+                " 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 " + NewLine +
+                " 153 255 204 153 255 204 153 255 204 153 255 204 153 " + NewLine
                 , ppm);
         }
 
