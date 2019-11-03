@@ -276,7 +276,7 @@
   {
     "Class": "Cube",
     "Transform": [
-      { "Scale": [ 4.8, 1.4, 0.06 ], },
+      { "Scale": [ 4.8, 1.4, 0.06 ] },
       { "Translation": [ -2, 3.5, 9.95 ] }
     ],
     "Material": {

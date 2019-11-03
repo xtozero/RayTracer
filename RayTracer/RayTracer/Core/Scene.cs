@@ -64,7 +64,10 @@ namespace RayTracer
                                 ParseShape<Cube>(element, symbolTable);
                                 break;
                             case "Cylinder":
-                                ParseCylinder(element, symbolTable);
+                                ParseCylinderBasedShape<Cylinder>(element, symbolTable);
+                                break;
+                            case "Cone":
+                                ParseCylinderBasedShape<Cone>(element, symbolTable);
                                 break;
                             default:
                                 throw new NotImplementedException();
@@ -190,6 +193,12 @@ namespace RayTracer
                         pattern = new CheckersPattern(ReadColor(colors[0]), ReadColor(colors[1]));
                     }
                     break;
+                case "Ring":
+                    {
+                        var colors = token["Colors"];
+                        pattern = new RingPattern(ReadColor(colors[0]), ReadColor(colors[1]));
+                    }
+                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -203,7 +212,7 @@ namespace RayTracer
             return pattern;
         }
 
-        private Type CreateShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        private static Type CreateShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
         {
             Type shape = new Type();
 
@@ -236,9 +245,9 @@ namespace RayTracer
             World.Shapes.Add(shape);
         }
 
-        private void ParseCylinder(JToken token, Dictionary<string, object> symbolTable)
+        private void ParseCylinderBasedShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type :Cylinder, new()
         {
-            Cylinder cylinder = CreateShape<Cylinder>(token, symbolTable);
+            Type cylinder = CreateShape<Type>(token, symbolTable);
 
             var min = token["Min"];
             if (min != null)

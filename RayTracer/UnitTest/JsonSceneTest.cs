@@ -82,7 +82,19 @@ namespace UnitTest
         {
             Scene s = new JsonScene(@"../scene/cylinder.json");
 
+            Shape cyl = s.World.Shapes[1];
+
+            Assert.True(cyl is Cylinder);
+
             s.Capture(@"./cylinder.ppm");
+        }
+
+        [Fact]
+        private static void TestCase04()
+        {
+            Scene s = new JsonScene(@"../scene/cone.json");
+
+            s.Capture(@"./cone.ppm");
         }
     }
 }
