@@ -10,11 +10,9 @@ namespace RayTracer
 
         public Tuple NormalAt(Tuple p)
         {
-            Tuple localPoint = Transform.Inverse() * p;
+            Tuple localPoint = WorldToObject(p);
             Tuple localNormal = LocalNormalAt(localPoint);
-            Tuple worldNormal = Transform.Inverse().Transpose() * localNormal;
-            worldNormal.W = 0;
-            return worldNormal.Normalize();
+            return NormalToWorld(localNormal);
         }
 
         public List<Intersection> Intersect(Ray r)
@@ -54,7 +52,32 @@ namespace RayTracer
             Material = new Material();
         }
 
+        private Tuple WorldToObject(Tuple point)
+        {
+            if (Parent != null)
+            {
+                point = Parent.WorldToObject(point);
+            }
+
+            return Transform.Inverse() * point;
+        }
+
+        private Tuple NormalToWorld(Tuple normal)
+        {
+            normal = Transform.Inverse().Transpose() * normal;
+            normal.W = 0;
+            normal = normal.Normalize();
+
+            if (Parent != null)
+            {
+                normal = Parent.NormalToWorld(normal);
+            }
+
+            return normal;
+        }
+
         public Matrix Transform { get; set; }
         public Material Material { get; set; }
+        public Shape Parent { get; set; }
     }
 }

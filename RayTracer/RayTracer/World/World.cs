@@ -37,6 +37,6 @@ namespace RayTracer
         }
 
         public Light Light { get; set; }
-        public List<Shape> Shapes { get; set; }
+        public List<Shape> Shapes { get; private set; }
     }
 }

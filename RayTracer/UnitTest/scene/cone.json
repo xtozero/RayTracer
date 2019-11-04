@@ -79,7 +79,7 @@
     "Min": -1,
     "Max": 0,
     "Transform": [
-      { "Translation": [ 2, 1, 0 ] },
+      { "Translation": [ 2, 1, 0 ] }
     ],
     "Material": {
       "Color": [ 0, 0.7, 0.1 ],

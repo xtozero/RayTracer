@@ -85,6 +85,10 @@ namespace UnitTest
             Shape cyl = s.World.Shapes[1];
 
             Assert.True(cyl is Cylinder);
+            Assert.Equal(0, (cyl as Cylinder)?.Minimum);
+            Assert.Equal(0.75f, (cyl as Cylinder)?.Maximum);
+            Assert.True((cyl as Cylinder)?.Closed);
+
 
             s.Capture(@"./cylinder.ppm");
         }
@@ -93,6 +97,11 @@ namespace UnitTest
         private static void TestCase04()
         {
             Scene s = new JsonScene(@"../scene/cone.json");
+
+            Shape cone = s.World.Shapes[1];
+
+            Assert.True(cone is Cone);
+            Assert.Equal(0, (cone as Cone)?.Minimum);
 
             s.Capture(@"./cone.ppm");
         }
