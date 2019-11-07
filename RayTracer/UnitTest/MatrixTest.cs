@@ -268,11 +268,11 @@ namespace UnitTest
 
             Matrix b = a.Inverse();
 
-            Assert.Equal(532, a.Determinant());
-            Assert.Equal(-160, a.Cofactor(2, 3));
-            Assert.Equal(-160.0f / 532, b[3, 2]);
-            Assert.Equal(105, a.Cofactor(3, 2));
-            Assert.Equal(105.0f / 532, b[2, 3]);
+            Assert.Equal(532, a.Determinant(), 5);
+            Assert.Equal(-160, a.Cofactor(2, 3), 5);
+            Assert.Equal(-160.0f / 532, b[3, 2], 5);
+            Assert.Equal(105, a.Cofactor(3, 2), 5);
+            Assert.Equal(105.0f / 532, b[2, 3], 5);
 
             Matrix inverseA = new Matrix(
                 0.21805f, 0.45113f, 0.24060f, -0.04511f,

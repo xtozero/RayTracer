@@ -8,7 +8,7 @@ namespace RayTracer
     {
         public Matrix Inverse()
         {
-            float det = Determinant();
+            float invDet = 1.0f / Determinant();
 
             Matrix invMat = new Matrix(Size);
 
@@ -16,7 +16,7 @@ namespace RayTracer
             {
                 for (int col = 0; col < Size; ++col)
                 {
-                    invMat[col, row] = Cofactor(row, col) / det;
+                    invMat[col, row] = Cofactor(row, col) * invDet;
                 }
             }
 
@@ -42,46 +42,31 @@ namespace RayTracer
         {
             Matrix sub = new Matrix(Size - 1);
 
-            IEnumerator<float> it = SubMatrixSequence(row, col).GetEnumerator();
-            it.MoveNext();
-            for (int j = 0; j < sub.Size; ++j)
+            for (int j = 0, sj = 0; j < sub.Size; ++sj)
             {
-                for (int i = 0; i < sub.Size; ++i)
+                for (int i = 0, si = 0; i < sub.Size; ++si)
                 {
-                    sub[j, i] = it.Current;
-                    it.MoveNext();
+                    sub[j, i] = this[sj, si];
+                    i = ( si == col ) ? i : ++i;
                 }
+                j = ( sj == row ) ? j : ++j;
             }
 
             return sub;
-        }
-
-        private IEnumerable<float> SubMatrixSequence(int row, int col)
-        {
-            for (int j = 0; j < Size; ++j)
-            {
-                for (int i = 0; i < Size; ++i)
-                {
-                    if (j != row && i != col)
-                    {
-                        yield return M[j, i];
-                    }
-                }
-            }
         }
 
         public float Determinant()
         {
             if (Size == 2)
             {
-                return M[0, 0] * M[1, 1] - M[0, 1] * M[1, 0];
+                return M[0] * M[5] - M[1] * M[4];
             }
 
             float determinant = 0;
 
             for (int col = 0; col < Size; ++col)
             {
-                determinant += M[0, col] * Cofactor(0, col);
+                determinant += this[0, col] * Cofactor(0, col);
             }
 
             return determinant;
@@ -90,10 +75,10 @@ namespace RayTracer
         public Matrix Transpose()
         {
             return new Matrix(
-                M[0, 0], M[1, 0], M[2, 0], M[3, 0],
-                M[0, 1], M[1, 1], M[2, 1], M[3, 1],
-                M[0, 2], M[1, 2], M[2, 2], M[3, 2],
-                M[0, 3], M[1, 3], M[2, 3], M[3, 3]);
+                M[0], M[4], M[8], M[12],
+                M[1], M[5], M[9], M[13],
+                M[2], M[6], M[10], M[14],
+                M[3], M[7], M[11], M[15]);
         }
 
         public static Matrix Identity()
@@ -122,19 +107,19 @@ namespace RayTracer
 
         public bool Equals(Matrix other)
         {
-            return Abs(M[0, 0] - other[0, 0]) < Constants.floatEps && Abs(M[0, 1] - other[0, 1]) < Constants.floatEps && Abs(M[0, 2] - other[0, 2]) < Constants.floatEps && Abs(M[0, 3] - other[0, 3]) < Constants.floatEps &&
-                Abs(M[1, 0] - other[1, 0]) < Constants.floatEps && Abs(M[1, 1] - other[1, 1]) < Constants.floatEps && Abs(M[1, 2] - other[1, 2]) < Constants.floatEps && Abs(M[1, 3] - other[1, 3]) < Constants.floatEps &&
-                Abs(M[2, 0] - other[2, 0]) < Constants.floatEps && Abs(M[2, 1] - other[2, 1]) < Constants.floatEps && Abs(M[2, 2] - other[2, 2]) < Constants.floatEps && Abs(M[2, 3] - other[2, 3]) < Constants.floatEps &&
-                Abs(M[3, 0] - other[3, 0]) < Constants.floatEps && Abs(M[3, 1] - other[3, 1]) < Constants.floatEps && Abs(M[3, 2] - other[3, 2]) < Constants.floatEps && Abs(M[3, 3] - other[3, 3]) < Constants.floatEps;
+            return Abs(M[0] - other.M[0]) < Constants.floatEps && Abs(M[1] - other.M[1]) < Constants.floatEps && Abs(M[2] - other.M[2]) < Constants.floatEps && Abs(M[3] - other.M[3]) < Constants.floatEps &&
+                Abs(M[4] - other.M[4]) < Constants.floatEps && Abs(M[5] - other.M[5]) < Constants.floatEps && Abs(M[6] - other.M[6]) < Constants.floatEps && Abs(M[7] - other.M[7]) < Constants.floatEps &&
+                Abs(M[8] - other.M[8]) < Constants.floatEps && Abs(M[9] - other.M[9]) < Constants.floatEps && Abs(M[10] - other.M[10]) < Constants.floatEps && Abs(M[11] - other.M[11]) < Constants.floatEps &&
+                Abs(M[12] - other.M[12]) < Constants.floatEps && Abs(M[13] - other.M[13]) < Constants.floatEps && Abs(M[14] - other.M[14]) < Constants.floatEps && Abs(M[15] - other.M[15]) < Constants.floatEps;
         }
 
         public override int GetHashCode()
         {
             HashCode hash = new HashCode();
-            hash.Add(M[0, 0]); hash.Add(M[0, 1]); hash.Add(M[0, 2]); hash.Add(M[0, 3]);
-            hash.Add(M[1, 0]); hash.Add(M[1, 1]); hash.Add(M[1, 2]); hash.Add(M[1, 3]);
-            hash.Add(M[2, 0]); hash.Add(M[2, 1]); hash.Add(M[2, 2]); hash.Add(M[2, 3]);
-            hash.Add(M[3, 0]); hash.Add(M[3, 1]); hash.Add(M[3, 2]); hash.Add(M[3, 3]);
+            hash.Add(M[0]); hash.Add(M[1]); hash.Add(M[2]); hash.Add(M[3]);
+            hash.Add(M[4]); hash.Add(M[5]); hash.Add(M[6]); hash.Add(M[7]);
+            hash.Add(M[8]); hash.Add(M[9]); hash.Add(M[10]); hash.Add(M[11]);
+            hash.Add(M[12]); hash.Add(M[13]); hash.Add(M[14]); hash.Add(M[15]);
             return hash.ToHashCode();
         }
 
@@ -147,9 +132,9 @@ namespace RayTracer
                 for (int col = 0; col < 4; ++col)
                 {
                     m[row, col] = lhs[row, 0] * rhs[0, col] +
-                        lhs[row, 1] * rhs[1, col] +
-                        lhs[row, 2] * rhs[2, col] +
-                        lhs[row, 3] * rhs[3, col];
+                                lhs[row, 1] * rhs[1, col] +
+                                lhs[row, 2] * rhs[2, col] +
+                                lhs[row, 3] * rhs[3, col];
                 }
             }
 
@@ -160,10 +145,10 @@ namespace RayTracer
         {
             Tuple t = new Tuple(0, 0, 0, 0);
 
-            t.X = lhs[0, 0] * rhs.X + lhs[0, 1] * rhs.Y + lhs[0, 2] * rhs.Z + lhs[0, 3] * rhs.W;
-            t.Y = lhs[1, 0] * rhs.X + lhs[1, 1] * rhs.Y + lhs[1, 2] * rhs.Z + lhs[1, 3] * rhs.W;
-            t.Z = lhs[2, 0] * rhs.X + lhs[2, 1] * rhs.Y + lhs[2, 2] * rhs.Z + lhs[2, 3] * rhs.W;
-            t.W = lhs[3, 0] * rhs.X + lhs[3, 1] * rhs.Y + lhs[3, 2] * rhs.Z + lhs[3, 3] * rhs.W;
+            t.X = lhs.M[0] * rhs.X + lhs.M[1] * rhs.Y + lhs.M[2] * rhs.Z + lhs.M[3] * rhs.W;
+            t.Y = lhs.M[4] * rhs.X + lhs.M[5] * rhs.Y + lhs.M[6] * rhs.Z + lhs.M[7] * rhs.W;
+            t.Z = lhs.M[8] * rhs.X + lhs.M[9] * rhs.Y + lhs.M[10] * rhs.Z + lhs.M[11] * rhs.W;
+            t.W = lhs.M[12] * rhs.X + lhs.M[13] * rhs.Y + lhs.M[14] * rhs.Z + lhs.M[15] * rhs.W;
 
             return t;
         }
@@ -172,11 +157,11 @@ namespace RayTracer
         {
             get
             {
-                return M[row, col];
+                return M[row * 4 + col];
             }
             set
             {
-                M[row, col] = value;
+                M[row * 4 + col] = value;
             }
         }
 
@@ -186,12 +171,12 @@ namespace RayTracer
             float m30, float m31, float m32, float m33)
         {
             Size = 4;
-            M = new float[4, 4];
+            M = new float[16];
 
-            M[0, 0] = m00; M[0, 1] = m01; M[0, 2] = m02; M[0, 3] = m03;
-            M[1, 0] = m10; M[1, 1] = m11; M[1, 2] = m12; M[1, 3] = m13;
-            M[2, 0] = m20; M[2, 1] = m21; M[2, 2] = m22; M[2, 3] = m23;
-            M[3, 0] = m30; M[3, 1] = m31; M[3, 2] = m32; M[3, 3] = m33;
+            M[0] = m00; M[1] = m01; M[2] = m02; M[3] = m03;
+            M[4] = m10; M[5] = m11; M[6] = m12; M[7] = m13;
+            M[8] = m20; M[9] = m21; M[10] = m22; M[11] = m23;
+            M[12] = m30; M[13] = m31; M[14] = m32; M[15] = m33;
         }
 
         public Matrix(float m00, float m01, float m02,
@@ -199,30 +184,30 @@ namespace RayTracer
             float m20, float m21, float m22)
         {
             Size = 3;
-            M = new float[4, 4];
+            M = new float[16];
 
-            M[0, 0] = m00; M[0, 1] = m01; M[0, 2] = m02;
-            M[1, 0] = m10; M[1, 1] = m11; M[1, 2] = m12;
-            M[2, 0] = m20; M[2, 1] = m21; M[2, 2] = m22;
+            M[0] = m00; M[1] = m01; M[2] = m02;
+            M[4] = m10; M[5] = m11; M[6] = m12;
+            M[8] = m20; M[9] = m21; M[10] = m22;
         }
 
         public Matrix(float m00, float m01,
             float m10, float m11)
         {
             Size = 2;
-            M = new float[4, 4];
+            M = new float[16];
 
-            M[0, 0] = m00; M[0, 1] = m01;
-            M[1, 0] = m10; M[1, 1] = m11;
+            M[0] = m00; M[1] = m01;
+            M[4] = m10; M[5] = m11;
         }
 
         public Matrix(int size)
         {
             Size = size;
-            M = new float[4, 4];
+            M = new float[16];
         }
 
-        public float[,] M { get; set; }
+        public float[] M { get; private set; }
         public int Size { get; private set; }
     }
 }
