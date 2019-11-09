@@ -6,4 +6,4 @@ script:
  - cd RayTracer
  - dotnet restore
  - dotnet build -c Release
- # - dotnet test ./UnitTest/UnitTest.csproj
+ - dotnet test ./UnitTest/UnitTest.csproj --configuration Release
