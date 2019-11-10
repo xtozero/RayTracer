@@ -17,7 +17,7 @@ namespace RayTracer
 
             float invDet = 1.0f / det;
 
-            Tuple p1ToOrigin = P1 - localRay.Origin;
+            Tuple p1ToOrigin = localRay.Origin - P1;
             float u = invDet * p1ToOrigin.Dot(dirCrossE2);
 
             if (u < 0 || u > 1)
@@ -28,7 +28,7 @@ namespace RayTracer
             Tuple originCrossE1 = p1ToOrigin.Cross(E1);
             float v = invDet * localRay.Direction.Dot(originCrossE1);
 
-            if (v < 0 || v > 1)
+            if (v < 0 || ( u + v ) > 1)
             {
                 return Intersection.Aggregate();
             }
