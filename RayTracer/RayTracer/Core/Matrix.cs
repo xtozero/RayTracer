@@ -42,14 +42,22 @@ namespace RayTracer
         {
             Matrix sub = new Matrix(Size - 1);
 
-            for (int j = 0, sj = 0; j < sub.Size; ++sj)
+            int destRow = 0;
+            for (int srcRow = 0; srcRow < Size; ++srcRow)
             {
-                for (int i = 0, si = 0; i < sub.Size; ++si)
+                if ( srcRow != row )
                 {
-                    sub[j, i] = this[sj, si];
-                    i = ( si == col ) ? i : ++i;
+                    int destCol = 0;
+                    for (int srcCol = 0; srcCol < Size; ++srcCol)
+                    {
+                        if (srcCol != col)
+                        {
+                            sub[destRow, destCol] = this[srcRow, srcCol];
+                            ++destCol;
+                        }
+                    }
+                    ++destRow;
                 }
-                j = ( sj == row ) ? j : ++j;
             }
 
             return sub;

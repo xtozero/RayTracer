@@ -85,7 +85,7 @@
       "Color": [ 0, 0.7, 0.1 ],
       "Diffuse": 0.8,
       "Specular": 0.9,
-      "Shininess": 300,
+      "Shininess": 300
     }
   }
 ]
