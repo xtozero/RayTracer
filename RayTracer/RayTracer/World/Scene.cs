@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -37,165 +38,157 @@ namespace RayTracer
             {
                 using (JsonTextReader textReader = new JsonTextReader(sr))
                 {
-                    JArray jScene = (JArray)JToken.ReadFrom(textReader);
+                    var jScene = JToken.ReadFrom(textReader);
                     var symbolTable = new Dictionary<string, object>();
 
-                    foreach (var element in jScene)
+                    var camera = jScene.Value<JObject>("Camera");
+                    Debug.Assert(camera != null);
+                    Camera = CreateCamera(camera);
+
+                    var lights = jScene.Value<JArray>("Lights");
+                    if (lights != null)
                     {
-                        string key = (string)element["Class"];
-                        switch (key)
+                        foreach (var light in lights)
                         {
-                            case "Camera":
-                                ParseCamera(element, symbolTable);
-                                break;
-                            case "PointLight":
-                                ParsePointLight(element, symbolTable);
-                                break;
-                            case "Material":
-                                DefineMaterial(element, symbolTable);
-                                break;
-                            case "Plane":
-                                ParseShape<Plane>(element, symbolTable);
-                                break;
-                            case "Sphere":
-                                ParseShape<Sphere>(element, symbolTable);
-                                break;
-                            case "Cube":
-                                ParseShape<Cube>(element, symbolTable);
-                                break;
-                            case "Cylinder":
-                                ParseCylinderBasedShape<Cylinder>(element, symbolTable);
-                                break;
-                            case "Cone":
-                                ParseCylinderBasedShape<Cone>(element, symbolTable);
-                                break;
-                            default:
-                                throw new NotImplementedException();
+                            var property = GetKeyValuePair(light);
+                            switch (property.Key)
+                            {
+                                case "PointLight":
+                                    World.Light = CreatePointLight(property.Value);
+                                    break;
+                            }
                         }
+                    }
+
+                    var define = jScene.Value<JObject>("Define");
+                    if (define != null)
+                    {
+                        foreach(var item in define)
+                        {
+                            var property = GetKeyValuePair(item.Value);
+                            symbolTable.Add(item.Key, CreateEntity(property, symbolTable));
+                        }
+                    }
+
+                    var scene = jScene.Value<JArray>("Scene");
+                    Debug.Assert(scene != null);
+                    foreach (var entity in scene)
+                    {
+                        var property = GetKeyValuePair(entity);
+                        World.Shapes.Add(CreateShape(property, symbolTable));
                     }
                 }
             }
         }
 
-        private void ParseCamera(JToken token, Dictionary<string, object> _)
+        private Camera CreateCamera(JToken jToken)
         {
-            int width = (int)token["Width"];
-            int height = (int)token["Height"];
-            float fov = (float)token["Fov"];
+            int width = (int)jToken["Width"];
+            int height = (int)jToken["Height"];
+            float fov = (float)jToken["Fov"];
 
-            Camera = new Camera(width, height, fov);
+            var camera = new Camera(width, height, fov);
 
-            var from = token["From"];
-            var to = token["To"];
-            var up = token["Up"];
+            var from = jToken["From"];
+            var to = jToken["To"];
+            var up = jToken["Up"];
 
-            Camera.Transform = Transformation.LookAt(ReadPoint(from), ReadPoint(to), ReadVector(up));
+            camera.Transform = Transformation.LookAt(ReadPoint(from), ReadPoint(to), ReadVector(up));
+
+            return camera;
         }
 
-        private void ParsePointLight(JToken token, Dictionary<string, object> _)
+        private PointLight CreatePointLight(JToken jToken)
         {
-            var at = token["At"];
-            var intensity = token["Intensity"];
+            var at = jToken["At"];
+            var intensity = jToken["Intensity"];
 
-            World.Light = new PointLight(ReadPoint(at), ReadColor(intensity));
+            return new PointLight(ReadPoint(at), ReadColor(intensity));
         }
 
-        private static Material CreateMaterial(JToken token)
+        private static Material CreateMaterial(JToken jToken)
         {
-            Material m = new Material();
+            var material = new Material();
 
-            var color = token["Color"];
+            var color = jToken["Color"];
             if (color != null)
             {
-                m.Color = ReadColor(color);
+                material.Color = ReadColor(color);
             }
 
-            var ambient = token["Ambient"];
+            var ambient = jToken["Ambient"];
             if (ambient != null)
             {
-                m.Ambient = (float)ambient;
+                material.Ambient = (float)ambient;
             }
 
-            var diffuse = token["Diffuse"];
+            var diffuse = jToken["Diffuse"];
             if (diffuse != null)
             {
-                m.Diffuse = (float)diffuse;
+                material.Diffuse = (float)diffuse;
             }
 
-            var specular = token["Specular"];
+            var specular = jToken["Specular"];
             if (specular != null)
             {
-                m.Specular = (float)specular;
+                material.Specular = (float)specular;
             }
 
-            var shininess = token["Shininess"];
+            var shininess = jToken["Shininess"];
             if (shininess != null)
             {
-                m.Shininess = (float)shininess;
+                material.Shininess = (float)shininess;
             }
 
-            var pattern = token["Pattern"];
+            var pattern = jToken["Pattern"];
             if (pattern != null)
             {
-                m.Pattern = CreatePattern(pattern);
+                material.Pattern = CreatePattern(pattern);
             }
 
-            var reflective = token["Reflective"];
+            var reflective = jToken["Reflective"];
             if (reflective != null)
             {
-                m.Reflective = (float)reflective;
+                material.Reflective = (float)reflective;
             }
 
-            var transparency = token["Transparency"];
+            var transparency = jToken["Transparency"];
             if (transparency != null)
             {
-                m.Transparency = (float)transparency;
+                material.Transparency = (float)transparency;
             }
 
-            var refractiveIndex = token["RefractiveIndex"];
+            var refractiveIndex = jToken["RefractiveIndex"];
             if (refractiveIndex != null)
             {
-                m.RefractiveIndex = (float)refractiveIndex;
+                material.RefractiveIndex = (float)refractiveIndex;
             }
 
-            return m;
+            return material;
         }
 
-        private static void DefineMaterial(JToken token, Dictionary<string, object> symbolTable)
-        {
-            var name = token["Name"];
-            if (name != null)
-            {
-                symbolTable.Add((string)name, CreateMaterial(token));
-            }
-            else
-            {
-                throw new InvalidDataException("To define material must need name");
-            }
-        }
-
-        private static Pattern CreatePattern(JToken token)
+        private static Pattern CreatePattern(JToken jToken)
         {
             Pattern pattern = null;
 
-            string type = (string)token["Type"];
-            switch (type)
+            var property = GetKeyValuePair(jToken);
+            switch (property.Key)
             {
                 case "Stripes":
                     {
-                        var colors = token["Colors"];
+                        var colors = property.Value["Colors"];
                         pattern = new StripePattern(ReadColor(colors[0]), ReadColor(colors[1]));
                     }
                     break;
                 case "Checkers":
                     {
-                        var colors = token["Colors"];
+                        var colors = property.Value["Colors"];
                         pattern = new CheckersPattern(ReadColor(colors[0]), ReadColor(colors[1]));
                     }
                     break;
                 case "Ring":
                     {
-                        var colors = token["Colors"];
+                        var colors = property.Value["Colors"];
                         pattern = new RingPattern(ReadColor(colors[0]), ReadColor(colors[1]));
                     }
                     break;
@@ -203,31 +196,31 @@ namespace RayTracer
                     throw new NotImplementedException();
             }
 
-            var transform = token["Transform"];
+            var transform = property.Value["Transform"];
             if (transform != null)
             {
-                pattern.Transform = ParseTransform(transform);
+                pattern.Transform = CreateTransform(transform);
             }
 
             return pattern;
         }
 
-        private static Type CreateShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        private static Type CreateShape<Type>(JToken jToken, Dictionary<string, object> symbolTable) where Type : Shape, new()
         {
             Type shape = new Type();
 
-            var transform = token["Transform"];
+            var transform = jToken["Transform"];
             if (transform != null)
             {
-                shape.Transform = ParseTransform(transform);
+                shape.Transform = CreateTransform(transform);
             }
 
-            var material = token["Material"];
+            var material = jToken["Material"];
             if (material != null)
             {
                 if (material.Type == JTokenType.String)
                 {
-                    shape.Material = (Material)symbolTable[(string)material];
+                    shape.Material = symbolTable[(string)material] as Material;
                 }
                 else
                 {
@@ -238,99 +231,134 @@ namespace RayTracer
             return shape;
         }
 
-        private void ParseShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        private Type CreateCylinderBasedShape<Type>(JToken jToken, Dictionary<string, object> symbolTable) where Type :Cylinder, new()
         {
-            Shape shape = CreateShape<Type>(token, symbolTable);
+            Type shape = CreateShape<Type>(jToken, symbolTable);
 
-            World.Shapes.Add(shape);
-        }
-
-        private void ParseCylinderBasedShape<Type>(JToken token, Dictionary<string, object> symbolTable) where Type :Cylinder, new()
-        {
-            Type cylinder = CreateShape<Type>(token, symbolTable);
-
-            var min = token["Min"];
+            var min = jToken["Min"];
             if (min != null)
             {
-                cylinder.Minimum = (float)min;
+                shape.Minimum = (float)min;
             }
 
-            var max = token["Max"];
+            var max = jToken["Max"];
             if (max != null)
             {
-                cylinder.Maximum = (float)max;
+                shape.Maximum = (float)max;
             }
 
-            var closed = token["Closed"];
+            var closed = jToken["Closed"];
             if (closed != null)
             {
-                cylinder.Closed = (bool)closed;
+                shape.Closed = (bool)closed;
             }
 
-            World.Shapes.Add(cylinder);
+            return shape;
         }
 
-        private static Matrix ParseTransform(JToken token)
+        private object CreateEntity(KeyValuePair<string, JToken> property, Dictionary<string, object> symbolTable)
         {
-            Matrix result = Matrix.Identity();
-
-            foreach (var element in token)
+            switch (property.Key)
             {
-                foreach(var transform in element.ToObject<JObject>())
+                case "Material":
+                    return CreateMaterial(property.Value);
+                default:
+                    return CreateShape(property, symbolTable);
+            }
+        }
+
+        private Shape CreateShape(KeyValuePair<string, JToken> property, Dictionary<string, object> symbolTable)
+        {
+            switch (property.Key)
+            {
+                case "Plane":
+                    return CreateShape<Plane>(property.Value, symbolTable);
+                case "Sphere":
+                    return CreateShape<Sphere>(property.Value, symbolTable);
+                case "Cube":
+                    return CreateShape<Cube>(property.Value, symbolTable);
+                case "Cylinder":
+                    return CreateCylinderBasedShape<Cylinder>(property.Value, symbolTable);
+                case "Cone":
+                    return CreateCylinderBasedShape<Cone>(property.Value, symbolTable);
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static Matrix CreateTransform(JToken jToken)
+        {
+            var result = Matrix.Identity();
+
+            foreach (var element in jToken)
+            {
+                var transform = GetKeyValuePair(element);
+                switch (transform.Key)
                 {
-                    switch (transform.Key)
-                    {
-                        case "Scale":
-                            {
-                                JToken value = transform.Value;
-                                Tuple scale = ReadPoint(value);
-                                result = Transformation.Scaling(scale.X, scale.Y, scale.Z) * result;
-                            }
-                            break;
-                        case "RotateX":
-                            {
-                                result = Transformation.RotationX((float)transform.Value) * result;
-                            }
-                            break;
-                        case "RotateY":
-                            {
-                                result = Transformation.RotationY((float)transform.Value) * result;
-                            }
-                            break;
-                        case "RotateZ":
-                            {
-                                result = Transformation.RotationZ((float)transform.Value) * result;
-                            }
-                            break;
-                        case "Translation":
-                            {
-                                JToken value = transform.Value;
-                                Tuple translation = ReadPoint(value);
-                                result = Transformation.Translation(translation.X, translation.Y, translation.Z) * result;
-                            }
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+                    case "Scale":
+                        {
+                            var value = transform.Value;
+                            var scale = ReadPoint(value);
+                            result = Transformation.Scaling(scale.X, scale.Y, scale.Z) * result;
+                        }
+                        break;
+                    case "RotateX":
+                        {
+                            result = Transformation.RotationX((float)transform.Value) * result;
+                        }
+                        break;
+                    case "RotateY":
+                        {
+                            result = Transformation.RotationY((float)transform.Value) * result;
+                        }
+                        break;
+                    case "RotateZ":
+                        {
+                            result = Transformation.RotationZ((float)transform.Value) * result;
+                        }
+                        break;
+                    case "Translation":
+                        {
+                            var value = transform.Value;
+                            var translation = ReadPoint(value);
+                            result = Transformation.Translation(translation.X, translation.Y, translation.Z) * result;
+                        }
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
 
             return result;
         }
 
-        private static Tuple ReadPoint(JToken token)
+        private static Tuple ReadPoint(JToken jToken)
         {
-            return Tuple.Point((float)token[0], (float)token[1], (float)token[2]);
+            return Tuple.Point((float)jToken[0], (float)jToken[1], (float)jToken[2]);
         }
 
-        private static Tuple ReadColor(JToken token)
+        private static Tuple ReadColor(JToken jToken)
         {
-            return Tuple.Color((float)token[0], (float)token[1], (float)token[2]);
+            return Tuple.Color((float)jToken[0], (float)jToken[1], (float)jToken[2]);
         }
 
-        private static Tuple ReadVector(JToken token)
+        private static Tuple ReadVector(JToken jToken)
         {
-            return Tuple.Vector((float)token[0], (float)token[1], (float)token[2]);
+            return Tuple.Vector((float)jToken[0], (float)jToken[1], (float)jToken[2]);
+        }
+
+        private static KeyValuePair<string, JToken> GetKeyValuePair(JToken jToken)
+        {
+            var jObject = jToken.ToObject<JObject>();
+            var keyValueEnum = jObject.GetEnumerator();
+            if (keyValueEnum?.MoveNext() ?? false)
+            {
+                return keyValueEnum.Current;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
     }
 }

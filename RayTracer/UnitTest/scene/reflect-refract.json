@@ -1,6 +1,5 @@
-[
-  {
-    "Class": "Camera",
+{
+  "Camera": {
     "Width": 400,
     "Height": 200,
     "Fov": 1.152,
@@ -9,196 +8,218 @@
     "Up": [ 0, 1, 0 ]
   },
 
-  {
-    "Class": "PointLight",
-    "At": [ -4.9, 4.9, -1 ],
-    "Intensity": [ 1, 1, 1 ]
+  "Lights": [
+    {
+      "PointLight": {
+        "At": [ -4.9, 4.9, -1 ],
+        "Intensity": [ 1, 1, 1 ]
+      }
+    }
+  ],
+
+  "Define": {
+    "wall-material": {
+      "Material": {
+        "Pattern": {
+          "Stripes": {
+            "Colors": [
+              [ 0.35, 0.35, 0.35 ],
+              [ 0.65, 0.65, 0.65 ]
+            ],
+            "Transform": [
+              { "Scale": [ 0.25, 0.25, 0.25 ] },
+              { "RotateY": 1.5708 }
+            ]
+          }
+        },
+        "Ambient": 0,
+        "Diffuse": 0.4,
+        "Specular": 0,
+        "Reflective": 0.3
+      }
+    }
   },
 
-  {
-    "Class": "Material",
-    "Name": "wall-material",
-    "Pattern": {
-      "Type": "Stripes",
-      "Colors": [
-        [ 0.35, 0.35, 0.35 ],
-        [ 0.65, 0.65, 0.65 ]
-      ],
-      "Transform": [
-        { "Scale": [ 0.25, 0.25, 0.25 ] },
-        { "RotateY": 1.5708 }
-      ]
-    },
-    "Ambient": 0,
-    "Diffuse": 0.4,
-    "Specular": 0,
-    "Reflective": 0.3
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "RotateY": 0.31415 }
-    ],
-    "Material": {
-      "Pattern": {
-        "Type": "Checkers",
-        "Colors": [
-          [ 0.35, 0.35, 0.35 ],
-          [ 0.65, 0.65, 0.65 ]
-        ],
+  "Scene": [
+    {
+      "Plane": {
         "Transform": [
-          { "Translation": [ 0, -0.1, 0 ] }
-        ]
-      },
-      "Specular": 0,
-      "Reflective": 0.4
+          { "RotateY": 0.31415 }
+        ],
+        "Material": {
+          "Pattern": {
+            "Checkers": {
+              "Colors": [
+                [ 0.35, 0.35, 0.35 ],
+                [ 0.65, 0.65, 0.65 ]
+              ],
+              "Transform": [
+                { "Translation": [ 0, -0.1, 0 ] }
+              ]
+            }
+          },
+          "Specular": 0,
+          "Reflective": 0.4
+        }
+      }
+    },
+
+    {
+      "Plane": {
+        "Transform": [
+          { "Translation": [ 0, 5, 0 ] }
+        ],
+        "Material": {
+          "Color": [ 0.8, 0.8, 0.8 ],
+          "Ambient": 0.3,
+          "Specular": 0
+        }
+      }
+    },
+
+    {
+      "Plane": {
+        "Transform": [
+          { "RotateY": 1.5708 },
+          { "RotateZ": 1.5708 },
+          { "Translation": [ -5, 0, 0 ] }
+        ],
+        "Material": "wall-material"
+      }
+    },
+
+    {
+      "Plane": {
+        "Transform": [
+          { "RotateY": 1.5708 },
+          { "RotateZ": 1.5708 },
+          { "Translation": [ 5, 0, 0 ] }
+        ],
+        "Material": "wall-material"
+      }
+    },
+
+    {
+      "Plane": {
+        "Transform": [
+          { "RotateX": 1.5708 },
+          { "Translation": [ 0, 0, 5 ] }
+        ],
+        "Material": "wall-material"
+      }
+    },
+
+    {
+      "Plane": {
+        "Transform": [
+          { "RotateX": 1.5708 },
+          { "Translation": [ 0, 0, -5 ] }
+        ],
+        "Material": "wall-material"
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.4, 0.4, 0.4 ] },
+          { "Translation": [ 4.6, 0.4, 1 ] }
+        ],
+        "Material": {
+          "Color": [ 0.8, 0.5, 0.3 ],
+          "Shininess": 50
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.3, 0.3, 0.3 ] },
+          { "Translation": [ 4.7, 0.3, 4 ] }
+        ],
+        "Material": {
+          "Color": [ 0.9, 0.4, 0.5 ],
+          "Shininess": 50
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.5, 0.5, 0.5 ] },
+          { "Translation": [ -1, 0.5, 4.5 ] }
+        ],
+        "Material": {
+          "Color": [ 0.4, 0.9, 0.6 ],
+          "Shininess": 50
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.3, 0.3, 0.3 ] },
+          { "Translation": [ -1.7, 0.3, 4.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.4, 0.6, 0.9 ],
+          "Shininess": 50
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Translation": [ -0.6, 1, 0.6 ] }
+        ],
+        "Material": {
+          "Color": [ 1, 0.3, 0.2 ],
+          "Specular": 0.4,
+          "Shininess": 5
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.7, 0.7, 0.7 ] },
+          { "Translation": [ 0.6, 0.7, -0.6 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0, 0.2 ],
+          "Ambient": 0,
+          "Diffuse": 0.4,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.9,
+          "Transparency": 0.9,
+          "RefractiveIndex": 1.5
+        }
+      }
+    },
+
+    {
+      "Sphere": {
+        "Transform": [
+          { "Scale": [ 0.5, 0.5, 0.5 ] },
+          { "Translation": [ -0.7, 0.5, -0.8 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0.2, 0 ],
+          "Ambient": 0,
+          "Diffuse": 0.4,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.9,
+          "Transparency": 0.9,
+          "RefractiveIndex": 1.5
+        }
+      }
     }
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "Translation": [ 0, 5, 0 ] }
-    ],
-    "Material": {
-      "Color": [ 0.8, 0.8, 0.8 ],
-      "Ambient": 0.3,
-      "Specular": 0
-    }
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "RotateY": 1.5708 },
-      { "RotateZ": 1.5708 },
-      { "Translation": [ -5, 0, 0 ] }
-    ],
-    "Material": "wall-material"
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "RotateY": 1.5708 },
-      { "RotateZ": 1.5708 },
-      { "Translation": [ 5, 0, 0 ] }
-    ],
-    "Material": "wall-material"
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "RotateX": 1.5708 },
-      { "Translation": [ 0, 0, 5 ] }
-    ],
-    "Material": "wall-material"
-  },
-
-  {
-    "Class": "Plane",
-    "Transform": [
-      { "RotateX": 1.5708 },
-      { "Translation": [ 0, 0, -5 ] }
-    ],
-    "Material": "wall-material"
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.4, 0.4, 0.4 ] },
-      { "Translation": [ 4.6, 0.4, 1 ] }
-    ],
-    "Material": {
-      "Color": [ 0.8, 0.5, 0.3 ],
-      "Shininess": 50
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.3, 0.3, 0.3 ] },
-      { "Translation": [ 4.7, 0.3, 4 ] }
-    ],
-    "Material": {
-      "Color": [ 0.9, 0.4, 0.5 ],
-      "Shininess": 50
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.5, 0.5, 0.5 ] },
-      { "Translation": [ -1, 0.5, 4.5 ] }
-    ],
-    "Material": {
-      "Color": [ 0.4, 0.9, 0.6 ],
-      "Shininess": 50
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.3, 0.3, 0.3 ] },
-      { "Translation": [ -1.7, 0.3, 4.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.4, 0.6, 0.9 ],
-      "Shininess": 50
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Translation": [ -0.6, 1, 0.6 ] }
-    ],
-    "Material": {
-      "Color": [ 1, 0.3, 0.2 ],
-      "Specular": 0.4,
-      "Shininess": 5
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.7, 0.7, 0.7 ] },
-      { "Translation": [ 0.6, 0.7, -0.6 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0, 0.2 ],
-      "Ambient": 0,
-      "Diffuse": 0.4,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.9,
-      "Transparency": 0.9,
-      "RefractiveIndex": 1.5
-    }
-  },
-
-  {
-    "Class": "Sphere",
-    "Transform": [
-      { "Scale": [ 0.5, 0.5, 0.5 ] },
-      { "Translation": [ -0.7, 0.5, -0.8 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0.2, 0 ],
-      "Ambient": 0,
-      "Diffuse": 0.4,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.9,
-      "Transparency": 0.9,
-      "RefractiveIndex": 1.5
-    }
-  }
-]
+  ]
+}

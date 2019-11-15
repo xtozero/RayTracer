@@ -1,6 +1,5 @@
-[
-  {
-    "Class": "Camera",
+{
+  "Camera": {
     "Width": 400,
     "Height": 200,
     "Fov": 0.785,
@@ -9,283 +8,309 @@
     "Up": [ 0, 1, 0 ]
   },
 
-  {
-    "Class": "PointLight",
-    "At": [ 0, 6.9, -5 ],
-    "Intensity": [ 1, 1, 0.9 ]
-  },
+  "Lights": [
+    {
+      "PointLight": {
+        "At": [ 0, 6.9, -5 ],
+        "Intensity": [ 1, 1, 0.9 ]
+      }
+    }
+  ],
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Translation": [ 0, 1, 0 ] },
-      { "Scale": [ 20, 7, 20 ] }
-    ],
-    "Material": {
-      "Pattern": {
-        "Type": "Checkers",
-        "Colors": [
-          [ 0, 0, 0 ],
-          [ 0.25, 0.25, 0.25 ]
-        ],
+  "Scene": [
+    {
+      "Cube": {
         "Transform": [
-          { "Scale": [ 0.07, 0.07, 0.07 ] },
-          { "Translation": [ 0, -0.1, 0 ] }
-        ]
-      },
-      "Ambient": 0.25,
-      "Diffuse": 0.7,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.1
-    }
-  },
-
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 10, 10, 10 ] }
-    ],
-    "Material": {
-      "Pattern": {
-        "Type": "Checkers",
-        "Colors": [
-          [ 0.4863, 0.3765, 0.2941 ],
-          [ 0.3725, 0.2902, 0.2275 ]
+          { "Translation": [ 0, 1, 0 ] },
+          { "Scale": [ 20, 7, 20 ] }
         ],
-        "Transform": [
-          { "Scale": [ 0.07, 0.07, 0.07 ] },
-          { "Translation": [ 0, 0, -0.1 ] }
-        ]
-      },
-      "Ambient": 0.1,
-      "Diffuse": 0.7,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.1
-    }
-  },
+        "Material": {
+          "Pattern": {
+            "Checkers": {
+              "Colors": [
+                [ 0, 0, 0 ],
+                [ 0.25, 0.25, 0.25 ]
+              ],
+              "Transform": [
+                { "Scale": [ 0.07, 0.07, 0.07 ] },
+                { "Translation": [ 0, -0.1, 0 ] }
+              ]
+            }
+          },
+          "Ambient": 0.25,
+          "Diffuse": 0.7,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.1
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 3, 0.1, 2 ] },
-      { "Translation": [ 0, 3.1, 0 ] }
-    ],
-    "Material": {
-      "Pattern": {
-        "Type": "Stripes",
-        "Colors": [
-          [ 0.5529, 0.4235, 0.3255 ],
-          [ 0.6588, 0.5098, 0.4000 ]
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 10, 10, 10 ] }
         ],
+        "Material": {
+          "Pattern": {
+            "Checkers": {
+              "Colors": [
+                [ 0.4863, 0.3765, 0.2941 ],
+                [ 0.3725, 0.2902, 0.2275 ]
+              ],
+              "Transform": [
+                { "Scale": [ 0.07, 0.07, 0.07 ] },
+                { "Translation": [ 0, 0, -0.1 ] }
+              ]
+            }
+          },
+          "Ambient": 0.1,
+          "Diffuse": 0.7,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.1
+        }
+      }
+    },
+
+    {
+      "Cube": {
         "Transform": [
-          { "RotateY": 0.1 },
-          { "Scale": [ 0.05, 0.05, 0.05 ] }
-        ]
-      },
-      "Ambient": 0.1,
-      "Diffuse": 0.7,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.2
-    }
-  },
+          { "Scale": [ 3, 0.1, 2 ] },
+          { "Translation": [ 0, 3.1, 0 ] }
+        ],
+        "Material": {
+          "Pattern": {
+            "Stripes": {
+              "Colors": [
+                [ 0.5529, 0.4235, 0.3255 ],
+                [ 0.6588, 0.5098, 0.4000 ]
+              ],
+              "Transform": [
+                { "RotateY": 0.1 },
+                { "Scale": [ 0.05, 0.05, 0.05 ] }
+              ]
+            }
+          },
+          "Ambient": 0.1,
+          "Diffuse": 0.7,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.2
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.1, 1.5, 0.1 ] },
-      { "Translation": [ 2.7, 1.5, -1.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5529, 0.4235, 0.3255 ],
-      "Ambient": 0.2,
-      "Diffuse": 0.7
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.1, 1.5, 0.1 ] },
+          { "Translation": [ 2.7, 1.5, -1.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5529, 0.4235, 0.3255 ],
+          "Ambient": 0.2,
+          "Diffuse": 0.7
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.1, 1.5, 0.1 ] },
-      { "Translation": [ 2.7, 1.5, 1.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5529, 0.4235, 0.3255 ],
-      "Ambient": 0.2,
-      "Diffuse": 0.7
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.1, 1.5, 0.1 ] },
+          { "Translation": [ 2.7, 1.5, 1.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5529, 0.4235, 0.3255 ],
+          "Ambient": 0.2,
+          "Diffuse": 0.7
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.1, 1.5, 0.1 ] },
-      { "Translation": [ -2.7, 1.5, -1.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5529, 0.4235, 0.3255 ],
-      "Ambient": 0.2,
-      "Diffuse": 0.7
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.1, 1.5, 0.1 ] },
+          { "Translation": [ -2.7, 1.5, -1.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5529, 0.4235, 0.3255 ],
+          "Ambient": 0.2,
+          "Diffuse": 0.7
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.1, 1.5, 0.1 ] },
-      { "Translation": [ -2.7, 1.5, 1.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5529, 0.4235, 0.3255 ],
-      "Ambient": 0.2,
-      "Diffuse": 0.7
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.1, 1.5, 0.1 ] },
+          { "Translation": [ -2.7, 1.5, 1.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5529, 0.4235, 0.3255 ],
+          "Ambient": 0.2,
+          "Diffuse": 0.7
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.25, 0.25, 0.25 ] },
-      { "RotateY": 0.2 },
-      { "Translation": [ 0, 3.45001, 0 ] }
-    ],
-    "Material": {
-      "Color": [ 1, 1, 0.8 ],
-      "Ambient": 0,
-      "Diffuse": 0.3,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.7,
-      "Transparency": 0.7,
-      "RefractiveIndex": 1.5
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.25, 0.25, 0.25 ] },
+          { "RotateY": 0.2 },
+          { "Translation": [ 0, 3.45001, 0 ] }
+        ],
+        "Material": {
+          "Color": [ 1, 1, 0.8 ],
+          "Ambient": 0,
+          "Diffuse": 0.3,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.7,
+          "Transparency": 0.7,
+          "RefractiveIndex": 1.5
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.15, 0.15, 0.15 ] },
-      { "RotateY": -0.4 },
-      { "Translation": [ 1, 3.35, -0.9 ] }
-    ],
-    "Material": {
-      "Color": [ 1, 0.5, 0.5 ],
-      "Reflective": 0.6,
-      "Diffuse": 0.4
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.15, 0.15, 0.15 ] },
+          { "RotateY": -0.4 },
+          { "Translation": [ 1, 3.35, -0.9 ] }
+        ],
+        "Material": {
+          "Color": [ 1, 0.5, 0.5 ],
+          "Reflective": 0.6,
+          "Diffuse": 0.4
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.15, 0.07, 0.15 ] },
-      { "RotateY": 0.4 },
-      { "Translation": [ -1.5, 3.27, 0.3 ] }
-    ],
-    "Material": {
-      "Color": [ 1, 1, 0.5 ]
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.15, 0.07, 0.15 ] },
+          { "RotateY": 0.4 },
+          { "Translation": [ -1.5, 3.27, 0.3 ] }
+        ],
+        "Material": {
+          "Color": [ 1, 1, 0.5 ]
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.2, 0.05, 0.05 ] },
-      { "RotateY": 0.4 },
-      { "Translation": [ 0, 3.25, 1 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5, 1, 0.5 ]
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.2, 0.05, 0.05 ] },
+          { "RotateY": 0.4 },
+          { "Translation": [ 0, 3.25, 1 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5, 1, 0.5 ]
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.05, 0.2, 0.05 ] },
-      { "RotateY": 0.8 },
-      { "Translation": [ -0.6, 3.4, -1 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5, 0.5, 1 ]
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.05, 0.2, 0.05 ] },
+          { "RotateY": 0.8 },
+          { "Translation": [ -0.6, 3.4, -1 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5, 0.5, 1 ]
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.05, 0.2, 0.05 ] },
-      { "RotateY": 0.8 },
-      { "Translation": [ 2, 3.4, 1 ] }
-    ],
-    "Material": {
-      "Color": [ 0.5, 1, 1 ]
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.05, 0.2, 0.05 ] },
+          { "RotateY": 0.8 },
+          { "Translation": [ 2, 3.4, 1 ] }
+        ],
+        "Material": {
+          "Color": [ 0.5, 1, 1 ]
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.05, 1, 1 ] },
-      { "Translation": [ -10, 4, 1 ] }
-    ],
-    "Material": {
-      "Color": [ 0.7098, 0.2471, 0.2196 ],
-      "Diffuse": 0.6
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.05, 1, 1 ] },
+          { "Translation": [ -10, 4, 1 ] }
+        ],
+        "Material": {
+          "Color": [ 0.7098, 0.2471, 0.2196 ],
+          "Diffuse": 0.6
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.05, 0.4, 0.4 ] },
-      { "Translation": [ -10, 3.4, 2.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.2667, 0.2706, 0.6902 ],
-      "Diffuse": 0.6
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.05, 0.4, 0.4 ] },
+          { "Translation": [ -10, 3.4, 2.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.2667, 0.2706, 0.6902 ],
+          "Diffuse": 0.6
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 0.05, 0.4, 0.4 ] },
-      { "Translation": [ -10, 4.6, 2.7 ] }
-    ],
-    "Material": {
-      "Color": [ 0.3098, 0.5961, 0.3098 ],
-      "Diffuse": 0.6
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 0.05, 0.4, 0.4 ] },
+          { "Translation": [ -10, 4.6, 2.7 ] }
+        ],
+        "Material": {
+          "Color": [ 0.3098, 0.5961, 0.3098 ],
+          "Diffuse": 0.6
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 5, 1.5, 0.05 ] },
-      { "Translation": [ -2, 3.5, 9.95 ] }
-    ],
-    "Material": {
-      "Color": [ 0.3882, 0.2627, 0.1882 ],
-      "Diffuse": 0.7
-    }
-  },
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 5, 1.5, 0.05 ] },
+          { "Translation": [ -2, 3.5, 9.95 ] }
+        ],
+        "Material": {
+          "Color": [ 0.3882, 0.2627, 0.1882 ],
+          "Diffuse": 0.7
+        }
+      }
+    },
 
-  {
-    "Class": "Cube",
-    "Transform": [
-      { "Scale": [ 4.8, 1.4, 0.06 ] },
-      { "Translation": [ -2, 3.5, 9.95 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0, 0 ],
-      "Diffuse": 0,
-      "Ambient": 0,
-      "Specular": 1,
-      "Shininess": 300,
-      "Reflective": 1
+    {
+      "Cube": {
+        "Transform": [
+          { "Scale": [ 4.8, 1.4, 0.06 ] },
+          { "Translation": [ -2, 3.5, 9.95 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0, 0 ],
+          "Diffuse": 0,
+          "Ambient": 0,
+          "Specular": 1,
+          "Shininess": 300,
+          "Reflective": 1
+        }
+      }
     }
-  }
-]
+  ]
+}

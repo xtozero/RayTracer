@@ -1,6 +1,5 @@
-﻿[
-  {
-    "Class": "Camera",
+﻿{
+  "Camera": {
     "Width": 400,
     "Height": 200,
     "Fov": 0.314,
@@ -9,83 +8,94 @@
     "Up": [ 0, 1, 0 ]
   },
 
-  {
-    "Class": "PointLight",
-    "At": [ 8, 4, 0 ],
-    "Intensity": [ 1, 1, 1 ]
-  },
-
-  {
-    "Class": "Plane",
-    "Material": {
-      "Pattern": {
-        "Type": "Ring",
-        "Colors": [
-          [ 1, 1, 1 ],
-          [ 1, 0, 0 ]
-        ]
+  "Lights": [
+    {
+      "PointLight": {
+        "At": [ 8, 4, 0 ],
+        "Intensity": [ 1, 1, 1 ]
       }
     }
-  },
+  ],
 
-  {
-    "Class": "Cone",
-    "Min": 0,
-    "Material": {
-      "Color": [ 0, 0, 0.25 ],
-      "Diffuse": 0.1,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.9,
-      "Transparency": 0.9,
-      "RefractiveIndex": 1.5
-    }
-  },
+  "Scene": [
+    {
+      "Plane": {
+        "Material": {
+          "Pattern": {
+            "Ring": {
+              "Colors": [
+                [ 1, 1, 1 ],
+                [ 1, 0, 0 ]
+              ]
+            }
+          }
+        }
+      }
+    },
 
-  {
-    "Class": "Cone",
-    "Min": 0,
-    "Transform": [
-      { "Scale": [ 0.5, 1, 0.5 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0.25, 0 ],
-      "Diffuse": 0.1,
-      "Specular": 0.9,
-      "Shininess": 300,
-      "Reflective": 0.9,
-      "Transparency": 0.9,
-      "RefractiveIndex": 2
-    }
-  },
+    {
+      "Cone": {
+        "Min": 0,
+        "Material": {
+          "Color": [ 0, 0, 0.25 ],
+          "Diffuse": 0.1,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.9,
+          "Transparency": 0.9,
+          "RefractiveIndex": 1.5
+        }
+      }
+    },
 
-  {
-    "Class": "Cone",
-    "Min": -1,
-    "Max": 0,
-    "Transform": [
-      { "Translation": [ -2, 1, 0 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0.1, 0.7 ],
-      "Diffuse": 0.8,
-      "Specular": 0.9,
-      "Shininess": 300
-    }
-  },
+    {
+      "Cone": {
+        "Min": 0,
+        "Transform": [
+          { "Scale": [ 0.5, 1, 0.5 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0.25, 0 ],
+          "Diffuse": 0.1,
+          "Specular": 0.9,
+          "Shininess": 300,
+          "Reflective": 0.9,
+          "Transparency": 0.9,
+          "RefractiveIndex": 2
+        }
+      }
+    },
 
-  {
-    "Class": "Cone",
-    "Min": -1,
-    "Max": 0,
-    "Transform": [
-      { "Translation": [ 2, 1, 0 ] }
-    ],
-    "Material": {
-      "Color": [ 0, 0.7, 0.1 ],
-      "Diffuse": 0.8,
-      "Specular": 0.9,
-      "Shininess": 300
+    {
+      "Cone": {
+        "Min": -1,
+        "Max": 0,
+        "Transform": [
+          { "Translation": [ -2, 1, 0 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0.1, 0.7 ],
+          "Diffuse": 0.8,
+          "Specular": 0.9,
+          "Shininess": 300
+        }
+      }
+    },
+
+    {
+      "Cone": {
+        "Min": -1,
+        "Max": 0,
+        "Transform": [
+          { "Translation": [ 2, 1, 0 ] }
+        ],
+        "Material": {
+          "Color": [ 0, 0.7, 0.1 ],
+          "Diffuse": 0.8,
+          "Specular": 0.9,
+          "Shininess": 300
+        }
+      }
     }
-  }
-]
+  ]
+}
