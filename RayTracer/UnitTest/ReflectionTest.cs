@@ -85,7 +85,7 @@ namespace UnitTest
         {
             // ColorAt() with mutually reflective surfaces
             World w = new World();
-            w.Light = new PointLight(Tuple.Point(0, 0, 0), Tuple.Color(1, 1, 1));
+            w.Lights.Add(new PointLight(Tuple.Point(0, 0, 0), Tuple.Color(1, 1, 1)));
             Shape lower = new Plane();
             lower.Material.Reflective = 1;
             lower.Transform = Transformation.Translation(0, -1, 0);

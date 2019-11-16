@@ -29,5 +29,15 @@ namespace RayTracer
 
             return Intersection.Aggregate();
         }
+
+        protected override Shape CloneImple()
+        {
+            return new Sphere
+            {
+                Material = Material.Clone() as Material,
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent
+            };
+        }
     }
 }

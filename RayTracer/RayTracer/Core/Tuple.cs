@@ -3,7 +3,7 @@ using static System.MathF;
 
 namespace RayTracer
 {
-    public class Tuple : IEquatable<Tuple>
+    public class Tuple : IEquatable<Tuple>, ICloneable
     {
         public Tuple Reflect(Tuple normal)
         {
@@ -83,6 +83,11 @@ namespace RayTracer
         public static Tuple Color(float r, float g, float b)
         {
             return new Tuple(r, g, b, 0);
+        }
+
+        public object Clone()
+        {
+            return new Tuple(X, Y, Z, W);
         }
 
         public static Tuple operator+(Tuple lhs, Tuple rhs)

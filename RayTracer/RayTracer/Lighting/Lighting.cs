@@ -39,20 +39,23 @@ namespace RayTracer
 
         public Tuple ShadeHit(World w, Computation comps, int remaining)
         {
-            bool shadowed = w.IsShadowed(comps.OverPoint);
-
-            Tuple surface = Lighting(comps.Object.Material,
-                comps.Object,
-                w.Light,
-                comps.Point,
-                comps.Eyev,
-                comps.Normalv,
-                shadowed);
+            Tuple surface = Tuple.Color(0, 0, 0);
+            foreach(var light in w.Lights)
+            {
+                bool shadowed = w.IsShadowed(light, comps.OverPoint);
+                surface += Lighting(comps.Material,
+                                    comps.Object,
+                                    light,
+                                    comps.Point,
+                                    comps.Eyev,
+                                    comps.Normalv,
+                                    shadowed);
+            }
 
             Tuple reflected = ReflectedColor(w, comps, remaining);
             Tuple refracted = RefractedColor(w, comps, remaining);
 
-            Material material = comps.Object.Material;
+            Material material = comps.Material;
             if (material.Reflective > 0 && material.Transparency > 0)
             {
                 float reflectance = Fresnel.Schlick(comps);
@@ -87,7 +90,7 @@ namespace RayTracer
         public Tuple ReflectedColor(World w, Computation comps, int remaining)
         {
             if ((remaining <= 0) ||
-                (Abs(comps.Object.Material.Reflective) < Constants.floatEps))
+                (Abs(comps.Material.Reflective) < Constants.floatEps))
             {
                 return Tuple.Color(0, 0, 0);
             }
@@ -95,7 +98,7 @@ namespace RayTracer
             Ray reflectRay = new Ray(comps.OverPoint, comps.Reflectv);
             Tuple color = ColorAt(w, reflectRay, remaining - 1);
 
-            return color * comps.Object.Material.Reflective;
+            return color * comps.Material.Reflective;
         }
 
         public Tuple RefractedColor(World w, Computation comps)
@@ -106,7 +109,7 @@ namespace RayTracer
         public Tuple RefractedColor(World w, Computation comps, int remaining)
         {
             if ((remaining <= 0) ||
-                (Abs(comps.Object.Material.Transparency) < Constants.floatEps))
+                (Abs(comps.Material.Transparency) < Constants.floatEps))
             {
                 return Tuple.Color(0, 0, 0);
             }
@@ -129,7 +132,7 @@ namespace RayTracer
             Ray refractRay = new Ray(comps.UnderPoint, direction);
             Tuple color = ColorAt(w, refractRay, remaining - 1);
 
-            return color * comps.Object.Material.Transparency;
+            return color * comps.Material.Transparency;
         }
 
         static readonly int defaultRemaining = 5;

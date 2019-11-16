@@ -5,11 +5,16 @@ namespace RayTracer
 {
     public class Group : Shape
     {
+        protected override Tuple LocalNormalAt(Tuple localPoint)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override List<Intersection> LocalIntersect(Ray localRay)
         {
             List<Intersection> result = Intersection.Aggregate();
 
-            foreach ( Shape s in Shapes )
+            foreach (Shape s in Shapes)
             {
                 result.AddRange(s.Intersect(localRay));
             }
@@ -19,9 +24,20 @@ namespace RayTracer
             return result;
         }
 
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Shape CloneImple()
         {
-            throw new NotImplementedException();
+            var group = new Group
+            {
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent,
+            };
+
+            foreach (var shape in Shapes)
+            {
+                group.AddChild(shape.Clone() as Shape);
+            }
+
+            return group;
         }
 
         public void AddChild(Shape s)

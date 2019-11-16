@@ -40,7 +40,7 @@ namespace UnitTest
             sphere[2].Transform = Transformation.Translation(1.2f, 0.5f, 0) * Transformation.Scaling(0.5f, 0.5f, 0.5f);
             Shapes.Add(sphere[2]);
 
-            Light = new PointLight(Tuple.Point(-10, 10, -10), Tuple.Color(1, 1, 1));
+            Lights.Add(new PointLight(Tuple.Point(-10, 10, -10), Tuple.Color(1, 1, 1)));
         }
     }
 

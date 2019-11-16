@@ -4,9 +4,9 @@ namespace RayTracer
 {
     public class World
     {
-        public bool IsShadowed(Tuple p)
+        public bool IsShadowed(Light l, Tuple p)
         {
-            Tuple v = Light.Position - p;
+            Tuple v = l.Position - p;
             float distance = v.Magnitude();
             Tuple direction = v.Normalize();
 
@@ -21,7 +21,7 @@ namespace RayTracer
         {
             List<Intersection> result = new List<Intersection>();
 
-            foreach( Shape s in Shapes )
+            foreach (Shape s in Shapes)
             {
                 result.AddRange(s.Intersect(r));
             }
@@ -33,10 +33,11 @@ namespace RayTracer
 
         public World()
         {
+            Lights = new List<Light>();
             Shapes = new List<Shape>();
         }
 
-        public Light Light { get; set; }
+        public List<Light> Lights { get; set; }
         public List<Shape> Shapes { get; private set; }
     }
 }

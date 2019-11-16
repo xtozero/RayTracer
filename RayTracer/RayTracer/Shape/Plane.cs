@@ -25,5 +25,15 @@ namespace RayTracer
                     ));
             }
         }
+
+        protected override Shape CloneImple()
+        {
+            return new Plane
+            {
+                Material = Material.Clone() as Material,
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent
+            };
+        }
     }
 }

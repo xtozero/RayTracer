@@ -39,7 +39,7 @@ namespace RayTracer
                 using (JsonTextReader textReader = new JsonTextReader(sr))
                 {
                     var jScene = JToken.ReadFrom(textReader);
-                    var symbolTable = new Dictionary<string, object>();
+                    var defineTable = new Dictionary<string, object>();
 
                     var camera = jScene.Value<JObject>("Camera");
                     Debug.Assert(camera != null);
@@ -54,8 +54,10 @@ namespace RayTracer
                             switch (property.Key)
                             {
                                 case "PointLight":
-                                    World.Light = CreatePointLight(property.Value);
+                                    World.Lights.Add(CreatePointLight(property.Value));
                                     break;
+                                default:
+                                    throw new NotImplementedException();
                             }
                         }
                     }
@@ -66,7 +68,7 @@ namespace RayTracer
                         foreach(var item in define)
                         {
                             var property = GetKeyValuePair(item.Value);
-                            symbolTable.Add(item.Key, CreateEntity(property, symbolTable));
+                            defineTable.Add(item.Key, CreateEntity(property, defineTable));
                         }
                     }
 
@@ -75,13 +77,13 @@ namespace RayTracer
                     foreach (var entity in scene)
                     {
                         var property = GetKeyValuePair(entity);
-                        World.Shapes.Add(CreateShape(property, symbolTable));
+                        World.Shapes.Add(CreateShape(property, defineTable));
                     }
                 }
             }
         }
 
-        private Camera CreateCamera(JToken jToken)
+        private static Camera CreateCamera(JToken jToken)
         {
             int width = (int)jToken["Width"];
             int height = (int)jToken["Height"];
@@ -98,7 +100,7 @@ namespace RayTracer
             return camera;
         }
 
-        private PointLight CreatePointLight(JToken jToken)
+        private static PointLight CreatePointLight(JToken jToken)
         {
             var at = jToken["At"];
             var intensity = jToken["Intensity"];
@@ -205,7 +207,7 @@ namespace RayTracer
             return pattern;
         }
 
-        private static Type CreateShape<Type>(JToken jToken, Dictionary<string, object> symbolTable) where Type : Shape, new()
+        private static Type CreateShape<Type>(JToken jToken, Dictionary<string, object> defineTable) where Type : Shape, new()
         {
             Type shape = new Type();
 
@@ -220,7 +222,7 @@ namespace RayTracer
             {
                 if (material.Type == JTokenType.String)
                 {
-                    shape.Material = symbolTable[(string)material] as Material;
+                    shape.Material = defineTable[(string)material] as Material;
                 }
                 else
                 {
@@ -231,9 +233,9 @@ namespace RayTracer
             return shape;
         }
 
-        private Type CreateCylinderBasedShape<Type>(JToken jToken, Dictionary<string, object> symbolTable) where Type :Cylinder, new()
+        private static Type CreateCylinderBasedShape<Type>(JToken jToken, Dictionary<string, object> defineTable) where Type :Cylinder, new()
         {
-            Type shape = CreateShape<Type>(jToken, symbolTable);
+            Type shape = CreateShape<Type>(jToken, defineTable);
 
             var min = jToken["Min"];
             if (min != null)
@@ -256,33 +258,94 @@ namespace RayTracer
             return shape;
         }
 
-        private object CreateEntity(KeyValuePair<string, JToken> property, Dictionary<string, object> symbolTable)
+        private static Shape CreateGroup(JToken jToken, Dictionary<string, object> defineTable)
+        {
+            var group = new Group();
+
+            var children = jToken.Value<JArray>("Children");
+            Debug.Assert(children != null);
+
+            foreach(var child in children)
+            {
+                var property = GetKeyValuePair(child);
+                group.AddChild(CreateShape(property, defineTable));
+            }
+
+            var transform = jToken["Transform"];
+            if (transform != null)
+            {
+                group.Transform = CreateTransform(transform);
+            }
+
+            return group;
+        }
+
+        private static Shape CreateFromDefine(KeyValuePair<string, JToken> property, Dictionary<string, object> defineTable)
+        {
+            if (defineTable.ContainsValue(property.Key) == false)
+            {
+                throw new KeyNotFoundException($"{property.Key} is invalid key");
+            }
+
+            Shape src = defineTable[property.Key] as Shape;
+            if (src == null)
+            {
+                throw new ArgumentException($"{property.Key} is not Shape");
+            }
+
+            Shape clone = src.Clone() as Shape;
+
+            var transform = property.Value["Transform"];
+            if (transform != null)
+            {
+                clone.Transform = CreateTransform(transform);
+            }
+
+            var material = property.Value["Material"];
+            if (material != null)
+            {
+                if (material.Type == JTokenType.String)
+                {
+                    clone.Material = defineTable[(string)material] as Material;
+                }
+                else
+                {
+                    clone.Material = CreateMaterial(material);
+                }
+            }
+
+            return clone;
+        }
+
+        private static object CreateEntity(KeyValuePair<string, JToken> property, Dictionary<string, object> defineTable)
         {
             switch (property.Key)
             {
                 case "Material":
                     return CreateMaterial(property.Value);
                 default:
-                    return CreateShape(property, symbolTable);
+                    return CreateShape(property, defineTable);
             }
         }
 
-        private Shape CreateShape(KeyValuePair<string, JToken> property, Dictionary<string, object> symbolTable)
+        private static Shape CreateShape(KeyValuePair<string, JToken> property, Dictionary<string, object> defineTable)
         {
             switch (property.Key)
             {
                 case "Plane":
-                    return CreateShape<Plane>(property.Value, symbolTable);
+                    return CreateShape<Plane>(property.Value, defineTable);
                 case "Sphere":
-                    return CreateShape<Sphere>(property.Value, symbolTable);
+                    return CreateShape<Sphere>(property.Value, defineTable);
                 case "Cube":
-                    return CreateShape<Cube>(property.Value, symbolTable);
+                    return CreateShape<Cube>(property.Value, defineTable);
                 case "Cylinder":
-                    return CreateCylinderBasedShape<Cylinder>(property.Value, symbolTable);
+                    return CreateCylinderBasedShape<Cylinder>(property.Value, defineTable);
                 case "Cone":
-                    return CreateCylinderBasedShape<Cone>(property.Value, symbolTable);
+                    return CreateCylinderBasedShape<Cone>(property.Value, defineTable);
+                case "Group":
+                    return CreateGroup(property.Value, defineTable);
                 default:
-                    throw new NotImplementedException();
+                    return CreateFromDefine(property, defineTable);
             }
         }
 
@@ -325,7 +388,7 @@ namespace RayTracer
                         }
                         break;
                     default:
-                        throw new NotImplementedException();
+                        throw new NotImplementedException($"invalid syntax {transform.Key} used");
                 }
             }
 
@@ -357,7 +420,7 @@ namespace RayTracer
             }
             else
             {
-                throw new IndexOutOfRangeException();
+                throw new InvalidOperationException(@"can't move next");
             }
         }
     }

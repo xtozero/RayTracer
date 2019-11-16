@@ -1,8 +1,9 @@
-﻿using static System.MathF;
+﻿using System;
+using static System.MathF;
 
 namespace RayTracer
 {
-    public abstract class Pattern
+    public abstract class Pattern : ICloneable
     {
         public Tuple ColorAtShape(Shape shape, Tuple worldPoint)
         {
@@ -13,6 +14,13 @@ namespace RayTracer
         }
 
         public abstract Tuple ColorAt(Tuple point);
+
+        public abstract Pattern CloneImple();
+
+        public object Clone()
+        {
+            return CloneImple();
+        }
 
         protected Pattern()
         {
@@ -27,6 +35,12 @@ namespace RayTracer
         public override Tuple ColorAt(Tuple point)
         {
             return (Floor(point.X) % 2 == 0) ? FirstColor : SecondColor;
+        }
+
+        public override Pattern CloneImple()
+        {
+            return new StripePattern(FirstColor.Clone() as Tuple,
+                                        SecondColor.Clone() as Tuple);
         }
 
         public StripePattern(Tuple firstColor, Tuple secondColor)
@@ -44,6 +58,12 @@ namespace RayTracer
         public override Tuple ColorAt(Tuple point)
         {
             return FirstColor + (SecondColor - FirstColor) * (point.X - Floor(point.X));
+        }
+
+        public override Pattern CloneImple()
+        {
+            return new GradientPattern(FirstColor.Clone() as Tuple,
+                                        SecondColor.Clone() as Tuple);
         }
 
         public GradientPattern(Tuple firstColor, Tuple secondColor)
@@ -65,6 +85,12 @@ namespace RayTracer
             return (Abs(Floor(distance) % 2) < Constants.floatEps) ? FirstColor : SecondColor;
         }
 
+        public override Pattern CloneImple()
+        {
+            return new RingPattern(FirstColor.Clone() as Tuple,
+                                    SecondColor.Clone() as Tuple);
+        }
+
         public RingPattern(Tuple firstColor, Tuple secondColor)
         {
             FirstColor = firstColor;
@@ -81,6 +107,12 @@ namespace RayTracer
         {
             float determinant = Floor(point.X) + Floor(point.Y) + Floor(point.Z);
             return (Abs(determinant % 2) < Constants.floatEps) ? FirstColor : SecondColor;
+        }
+
+        public override Pattern CloneImple()
+        {
+            return new CheckersPattern(FirstColor.Clone() as Tuple,
+                                        SecondColor.Clone() as Tuple);
         }
 
         public CheckersPattern(Tuple firstColor, Tuple secondColor)

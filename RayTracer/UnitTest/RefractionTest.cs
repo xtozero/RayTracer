@@ -11,6 +11,11 @@ namespace UnitTest
         {
             return Tuple.Color(point.X, point.Y, point.Z);
         }
+
+        public override Pattern CloneImple()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public static class RefractionTest

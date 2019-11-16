@@ -11,7 +11,7 @@ namespace UnitTest
         {
             Shapes.Add(Hexagon());
 
-            Light = new PointLight(Tuple.Point(0, 10, 0), Tuple.Color(1, 1, 1));
+            Lights.Add(new PointLight(Tuple.Point(0, 10, 0), Tuple.Color(1, 1, 1)));
         }
 
         private static Shape HexagonCorner()

@@ -21,8 +21,9 @@ namespace UnitTest
             Assert.Equal(cameraTransform, s.Camera.Transform);
 
             // Light
-            Assert.Equal(Tuple.Point(-4.9f, 4.9f, -1), s.World.Light.Position);
-            Assert.Equal(Tuple.Color(1, 1, 1), s.World.Light.Intensity);
+            Assert.Single(s.World.Lights);
+            Assert.Equal(Tuple.Point(-4.9f, 4.9f, -1), s.World.Lights[0].Position);
+            Assert.Equal(Tuple.Color(1, 1, 1), s.World.Lights[0].Intensity);
 
             // Shapes
             Shape floor = s.World.Shapes[0];
@@ -104,6 +105,16 @@ namespace UnitTest
             Assert.Equal(0, (cone as Cone)?.Minimum);
 
             s.Capture(@"./cone.ppm");
+        }
+
+        [Fact]
+        private static void TestCase05()
+        {
+            Scene s = new JsonScene(@"../scene/group.json");
+
+            Assert.Equal(4, s.World.Lights.Count);
+
+            s.Capture(@"./group.ppm");
         }
     }
 }

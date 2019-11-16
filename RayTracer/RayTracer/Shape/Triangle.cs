@@ -5,6 +5,11 @@ namespace RayTracer
 {
     public class Triangle : Shape
     {
+        protected override Tuple LocalNormalAt(Tuple localPoint)
+        {
+            return Normal;
+        }
+
         protected override List<Intersection> LocalIntersect(Ray localRay)
         {
             Tuple dirCrossE2 = localRay.Direction.Cross(E2);
@@ -28,19 +33,24 @@ namespace RayTracer
             Tuple originCrossE1 = p1ToOrigin.Cross(E1);
             float v = invDet * localRay.Direction.Dot(originCrossE1);
 
-            if (v < 0 || ( u + v ) > 1)
+            if (v < 0 || (u + v) > 1)
             {
                 return Intersection.Aggregate();
             }
 
             float t = invDet * E2.Dot(originCrossE1);
 
-            return Intersection.Aggregate( new Intersection(t, this) );
+            return Intersection.Aggregate(new Intersection(t, this));
         }
 
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Shape CloneImple()
         {
-            return Normal;
+            return new Triangle(P1, P2, P3)
+            {
+                Material = Material.Clone() as Material,
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent
+            };
         }
 
         public Triangle(Tuple p1, Tuple p2, Tuple p3)

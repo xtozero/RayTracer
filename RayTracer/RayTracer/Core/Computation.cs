@@ -9,6 +9,13 @@ namespace RayTracer
         {
             T = i.T;
             Object = i.Object;
+            Material = Object.Material;
+            Shape parent = Object.Parent;
+            while (parent != null)
+            {
+                Material = parent.Material;
+                parent = parent.Parent;
+            }
 
             Point = r.Position(T);
             Eyev = -r.Direction;
@@ -74,6 +81,7 @@ namespace RayTracer
 
         public float T { get; private set; }
         public Shape Object { get; private set; }
+        public Material Material { get; private set; }
         public Tuple Point { get; private set; }
         public Tuple OverPoint { get; private set; }
         public Tuple UnderPoint { get; private set; }

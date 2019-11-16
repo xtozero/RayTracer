@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace RayTracer
 {
-    public abstract class Shape : IEquatable<Shape>
+    public abstract class Shape : IEquatable<Shape>, ICloneable
     {
         protected abstract Tuple LocalNormalAt(Tuple localPoint);
         protected abstract List<Intersection> LocalIntersect(Ray localRay);
+        protected abstract Shape CloneImple();
 
         public Tuple NormalAt(Tuple p)
         {
@@ -74,6 +75,11 @@ namespace RayTracer
             }
 
             return normal;
+        }
+
+        public object Clone()
+        {
+            return CloneImple();
         }
 
         public Matrix Transform { get; set; }

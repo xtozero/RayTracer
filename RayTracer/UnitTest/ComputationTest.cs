@@ -67,19 +67,19 @@ namespace UnitTest
         private static void TestCase05()
         {
             World w = new DefaultWorld();
-            w.Light = new PointLight(Tuple.Point(0, 0.25f, 0), Tuple.Color(1, 1, 1));
+            w.Lights[0] = new PointLight(Tuple.Point(0, 0.25f, 0), Tuple.Color(1, 1, 1));
             Ray r = new Ray(Tuple.Point(0, 0, 0), Tuple.Vector(0, 0, 1));
             Shape shape = w.Shapes[1];
             Intersection i = new Intersection(0.5f, shape);
             Computation comps = new Computation(i, r);
             LightingModel phong = new PhongReflection();
             Tuple c = phong.Lighting(comps.Object.Material,
-                comps.Object,
-                w.Light,
-                comps.Point,
-                comps.Eyev,
-                comps.Normalv,
-                false);
+                                    comps.Object,
+                                    w.Lights[0],
+                                    comps.Point,
+                                    comps.Eyev,
+                                    comps.Normalv,
+                                    false);
 
             Assert.Equal(Tuple.Color(0.90498f, 0.90498f, 0.90498f), c);
         }

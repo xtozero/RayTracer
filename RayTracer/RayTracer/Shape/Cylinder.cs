@@ -5,6 +5,25 @@ namespace RayTracer
 {
     public class Cylinder : Shape
     {
+        protected override Tuple LocalNormalAt(Tuple localPoint)
+        {
+            float dist = localPoint.X * localPoint.X + localPoint.Z * localPoint.Z;
+
+            if (dist < 1)
+            {
+                if (localPoint.Y >= Maximum - Constants.floatEps)
+                {
+                    return Tuple.Vector(0, 1, 0);
+                }
+                else if (localPoint.Y <= Minimum + Constants.floatEps)
+                {
+                    return Tuple.Vector(0, -1, 0);
+                }
+            }
+
+            return Tuple.Vector(localPoint.X, 0, localPoint.Z);
+        }
+
         protected override List<Intersection> LocalIntersect(Ray localRay)
         {
             float a = localRay.Direction.X * localRay.Direction.X + localRay.Direction.Z * localRay.Direction.Z;
@@ -35,13 +54,13 @@ namespace RayTracer
             float t1 = (-b + Sqrt(disc)) / a;
 
             float y0 = localRay.Origin.Y + t0 * localRay.Direction.Y;
-            if ( Minimum < y0 && y0 < Maximum )
+            if (Minimum < y0 && y0 < Maximum)
             {
                 xs.Add(new Intersection(t0, this));
             }
 
             float y1 = localRay.Origin.Y + t1 * localRay.Direction.Y;
-            if ( Minimum < y1 && y1 < Maximum )
+            if (Minimum < y1 && y1 < Maximum)
             {
                 xs.Add(new Intersection(t1, this));
             }
@@ -50,23 +69,17 @@ namespace RayTracer
             return xs;
         }
 
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Shape CloneImple()
         {
-            float dist = localPoint.X * localPoint.X + localPoint.Z * localPoint.Z;
-
-            if (dist < 1)
+            return new Cylinder
             {
-                if (localPoint.Y >= Maximum - Constants.floatEps)
-                {
-                    return Tuple.Vector(0, 1, 0);
-                }
-                else if (localPoint.Y <= Minimum + Constants.floatEps)
-                {
-                    return Tuple.Vector(0, -1, 0);
-                }
-            }
-
-            return Tuple.Vector(localPoint.X, 0, localPoint.Z);
+                Material = Material.Clone() as Material,
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent,
+                Minimum = Minimum,
+                Maximum = Maximum,
+                Closed = Closed
+            };
         }
 
         protected virtual bool CheckCap(Ray r, float t)

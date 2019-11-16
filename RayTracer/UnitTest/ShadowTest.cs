@@ -28,7 +28,7 @@ namespace UnitTest
             World w = new DefaultWorld();
             Tuple p = Tuple.Point(0, 10, 0);
 
-            Assert.False(w.IsShadowed(p));
+            Assert.False(w.IsShadowed(w.Lights[0], p));
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace UnitTest
             World w = new DefaultWorld();
             Tuple p = Tuple.Point(10, -10, 10);
 
-            Assert.True(w.IsShadowed(p));
+            Assert.True(w.IsShadowed(w.Lights[0], p));
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace UnitTest
             World w = new DefaultWorld();
             Tuple p = Tuple.Point(-20, 20, -20);
 
-            Assert.False(w.IsShadowed(p));
+            Assert.False(w.IsShadowed(w.Lights[0], p));
         }
 
         [Fact]
@@ -55,14 +55,14 @@ namespace UnitTest
             World w = new DefaultWorld();
             Tuple p = Tuple.Point(-2, 2, -2);
 
-            Assert.False(w.IsShadowed(p));
+            Assert.False(w.IsShadowed(w.Lights[0], p));
         }
 
         [Fact]
         private static void TestCase06()
         {
             World w = new World();
-            w.Light = new PointLight(Tuple.Point(0, 0, -10), Tuple.Color(1, 1, 1));
+            w.Lights.Add(new PointLight(Tuple.Point(0, 0, -10), Tuple.Color(1, 1, 1)));
 
             Shape s1 = new Sphere();
             w.Shapes.Add(s1);

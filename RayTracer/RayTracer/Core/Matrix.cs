@@ -4,7 +4,7 @@ using static System.MathF;
 
 namespace RayTracer
 {
-    public class Matrix : System.IEquatable<Matrix>
+    public class Matrix : System.IEquatable<Matrix>, ICloneable
     {
         public Matrix Inverse()
         {
@@ -129,6 +129,18 @@ namespace RayTracer
             hash.Add(M[8]); hash.Add(M[9]); hash.Add(M[10]); hash.Add(M[11]);
             hash.Add(M[12]); hash.Add(M[13]); hash.Add(M[14]); hash.Add(M[15]);
             return hash.ToHashCode();
+        }
+
+        public object Clone()
+        {
+            var m = new Matrix(Size);
+
+            for (int i = 0; i < 16; ++i)
+            {
+                m.M[i] = M[i];
+            }
+
+            return m;
         }
 
         public static Matrix operator *(Matrix lhs, Matrix rhs)

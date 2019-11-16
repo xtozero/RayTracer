@@ -5,6 +5,26 @@ namespace RayTracer
 {
     public class Cone : Cylinder
     {
+        protected override Tuple LocalNormalAt(Tuple localPoint)
+        {
+            float dist = localPoint.X * localPoint.X + localPoint.Z * localPoint.Z;
+
+            if (dist < (localPoint.Y * localPoint.Y))
+            {
+                if (localPoint.Y >= Maximum - Constants.floatEps)
+                {
+                    return Tuple.Vector(0, 1, 0);
+                }
+                else if (localPoint.Y <= Minimum + Constants.floatEps)
+                {
+                    return Tuple.Vector(0, -1, 0);
+                }
+            }
+
+            float y = (localPoint.Y > 0) ? -Sqrt(dist) : Sqrt(dist);
+            return Tuple.Vector(localPoint.X, y, localPoint.Z);
+        }
+
         protected override List<Intersection> LocalIntersect(Ray localRay)
         {
             float a = localRay.Direction.X * localRay.Direction.X -
@@ -62,24 +82,17 @@ namespace RayTracer
             return xs;
         }
 
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Shape CloneImple()
         {
-            float dist = localPoint.X * localPoint.X + localPoint.Z * localPoint.Z;
-
-            if (dist < (localPoint.Y * localPoint.Y))
+            return new Cone
             {
-                if (localPoint.Y >= Maximum - Constants.floatEps)
-                {
-                    return Tuple.Vector(0, 1, 0);
-                }
-                else if (localPoint.Y <= Minimum + Constants.floatEps)
-                {
-                    return Tuple.Vector(0, -1, 0);
-                }
-            }
-
-            float y = ( localPoint.Y > 0 ) ? -Sqrt(dist) : Sqrt(dist);
-            return Tuple.Vector(localPoint.X, y, localPoint.Z);
+                Material = Material.Clone() as Material,
+                Transform = Transform.Clone() as Matrix,
+                Parent = Parent,
+                Minimum = Minimum,
+                Maximum = Maximum,
+                Closed = Closed
+            };
         }
 
         protected override bool CheckCap(Ray r, float t)

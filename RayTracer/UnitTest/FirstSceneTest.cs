@@ -58,7 +58,7 @@ namespace UnitTest
 
             Shapes.Add(left);
 
-            Light = new PointLight(Tuple.Point(-10, 10, -10), Tuple.Color(1, 1, 1));
+            Lights.Add(new PointLight(Tuple.Point(-10, 10, -10), Tuple.Color(1, 1, 1)));
         }
     }
 

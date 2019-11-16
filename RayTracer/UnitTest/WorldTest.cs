@@ -11,7 +11,7 @@ namespace UnitTest
         {
             World w = new World();
 
-            Assert.Null(w.Light);
+            Assert.Empty(w.Lights);
             Assert.Empty(w.Shapes);
         }
 
@@ -30,7 +30,7 @@ namespace UnitTest
             Shape s2 = new Sphere();
             s2.Transform = Transformation.Scaling(0.5f, 0.5f, 0.5f);
 
-            Assert.Equal(light, w.Light);
+            Assert.Equal(light, w.Lights[0]);
 
             Assert.Contains(s1, w.Shapes);
             Assert.Contains(s2, w.Shapes);
