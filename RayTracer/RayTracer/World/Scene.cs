@@ -282,7 +282,7 @@ namespace RayTracer
 
         private static Shape CreateFromDefine(KeyValuePair<string, JToken> property, Dictionary<string, object> defineTable)
         {
-            if (defineTable.ContainsValue(property.Key) == false)
+            if (defineTable.ContainsKey(property.Key) == false)
             {
                 throw new KeyNotFoundException($"{property.Key} is invalid key");
             }
