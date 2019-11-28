@@ -4,7 +4,7 @@ namespace RayTracer
 {
     public class Sphere : Shape
     {
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Tuple LocalNormalAt(Tuple localPoint, Intersection hit)
         {
             return localPoint - Tuple.Point(0, 0, 0);
         }

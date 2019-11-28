@@ -5,9 +5,9 @@ namespace RayTracer
 {
     public class Group : Shape
     {
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Tuple LocalNormalAt(Tuple localPoint, Intersection hit)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         protected override List<Intersection> LocalIntersect(Ray localRay)
@@ -42,6 +42,11 @@ namespace RayTracer
 
         public void AddChild(Shape s)
         {
+            if (s == null)
+            {
+                throw new ArgumentNullException(s.ToString());
+            }
+
             s.Parent = this;
             Shapes.Add(s);
         }

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using static System.MathF;
 
 namespace RayTracer
 {
-    public class Matrix : System.IEquatable<Matrix>, ICloneable
+    public class Matrix : IEquatable<Matrix>, ICloneable
     {
         public Matrix Inverse()
         {

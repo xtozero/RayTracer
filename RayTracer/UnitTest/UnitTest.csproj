@@ -32,4 +32,6 @@
     <ProjectReference Include="..\RayTracer\RayTracer.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>

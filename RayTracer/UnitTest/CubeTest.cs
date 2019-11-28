@@ -91,7 +91,7 @@ namespace UnitTest
             MethodInfo mi = c.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
             for (int i = 0; i < 8; ++i)
             {
-                Tuple normal = (Tuple)mi.Invoke(c, new[] { points[i] });
+                Tuple normal = (Tuple)mi.Invoke(c, new[] { points[i], null });
 
                 Assert.Equal(normals[i], normal);
             }

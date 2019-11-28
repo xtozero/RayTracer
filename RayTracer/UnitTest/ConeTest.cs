@@ -88,7 +88,7 @@ namespace UnitTest
             MethodInfo mi = shape.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
             for (int i = 0; i < 3; ++i)
             {
-                Tuple n = (Tuple)mi.Invoke(shape, new[] { point[i] });
+                Tuple n = (Tuple)mi.Invoke(shape, new[] { point[i], null });
                 Assert.Equal(normal[i], n);
             }
         }

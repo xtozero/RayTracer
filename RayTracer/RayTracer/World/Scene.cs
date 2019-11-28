@@ -51,13 +51,13 @@ namespace RayTracer
                         foreach (var light in lights)
                         {
                             var property = GetKeyValuePair(light);
-                            switch (property.Key)
+                            if (property.Key == "PointLight")
                             {
-                                case "PointLight":
-                                    World.Lights.Add(CreatePointLight(property.Value));
-                                    break;
-                                default:
-                                    throw new NotImplementedException();
+                                World.Lights.Add(CreatePointLight(property.Value));
+                            }
+                            else
+                            {
+                                throw new NotImplementedException();
                             }
                         }
                     }
@@ -290,10 +290,14 @@ namespace RayTracer
             Shape src = defineTable[property.Key] as Shape;
             if (src == null)
             {
-                throw new ArgumentException($"{property.Key} is not Shape");
+                throw new InvalidCastException($"{property.Key} is not Shape");
             }
 
             Shape clone = src.Clone() as Shape;
+            if (clone == null)
+            {
+                throw new InvalidCastException(src.ToString() + " is not Shape");
+            }
 
             var transform = property.Value["Transform"];
             if (transform != null)

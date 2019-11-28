@@ -13,9 +13,9 @@ namespace UnitTest
             Plane p = new Plane();
 
             MethodInfo mi = p.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
-            Tuple n1 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(0, 0, 0) });
-            Tuple n2 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(10, 0, -10) });
-            Tuple n3 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(-5, 0, 150) });
+            Tuple n1 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(0, 0, 0), null });
+            Tuple n2 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(10, 0, -10), null });
+            Tuple n3 = (Tuple)mi.Invoke(p, new[] { Tuple.Point(-5, 0, 150), null });
 
             Assert.Equal(Tuple.Vector(0, 1, 0), n1);
             Assert.Equal(Tuple.Vector(0, 1, 0), n2);

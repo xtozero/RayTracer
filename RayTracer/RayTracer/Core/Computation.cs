@@ -19,7 +19,7 @@ namespace RayTracer
 
             Point = r.Position(T);
             Eyev = -r.Direction;
-            Normalv = Object.NormalAt(Point);
+            Normalv = Object.NormalAt(Point, i);
 
             if ( Eyev.Dot(Normalv) < 0 )
             {

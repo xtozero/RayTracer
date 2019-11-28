@@ -1,6 +1,6 @@
-﻿using static System.MathF;
-using RayTracer;
+﻿using RayTracer;
 using Xunit;
+using static System.MathF;
 
 namespace UnitTest
 {
@@ -10,19 +10,19 @@ namespace UnitTest
         private static void TestCase01()
         {
             Sphere s = new Sphere();
-            Tuple n = s.NormalAt(Tuple.Point(1, 0, 0));
+            Tuple n = s.NormalAt(Tuple.Point(1, 0, 0), null);
 
             Assert.Equal(Tuple.Vector(1, 0, 0), n);
 
-            n = s.NormalAt(Tuple.Point(0, 1, 0));
+            n = s.NormalAt(Tuple.Point(0, 1, 0), null);
 
             Assert.Equal(Tuple.Vector(0, 1, 0), n);
 
-            n = s.NormalAt(Tuple.Point(0, 0, 1));
+            n = s.NormalAt(Tuple.Point(0, 0, 1), null);
 
             Assert.Equal(Tuple.Vector(0, 0, 1), n);
 
-            n = s.NormalAt(Tuple.Point(Sqrt(3) / 3, Sqrt(3) / 3, Sqrt(3) / 3));
+            n = s.NormalAt(Tuple.Point(Sqrt(3) / 3, Sqrt(3) / 3, Sqrt(3) / 3), null);
 
             Assert.Equal(Tuple.Vector(Sqrt(3) / 3, Sqrt(3) / 3, Sqrt(3) / 3), n);
         }
@@ -31,7 +31,7 @@ namespace UnitTest
         private static void TestCase02()
         {
             Sphere s = new Sphere();
-            Tuple n = s.NormalAt(Tuple.Point(Sqrt(3) / 3, Sqrt(3) / 3, Sqrt(3) / 3));
+            Tuple n = s.NormalAt(Tuple.Point(Sqrt(3) / 3, Sqrt(3) / 3, Sqrt(3) / 3), null);
 
             Assert.Equal(n, n.Normalize());
         }
@@ -41,12 +41,12 @@ namespace UnitTest
         {
             Sphere s = new Sphere();
             s.Transform = Transformation.Translation(0, 1, 0);
-            Tuple n = s.NormalAt(Tuple.Point(0, 1.70711f, -0.70711f));
+            Tuple n = s.NormalAt(Tuple.Point(0, 1.70711f, -0.70711f), null);
 
             Assert.Equal(Tuple.Vector(0, 0.70711f, -0.70711f), n);
 
             s.Transform = Transformation.Scaling(1, 0.5f, 1) * Transformation.RotationZ(PI/5);
-            n = s.NormalAt(Tuple.Point(0, Sqrt(2) / 2, -Sqrt(2) / 2));
+            n = s.NormalAt(Tuple.Point(0, Sqrt(2) / 2, -Sqrt(2) / 2), null);
 
             Assert.Equal(Tuple.Vector(0, 0.97014f, -0.24254f), n);
         }

@@ -5,14 +5,14 @@ namespace RayTracer
 {
     public abstract class Shape : IEquatable<Shape>, ICloneable
     {
-        protected abstract Tuple LocalNormalAt(Tuple localPoint);
+        protected abstract Tuple LocalNormalAt(Tuple localPoint, Intersection hit);
         protected abstract List<Intersection> LocalIntersect(Ray localRay);
         protected abstract Shape CloneImple();
 
-        public Tuple NormalAt(Tuple p)
+        public Tuple NormalAt(Tuple p, Intersection hit)
         {
             Tuple localPoint = WorldToObject(p);
-            Tuple localNormal = LocalNormalAt(localPoint);
+            Tuple localNormal = LocalNormalAt(localPoint, hit);
             return NormalToWorld(localNormal);
         }
 

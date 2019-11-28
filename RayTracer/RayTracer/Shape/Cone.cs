@@ -5,7 +5,7 @@ namespace RayTracer
 {
     public class Cone : Cylinder
     {
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Tuple LocalNormalAt(Tuple localPoint, Intersection hit)
         {
             float dist = localPoint.X * localPoint.X + localPoint.Z * localPoint.Z;
 

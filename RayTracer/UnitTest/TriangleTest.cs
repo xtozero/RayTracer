@@ -33,9 +33,9 @@ namespace UnitTest
                                     Tuple.Point(-1, 0, 0),
                                     Tuple.Point(1, 0, 0));
             MethodInfo mi = t.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
-            Tuple n1 = (Tuple)mi.Invoke(t, new[] {Tuple.Point(0, 0.5f, 0)});
-            Tuple n2 = (Tuple)mi.Invoke(t, new[] {Tuple.Point(-0.5f, 0.75f, 0)});
-            Tuple n3 = (Tuple)mi.Invoke(t, new[] {Tuple.Point(0.5f, 0.25f, 0)});
+            Tuple n1 = (Tuple)mi.Invoke(t, new[] { Tuple.Point(0, 0.5f, 0), null });
+            Tuple n2 = (Tuple)mi.Invoke(t, new[] { Tuple.Point(-0.5f, 0.75f, 0), null });
+            Tuple n3 = (Tuple)mi.Invoke(t, new[] { Tuple.Point(0.5f, 0.25f, 0), null });
 
             Assert.Equal(n1, t.Normal);
             Assert.Equal(n2, t.Normal);

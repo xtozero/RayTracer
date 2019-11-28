@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RayTracer
 {
@@ -32,8 +33,23 @@ namespace RayTracer
             Object = obj;
         }
 
-        public float T { get; set; }
-        public Shape Object { get; set; }
+        public float T { get; private set; }
+        public Shape Object { get; private set; }
+
+        public virtual float U { get { throw new NotSupportedException(); } protected set { throw new NotSupportedException(); } }
+        public virtual float V { get { throw new NotSupportedException(); } protected set { throw new NotSupportedException(); } }
+    }
+
+    public class IntersectionWithUV : Intersection
+    {
+        public IntersectionWithUV(float t, Shape obj, float u, float v) : base(t, obj)
+        {
+            U = u;
+            V = v;
+        }
+
+        public override float U { get; protected set; }
+        public override float V { get; protected set; }
     }
 
     public class IntersectionCompare : IComparer<Intersection>

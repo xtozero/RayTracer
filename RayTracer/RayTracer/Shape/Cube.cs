@@ -5,7 +5,7 @@ namespace RayTracer
 {
     public class Cube : Shape
     {
-        protected override Tuple LocalNormalAt(Tuple localPoint)
+        protected override Tuple LocalNormalAt(Tuple localPoint, Intersection hit)
         {
             float absX = Abs(localPoint.X);
             float absY = Abs(localPoint.Y);

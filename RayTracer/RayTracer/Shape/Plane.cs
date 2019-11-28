@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using static System.MathF;
 
 namespace RayTracer
 {
     public class Plane : Shape
     {
-        protected override Tuple LocalNormalAt(Tuple p)
+        protected override Tuple LocalNormalAt(Tuple p, Intersection hit)
         {
             return Tuple.Vector(0, 1, 0);
         }

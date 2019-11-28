@@ -171,7 +171,7 @@ namespace UnitTest
             };
             g2.AddChild(s);
 
-            Tuple n = s.NormalAt(Tuple.Point(1.7321f, 1.1547f, -5.5774f));
+            Tuple n = s.NormalAt(Tuple.Point(1.7321f, 1.1547f, -5.5774f), null);
 
             Assert.Equal(Tuple.Vector(0.2857f, 0.4286f, -0.8571f), n);
         }

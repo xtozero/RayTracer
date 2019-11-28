@@ -67,7 +67,7 @@ namespace UnitTest
             MethodInfo mi = cyl.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
             for (int i = 0; i < 4; ++i)
             {
-                Tuple n = (Tuple)mi.Invoke(cyl, new[] { point[i] });
+                Tuple n = (Tuple)mi.Invoke(cyl, new[] { point[i], null });
                 Assert.Equal(normal[i], n);
             }
         }
@@ -175,7 +175,7 @@ namespace UnitTest
             MethodInfo mi = cyl.GetType().GetMethod("LocalNormalAt", BindingFlags.NonPublic | BindingFlags.Instance);
             for (int i = 0; i < 6; ++i)
             {
-                Tuple n = (Tuple)mi.Invoke(cyl, new[] { point[i] });
+                Tuple n = (Tuple)mi.Invoke(cyl, new[] { point[i], null });
                 Assert.Equal(normal[i], n);
             }
         }
