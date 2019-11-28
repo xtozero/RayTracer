@@ -27,8 +27,6 @@ namespace RayTracer
                     case TokenType.Group:
                         AddGroup(contents);
                         break;
-                    default:
-                        break;
                 }
             }
         }
@@ -129,7 +127,6 @@ namespace RayTracer
             }
 
             var vertexIndices = faces[(int)FaceType.Vertex];
-            var texcoordIndicies = faces[(int)FaceType.Texcoord];
             var normaIndices = faces[(int)FaceType.Normal];
 
             if (normaIndices.Count == 0)
@@ -165,11 +162,6 @@ namespace RayTracer
                 Groups.Add(token.Value, new Group());
             }
             curGroup = Groups[token.Value];
-        }
-
-        private char GetNextChar(char[] contents)
-        {
-            return contents[curPos++];
         }
 
         private char PeekNextChar(char[] contents)
@@ -284,10 +276,15 @@ namespace RayTracer
             Normal
         }
 
-        private struct Token
+        private struct Token : IEquatable<Token>
         {
             public TokenType Type { get; set; }
             public string Value { get; set; }
+
+            public bool Equals(Token other)
+            {
+                return (Type == other.Type) && (Value == other.Value);
+            }
         }
 
         public ObjParser()
@@ -296,7 +293,7 @@ namespace RayTracer
             curGroup = Groups["default"];
         }
 
-        private int curPos = 0;
+        private int curPos;
         public List<Tuple> Vertices { get; private set; } = new List<Tuple>();
         public List<Tuple> Normals { get; private set; } = new List<Tuple>();
         public Dictionary<string, Group> Groups { get; private set; } = new Dictionary<string, Group>();

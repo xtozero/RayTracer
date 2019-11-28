@@ -323,12 +323,13 @@ namespace RayTracer
 
         private static object CreateEntity(KeyValuePair<string, JToken> property, Dictionary<string, object> defineTable)
         {
-            switch (property.Key)
+            if (property.Key == "Material")
             {
-                case "Material":
-                    return CreateMaterial(property.Value);
-                default:
-                    return CreateShape(property, defineTable);
+                return CreateMaterial(property.Value);
+            }
+            else
+            {
+                return CreateShape(property, defineTable);
             }
         }
 

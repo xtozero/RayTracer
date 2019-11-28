@@ -44,7 +44,7 @@ namespace RayTracer
         {
             if (s == null)
             {
-                throw new ArgumentNullException(s.ToString());
+                throw new ArgumentNullException("Can't add null child");
             }
 
             s.Parent = this;
