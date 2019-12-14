@@ -2,7 +2,7 @@
 
 namespace RayTracer
 {
-    public class Material : IEquatable<Material>, ICloneable
+    public class Material : IEquatable<Material>
     {
         public override bool Equals(object obj)
         {
@@ -33,6 +33,7 @@ namespace RayTracer
             return HashCode.Combine(Color, Ambient, Diffuse, Specular, Shininess);
         }
 
+        // perform deep copy
         public object Clone()
         {
             return new Material

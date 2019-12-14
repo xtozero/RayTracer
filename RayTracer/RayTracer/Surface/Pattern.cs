@@ -3,7 +3,7 @@ using static System.MathF;
 
 namespace RayTracer
 {
-    public abstract class Pattern : ICloneable
+    public abstract class Pattern
     {
         public Tuple ColorAtShape(Shape shape, Tuple worldPoint)
         {
@@ -17,6 +17,7 @@ namespace RayTracer
 
         public abstract Pattern CloneImple();
 
+        // perform deep copy
         public object Clone()
         {
             return CloneImple();

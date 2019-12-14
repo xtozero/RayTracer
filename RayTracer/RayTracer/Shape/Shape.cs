@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RayTracer
 {
-    public abstract class Shape : IEquatable<Shape>, ICloneable
+    public abstract class Shape : IEquatable<Shape>
     {
         protected abstract Tuple LocalNormalAt(Tuple localPoint, Intersection hit);
         protected abstract List<Intersection> LocalIntersect(Ray localRay);
@@ -77,6 +77,7 @@ namespace RayTracer
             return normal;
         }
 
+        // perform deep copy
         public object Clone()
         {
             return CloneImple();

@@ -27,6 +27,9 @@ namespace RayTracer
                     case TokenType.Group:
                         AddGroup(contents);
                         break;
+                    default:
+                        // Ignore invalid token
+                        break;
                 }
             }
         }

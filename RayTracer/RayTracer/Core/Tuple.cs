@@ -3,7 +3,7 @@ using static System.MathF;
 
 namespace RayTracer
 {
-    public class Tuple : IEquatable<Tuple>, ICloneable
+    public class Tuple : IEquatable<Tuple>
     {
         public Tuple Reflect(Tuple normal)
         {
@@ -85,6 +85,7 @@ namespace RayTracer
             return new Tuple(r, g, b, 0);
         }
 
+        // perform deep copy
         public object Clone()
         {
             return new Tuple(X, Y, Z, W);

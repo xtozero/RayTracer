@@ -3,7 +3,7 @@ using static System.MathF;
 
 namespace RayTracer
 {
-    public class Matrix : IEquatable<Matrix>, ICloneable
+    public class Matrix : IEquatable<Matrix>
     {
         public Matrix Inverse()
         {
@@ -130,6 +130,7 @@ namespace RayTracer
             return hash.ToHashCode();
         }
 
+        // perform deep copy
         public object Clone()
         {
             var m = new Matrix(Size);
